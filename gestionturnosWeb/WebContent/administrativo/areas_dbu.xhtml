@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<f:facet name="first">
+		<meta name="viewport"
+			content="width=divice-width, initial-scale=1,shrink-to-fit=no, user-scalable=no" />
+		<title>Áreas de Atención - Departamento de Bienestar
+			Universitario</title>
+	</f:facet>
+</h:head>
+<body>
+	<h:form id="form2">
+		<p:growl>
+			<p:autoUpdate />
+		</p:growl>
+		<p:messages>
+			<p:autoUpdate />
+		</p:messages>
+
+		<p:panel>
+			<f:facet name="header">
+				<p:commandButton value="Áreas DBU" update="@form"></p:commandButton>
+			</f:facet>
+				<p:panel>
+			<p:commandButton icon="fa fa-plus" title=" Añadir Nueva"
+				actionListener="#{beanArea.actionListenerSelecionarArea(area)}"
+				update="formAgregar" oncomplete="PF('dlgAgregar').show();" value=" Agregar Nueva Área"> 
+			</p:commandButton>
+
+		</p:panel>
+			<p:panelGrid columns="2">
+				<p:dataTable value="#{beanArea.listaAreas}" var="area" reflow="true"
+					paginator="true">
+					<p:column headerText="Id Area" sortBy="#{area.idArea}">
+						<h:outputText value="#{area.idArea}" />
+					</p:column>
+					<p:column headerText="Area " sortBy="#{area.nombreArea}">
+						<h:outputText value="#{area.nombreArea}" />
+					</p:column>
+					<p:column headerText="Código Area" sortBy="#{area.codArea}">
+						<h:outputText value="#{area.codArea}" />
+					</p:column>
+					<p:column headerText="Disponibilidad Turnos"
+						sortBy="#{area.cantTurnos}">
+						<h:outputText value="#{area.cantTurnos}" />
+					</p:column>
+					<p:column headerText=" Acción">
+						<p:commandButton icon="fa fa-edit" title="Editar"
+							actionListener="#{beanArea.actionListenerSelecionarArea(area)}"
+							update="formEdicion" oncomplete="PF('dlgEdicion').show();">
+						</p:commandButton>
+						<p:commandButton icon="fa fa-remove" title="Eliminar"
+							update="@form"
+							actionListener="#{beanArea.actionListenerEliminarArea(area.idArea)}">
+							<p:confirm header="Confirmacion"
+								message="¿Está seguro de eliminar el área?"
+								icon="fa fa-exclamation-triangle"></p:confirm>
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+			</p:panelGrid>
+		</p:panel>
+	</h:form>
+	<p:dialog header="Agregar Nueva Área" widgetVar="dlgAgregar"
+		modal="true">
+		<h:form id="formAgregar">
+			<p:growl>
+				<p:autoUpdate />
+			</p:growl>
+			<p:panelGrid columns="2">
+				<h:outputText value="Área: " />
+				<h:inputText value="#{beanArea.area.nombreArea}" />
+
+				<h:outputText value="Código: " />
+				<h:inputText value="#{beanArea.area.codArea}" />
+
+				<h:outputText value="Cantidad de Turnos: " />
+				<h:inputText value="#{beanArea.area.cantTurnos}" />
+
+			</p:panelGrid>
+			<p:commandButton value="Ingresar" icon="fa fa-save"
+				update="@form,:form2"
+				actionListener="#{beanArea.actionListenerInsertarArea()}"></p:commandButton>
+		</h:form>
+	</p:dialog>
+	<p:dialog header="Editar Informacion" widgetVar="dlgEdicion"
+		modal="true">
+		<h:form id="formEdicion">
+			<p:growl>
+				<p:autoUpdate />
+			</p:growl>
+			<h:outputText value="Id " />
+			<h:outputText value="#{beanArea.areaSeleccionada.idArea}" />
+			<p:panelGrid columns="2">
+
+				<h:outputText value="Nombre Área:" />
+				<p:inputText value="#{beanArea.areaSeleccionada.nombreArea}" />
+
+				<h:outputText value="Código Área: " />
+				<p:inputText value="#{beanArea.areaSeleccionada.codArea}" />
+
+				<h:outputText value="Turnos:" />
+				<p:inputText value="#{beanArea.areaSeleccionada.cantTurnos}" />
+
+			</p:panelGrid>
+			<p:commandButton value="Actualizar" icon="fa fa-save"
+				update="@form,:form2"
+				actionListener="#{beanArea.actionListenerActualizarArea()}"></p:commandButton>
+		</h:form>
+	</p:dialog>
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+		<p:commandButton value="Si" type="button"
+			styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+		<p:commandButton value="No" type="button"
+			styleClass="ui-confirmdialog-no" icon="fa fa-times" />
+	</p:confirmDialog>
+</body>
+</html>

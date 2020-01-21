@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<f:facet name="first">
+		<meta name="viewport"
+			content="width=divice-width, initial-sacle=1,shrink-to-fit=no, suer-saclable=no" />
+		<title>Página de Inicio - Personal de Atención</title>
+	</f:facet>
+</h:head>
+<body>
+	<h:form id="form1">
+		<p:growl>
+			<p:autoUpdate />
+		</p:growl>
+		<p:messages>
+			<p:autoUpdate />
+		</p:messages>
+		<p:panel>
+			<f:facet name="header">
+				<p:commandButton value="Panel de Administración" icon="fa fa-plus"
+					update="@form"></p:commandButton>
+			</f:facet>
+			<p:panelGrid>
+
+				<p:commandButton value="Iniciar Atención"
+					actionListener="#{}"
+					update="@form, :form2" />
+			</p:panelGrid>
+		</p:panel>
+	
+	</h:form>
+</body>
+</html>

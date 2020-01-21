@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<f:facet name="first">
+		<meta name="viewport"
+			content="width=divice-width, initial-sacle=1,shrink-to-fit=no, suer-saclable=no" />
+		<title>Roles Usuario - Departamento de Bienestar Universitario</title>
+	</f:facet>
+</h:head>
+<body>
+	<h:form id="form1">
+		<p:growl>
+			<p:autoUpdate />
+		</p:growl>
+		<p:messages>
+			<p:autoUpdate />
+		</p:messages>
+		<f:facet name="header">
+		</f:facet>
+		<p:panel header="Administración de Roles Atención DBU">
+			<p:dataTable value="#{beanRoless.listaRoles}" var="area" reflow="true"
+				paginator="true">
+				<p:column headerText="Id Area">
+					<h:outputText value="" />
+				</p:column>
+				<p:column headerText="Area ">
+					<h:outputText value="" />
+				</p:column>
+				<p:column headerText=" Acción">
+					<p:commandButton icon="fa fa-save" />
+					<p:commandButton icon="fa fa-save" />
+					<p:commandButton icon="fa fa-save" />
+				</p:column>
+				
+			</p:dataTable>
+		</p:panel>
+	</h:form>
+</body>
+</html>
