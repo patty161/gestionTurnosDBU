@@ -4,16 +4,49 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
-
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
 <h:head>
 	<f:facet name="first">
 		<meta name="viewport"
-			content="width=divice-width, initial-scale=1,shrink-to-fit=no, user-scalable=no" />
-		<title>Manejo de datos Usuario</title>
+			content="width=divice-width, initial-sacle=1,shrink-to-fit=no, suer-saclable=no" />
+		<title>Página de Inicio</title>
 	</f:facet>
 </h:head>
 <body>
-	 CRUD USUARIO
+	<h:form id="form1">
+		<p:growl>
+			<p:autoUpdate />
+		</p:growl>
+		<p:messages>
+			<p:autoUpdate />
+		</p:messages>
+	<CENTER>
+	<h1>Universidad Técnica del Norte</h1>
+	<h1>GESTION DE TURNOS</h1>
+	
+	
+	<img src="imagenes/logoUTN.jpg" width="150"/>
+					<br/>
+	<a  class="btn btn-success"  href="../faces/personal/index.xhtml"><span class="glyphicon glyphicon-log-in"></span> Personal</a>
+	<a   class="btn btn-warning" href="../faces/administrativo/areas_dbu.xhtml"><span class="glyphicon glyphicon-log-in"></span> Areas</a>
+	<a  class="btn btn-danger" href="../faces/administrativo/areas_dbu.xhtml"><span class="glyphicon glyphicon-log-in"></span> Turnos</a>
+	<a  class="btn btn-info" href="../faces/usuario/inicio.xhtml"><span class="glyphicon glyphicon-log-in"></span> Usuarios</a>
+	
+			</CENTER>
+	
+	</h:form>
+	<br/>
+	<CENTER>
+	<div id="container">
+<div><img src="imagenes/gestion.jpeg" class="img-rounded" alt="Cinque Terre"/> 
+	</div>
+	
 
+</div>
+	 
+		</CENTER>
+	
+	
 </body>
 </html>
