@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+<h:head>
+	<f:facet name="first">
+		<meta name="viewport"
+			content="width=divice-width, initial-scale=1,shrink-to-fit=no, user-scalable=no" />
+		<title>Departamento de Bienestar Universitario</title>
+	</f:facet>
+</h:head>
+<body>
+
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<h:form>
+		<p:panel
+			header="SGT Departamento de Bienestar Universitario - Autentificación de usuarios">
+			<h:panelGrid>
+				Identifíquese por favor, ingrese su cédula:
+			</h:panelGrid>
+			<h:panelGrid columns="2">
+				<h:outputText value="Código de usuario:" />
+				<p:inputText required="true" size="20" maxlength="20"
+					requiredMessage="Debe ingresar su codigo de usuario." />
+					<p:commandButton value="Ingresar" icon="fa fa-key"
+					href="../faces/administrativo/indexPrincipal.xhtml" update="mensajes" />
+				<p:messages id="mensajes" />
+			</h:panelGrid>
+				</p:panel>
+	</h:form>
+
+			
+</body>
+</html>

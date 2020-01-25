@@ -74,14 +74,16 @@
 				<p:autoUpdate />
 			</p:growl>
 			<p:panelGrid columns="2">
-				<h:outputText value="Área: " />
-				<h:inputText value="#{beanArea.area.nombreArea}" />
+				<h:outputText value="Área: "> </h:outputText>
+				<h:inputText required="true"
+					size="30" maxlength="20" value="#{beanArea.area.nombreArea}" />
 
 				<h:outputText value="Código: " />
-				<h:inputText value="#{beanArea.area.codArea}" />
-
+				<h:inputText required="true"
+					size="30" maxlength="20" value="#{beanArea.area.codArea}" />
 				<h:outputText value="Cantidad de Turnos: " />
-				<h:inputText value="#{beanArea.area.cantTurnos}" />
+				<h:inputText required="true"
+					size="30" maxlength="20"  value="#{beanArea.area.cantTurnos}" />
 
 			</p:panelGrid>
 			<p:commandButton value="Ingresar" icon="fa fa-save"
