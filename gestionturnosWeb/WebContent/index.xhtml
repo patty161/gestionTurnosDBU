@@ -23,22 +23,29 @@
 		<p:autoUpdate />
 	</p:growl>
 	<h:form>
-		<p:panel
-			header="SGT Departamento de Bienestar Universitario - Autentificación de usuarios">
-			<h:panelGrid>
-				Identifíquese por favor, ingrese su cédula:
-			</h:panelGrid>
-			<h:panelGrid columns="2">
-				<h:outputText value="Código de usuario:" />
-				<p:inputText required="true" size="20" maxlength="20"
-					requiredMessage="Debe ingresar su codigo de usuario." />
+		<center>
+			<p:panel
+				header="SGT Departamento de Bienestar Universitario - Autentificación de usuarios">
+				<h:panelGrid>
+					<h4>Identifíquese para acceder al sistema:</h4>
+
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<h:outputText value="Cédula:   " />
+					<p:inputText required="true" size="20" maxlength="10"
+						requiredMessage="Debe ingresar su cédula.">
+						<f:validateLongRange minimum="10"/>
+					</p:inputText>
+					<br />
+					<br />
 					<p:commandButton value="Ingresar" icon="fa fa-key"
-					href="../faces/administrativo/indexPrincipal.xhtml" update="mensajes" />
-				<p:messages id="mensajes" />
-			</h:panelGrid>
-				</p:panel>
+						action="inicio.xhtml" update="mensajes" />
+					<p:messages id="mensajes" />
+				</h:panelGrid>
+			</p:panel>
+		</center>
 	</h:form>
 
-			
+
 </body>
 </html>

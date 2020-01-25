@@ -26,13 +26,14 @@
 			<f:facet name="header">
 				<p:commandButton value="Áreas DBU" update="@form"></p:commandButton>
 			</f:facet>
-				<p:panel>
-			<p:commandButton icon="fa fa-plus" title=" Añadir Nueva"
-				actionListener="#{beanArea.actionListenerSelecionarArea(area)}"
-				update="formAgregar" oncomplete="PF('dlgAgregar').show();" value=" Agregar Nueva Área"> 
-			</p:commandButton>
+			<p:panel>
+				<p:commandButton icon="fa fa-plus" title=" Añadir Nueva"
+					actionListener="#{beanArea.actionListenerSelecionarArea(area)}"
+					update="formAgregar" oncomplete="PF('dlgAgregar').show();"
+					value=" Agregar Nueva Área">
+				</p:commandButton>
 
-		</p:panel>
+			</p:panel>
 			<p:panelGrid columns="2">
 				<p:dataTable value="#{beanArea.listaAreas}" var="area" reflow="true"
 					paginator="true">
@@ -74,16 +75,20 @@
 				<p:autoUpdate />
 			</p:growl>
 			<p:panelGrid columns="2">
-				<h:outputText value="Área: "> </h:outputText>
-				<h:inputText required="true"
-					size="30" maxlength="20" value="#{beanArea.area.nombreArea}" />
+				<h:outputText value="Área: ">
+				</h:outputText>
+				<h:inputText required="true" size="30" maxlength="30"
+					value="#{beanArea.area.nombreArea}" />
 
 				<h:outputText value="Código: " />
-				<h:inputText required="true"
-					size="30" maxlength="20" value="#{beanArea.area.codArea}" />
+				<h:inputText required="true" size="30" maxlength="4"
+					value="#{beanArea.area.codArea}">
+				</h:inputText>
 				<h:outputText value="Cantidad de Turnos: " />
-				<h:inputText required="true"
-					size="30" maxlength="20"  value="#{beanArea.area.cantTurnos}" />
+				<h:inputText required="true" size="30" maxlength="3"
+					value="#{beanArea.area.cantTurnos}">
+					<f:validateLongRange minimum="1" />
+				</h:inputText>
 
 			</p:panelGrid>
 			<p:commandButton value="Ingresar" icon="fa fa-save"
@@ -102,13 +107,18 @@
 			<p:panelGrid columns="2">
 
 				<h:outputText value="Nombre Área:" />
-				<p:inputText value="#{beanArea.areaSeleccionada.nombreArea}" />
+				<p:inputText required="true" size="30" maxlength="30" value="#{beanArea.areaSeleccionada.nombreArea}" />
 
 				<h:outputText value="Código Área: " />
-				<p:inputText value="#{beanArea.areaSeleccionada.codArea}" />
+				<p:inputText required="true" size="30" maxlength="4"
+					value="#{beanArea.areaSeleccionada.codArea}">
+				</p:inputText>
 
 				<h:outputText value="Turnos:" />
-				<p:inputText value="#{beanArea.areaSeleccionada.cantTurnos}" />
+				<p:inputText required="true" size="30" maxlength="3"
+					value="#{beanArea.areaSeleccionada.cantTurnos}">
+					<f:validateLongRange minimum="2" />
+				</p:inputText>
 
 			</p:panelGrid>
 			<p:commandButton value="Actualizar" icon="fa fa-save"

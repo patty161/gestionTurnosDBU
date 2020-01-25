@@ -6,28 +6,30 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>SGT Departamento de Bienestar Universitario - Autentificación de usuarios</title>
+	<title>SGT Departamento de Bienestar Universitario -
+		Autentificación de usuarios</title>
 </h:head>
 <body>
 	<p:growl>
 		<p:autoUpdate />
 	</p:growl>
 	<h:form>
-		<p:panel header="Iniciar Sesión">
-		
-			<h:panelGrid columns="2">
-				<h:outputText value="Usuario:" />
-				<p:inputText required="true"
-					size="30" maxlength="20"
-					requiredMessage="Debe ingresar su usuario." />
-				<h:outputText value="Clave:" />
-				<p:password  required="true" size="30"
-					maxlength="10" requiredMessage="Debe ingresar su contraseña." />
-				<p:commandButton value="Ingresar" icon="fa fa-key"
-					update="mensajes" />
-				<p:messages id="mensajes" />
-			</h:panelGrid>
-		</p:panel>
+		<center>
+			<p:panel header="Iniciar Sesión">
+
+				<h:panelGrid columns="2">
+					<h:outputText value="Usuario:" />
+					<p:inputText required="true" size="30" maxlength="20"
+						requiredMessage="Debe ingresar su usuario." />
+					<h:outputText value="Clave:" />
+					<p:password required="true" size="30" maxlength="30"
+						requiredMessage="Debe ingresar su contraseña." />
+					<p:commandButton value="Ingresar" icon="fa fa-key"
+						update="mensajes" />
+					<p:messages id="mensajes" />
+				</h:panelGrid>
+			</p:panel>
+		</center>
 	</h:form>
 
 
