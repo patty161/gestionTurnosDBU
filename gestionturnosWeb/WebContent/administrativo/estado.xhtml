@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<f:facet name="first">
+		<meta name="viewport"
+			content="width=divice-width, initial-scale=1,shrink-to-fit=no, user-scalable=no" />
+
+	</f:facet>
+</h:head>
+<body>
+	<h:form id="form2">
+		<p:growl>
+			<p:autoUpdate />
+		</p:growl>
+
+
+		<p:panel>
+			<f:facet name="header">
+				<p:commandButton value="Estado" update="@form"></p:commandButton>
+			</f:facet>
+			<p:panel>
+				<p:commandButton icon="fa fa-plus" title=" Añadir Nueva"
+					actionListener="#{beanEstado.actionListenerSelecionarEstado()}"
+					update="formAgregar" oncomplete="PF('dlgAgregar').show();"
+					value=" Agregar Nuevo Estado">
+				</p:commandButton>
+
+			</p:panel>
+			<p:panelGrid columns="2">
+				<p:dataTable value="#{beanEstado.listaEstados}" var="estado"
+					reflow="true" paginator="true">
+					<p:column headerText="Id Estado" sortBy="#{estado.idEstado}">
+						<h:outputText value="#{estado.idEstado}" />
+					</p:column>
+					<p:column headerText="Descripción "
+						sortBy="#{estado.descripcionEstado}">
+						<h:outputText value="#{estado.descripcionEstado}" />
+					</p:column>
+
+					<p:column headerText=" Acción">
+						<p:commandButton icon="fa fa-edit" title="Editar"
+							actionListener="#{beanEstado.actionListenerSelecionarEstado(estado)}"
+							update="formEdicion" oncomplete="PF('dlgEdicion').show();">
+						</p:commandButton>
+						<p:commandButton icon="fa fa-remove" title="Eliminar"
+							update="@form"
+							actionListener="#{beanEstado.actionListenerEliminarEstado(estado.idEstado)}">
+							<p:confirm header="Confirmacion"
+								message="¿Está seguro de eliminar?"
+								icon="fa fa-exclamation-triangle"></p:confirm>
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+			</p:panelGrid>
+		</p:panel>
+	</h:form>
+	<p:dialog header="Agregar Nuevo Estado" widgetVar="dlgAgregar"
+		modal="true">
+		<h:form id="formAgregar">
+			<p:growl>
+				<p:autoUpdate />
+			</p:growl>
+			<p:panelGrid columns="2">
+				<h:outputText value="Estado " />
+				<h:inputText value="#{beanEstado.estado.descripcionEstado}"
+					required="true" requiredMessage="Debe ingresar una decripción">
+					<f:validateRegex pattern="[A-Za-z]+" />
+				</h:inputText>
+
+			</p:panelGrid>
+			<p:commandButton value="Ingresar" icon="fa fa-save"
+				update="@form,:form2"
+				actionListener="#{beanEstado.actionListenerInsertarEstado()}"></p:commandButton>
+		</h:form>
+	</p:dialog>
+	<p:dialog header="Editar Informacion" widgetVar="dlgEdicion"
+		modal="true">
+		<h:form id="formEdicion">
+			<p:growl>
+				<p:autoUpdate />
+			</p:growl>
+			<h:outputText value="Id " />
+			<h:outputText value="#{beanEstado.estadoselecionado.idEstado}" />
+			<p:panelGrid columns="2">
+
+				<h:outputText value="Descripcion Estado" />
+				<p:inputText
+					value="#{beanEstado.estadoselecionado.descripcionEstado}"
+					required="true" requiredMessage="Ingrese una descripción">
+					<f:validateRegex pattern="[A-Za-z]+" />
+				</p:inputText>
+
+			</p:panelGrid>
+			<p:commandButton value="Actualizar" icon="fa fa-save"
+				update="@form,:form2"
+				actionListener="#{beanEstado.actionListenerActualizarEstado()}"></p:commandButton>
+		</h:form>
+	</p:dialog>
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+		<p:commandButton value="Si" type="button"
+			styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+		<p:commandButton value="No" type="button"
+			styleClass="ui-confirmdialog-no" icon="fa fa-times" />
+	</p:confirmDialog>
+</body>
+</html>

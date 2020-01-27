@@ -58,7 +58,7 @@
 						<p:commandButton icon="fa fa-remove" title="Eliminar"
 							update="@form"
 							actionListener="#{beanArea.actionListenerEliminarArea(area.idArea)}">
-							<p:confirm header="Confirmacion"
+							<p:confirm header="Confirmación"
 								message="¿Está seguro de eliminar el área?"
 								icon="fa fa-exclamation-triangle"></p:confirm>
 						</p:commandButton>
@@ -78,10 +78,14 @@
 				<h:outputText value="Área: ">
 				</h:outputText>
 				<h:inputText required="true" size="30" maxlength="30"
-					value="#{beanArea.area.nombreArea}" />
+					requiredMessage="Debe ingresar el área"
+					value="#{beanArea.area.nombreArea}">
+					<f:validateRegex pattern="[a-zA-Z]+" />
+				</h:inputText>
 
 				<h:outputText value="Código: " />
 				<h:inputText required="true" size="30" maxlength="4"
+					requiredMessage="Debe ingresar el código del área"
 					value="#{beanArea.area.codArea}">
 				</h:inputText>
 				<h:outputText value="Cantidad de Turnos: " />
@@ -96,7 +100,7 @@
 				actionListener="#{beanArea.actionListenerInsertarArea()}"></p:commandButton>
 		</h:form>
 	</p:dialog>
-	<p:dialog header="Editar Informacion" widgetVar="dlgEdicion"
+	<p:dialog header="Editar Información" widgetVar="dlgEdicion"
 		modal="true">
 		<h:form id="formEdicion">
 			<p:growl>
@@ -107,15 +111,20 @@
 			<p:panelGrid columns="2">
 
 				<h:outputText value="Nombre Área:" />
-				<p:inputText required="true" size="30" maxlength="30" value="#{beanArea.areaSeleccionada.nombreArea}" />
+				<p:inputText required="true" size="30" maxlength="30"
+					requiredMessage="Debe ingresar el área"
+					value="#{beanArea.areaSeleccionada.nombreArea}">
+					<f:validateRegex pattern="[a-zA-Z]+" />
+				</p:inputText>
 
 				<h:outputText value="Código Área: " />
-				<p:inputText required="true" size="30" maxlength="4"
+				<p:inputText required="true" size="30"
+					requiredMessage="Debe ingresar el código del área" maxlength="4"
 					value="#{beanArea.areaSeleccionada.codArea}">
 				</p:inputText>
 
 				<h:outputText value="Turnos:" />
-				<p:inputText required="true" size="30" maxlength="3"
+				<p:inputText required="true" size="30" type="" maxlength="3"
 					value="#{beanArea.areaSeleccionada.cantTurnos}">
 					<f:validateLongRange minimum="2" />
 				</p:inputText>
