@@ -13,6 +13,26 @@
 	</f:facet>
 </h:head>
 <body>
+
+
+	<style type="text/css">
+/*demo*/
+.ui-dataview-list .ui-dataview-row {
+	border-bottom: 1px solid #A8A8A8;
+	padding: 25px 10px;
+	/* with the exported variables from Nova and Luna Themes*/
+	border-bottom-color: var(- -input-border-color, #A8A8A8);
+}
+
+.logo {
+	width: 5%;
+}
+
+.detail {
+	width: 85%;
+	padding-left: 25px;
+}
+</style>
 	<h:form id="form1">
 		<p:growl>
 			<p:autoUpdate />
@@ -21,31 +41,29 @@
 			<p:autoUpdate />
 		</p:messages>
 		<p:panel>
-			<f:facet name="header">
-				<p:commandButton value="Panel de Administración" icon="fa fa-plus"
-					update="@form"></p:commandButton>
-			</f:facet>
-			<p:panelGrid columns="4">
+			<p:dataView value="#{beanArea.listaAreas}" var="area"     gridIcon="pi pi-th-large" listIcon="pi pi-bars">
 
-				<p:commandButton value="Personal "
-					actionListener="#{beanPersonal.listaPersonal}"
-					update="@form, :form2" />
-				<p:commandButton value="Areas " />
-				<p:commandButton value="Turnos" />
-				<p:commandButton value="Usuarios" />
-			</p:panelGrid>
+				<p:dataViewGridItem>
+					<p:panel style="text-align:center">
+						<h:panelGrid columns="1" style="width:100%">
+							<p:graphicImage />
+							<h:outputText value="#{area.nombreArea}" />
+						</h:panelGrid>
+					</p:panel>
+
+				</p:dataViewGridItem>
+
+			</p:dataView>
 		</p:panel>
 	</h:form>
 	<h:form id="form2">
 		<p:growl>
 			<p:autoUpdate />
 		</p:growl>
-			<f:facet name="header">
-				<p:commandButton value="Personal" icon="fa fa-plus" update="@form"></p:commandButton>
-			</f:facet>
-		<p:panel header="Identificación de Usuario">
-		
-		</p:panel>
+		<f:facet name="header">
+			<p:commandButton value="Personal" icon="fa fa-plus" update="@form"></p:commandButton>
+		</f:facet>
+
 	</h:form>
 </body>
 </html>
