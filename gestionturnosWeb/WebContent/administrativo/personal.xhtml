@@ -9,10 +9,141 @@
 	<f:facet name="first">
 		<meta name="viewport"
 			content="width=divice-width, initial-scale=1,shrink-to-fit=no, user-scalable=no" />
-		<title>Datos Personal</title>
+
 	</f:facet>
 </h:head>
 <body>
-CRUD PERSONAL
+	<h:form id="form2">
+		<p:growl>
+			<p:autoUpdate />
+		</p:growl>
+
+
+		<p:panel>
+			<f:facet name="header">
+				<p:commandButton value="Personal" update="@form"></p:commandButton>
+			</f:facet>
+			<p:panel>
+				<p:commandButton icon="fa fa-plus" title=" Añadir Nueva"
+					actionListener="#{beanPersonal.actionListenerSelecionarPersonal()}"
+					update="formAgregar" oncomplete="PF('dlgAgregar').show();"
+					value=" Agregar Personal">
+				</p:commandButton>
+
+			</p:panel>
+			<p:panelGrid columns="2">
+				<p:dataTable value="#{beanPersonal.listaPersonal}" var="personal"
+					reflow="true" paginator="true">
+					<p:column headerText="Id Estado" sortBy="#{personal.idPersonal}">
+						<h:outputText value="#{personal.idPersonal}" />
+					</p:column>
+					<p:column headerText="Área Asignada "
+						sortBy="#{personal.espArea.idArea}">
+						<h:outputText value="#{personal.espArea.nombreArea}" />
+					</p:column>
+					<p:column headerText="Usuario "
+						sortBy="#{personal.usuario.idUsuario}">
+						<h:outputText value="#{personal.usuario.cedula}" />
+					</p:column>
+					<p:column headerText="Nombre "
+						sortBy="#{personal.usuario.idUsuario}">
+						<h:outputText value="#{personal.usuario.nombres}" />
+					</p:column>
+					<p:column headerText="Apellidos "
+						sortBy="#{personal.usuario.idUsuario}">
+						<h:outputText value="#{personal.usuario.apellidos}" />
+					</p:column>
+					<p:column headerText="Horas Laborables "
+						sortBy="#{personal.horasLaborables}">
+						<h:outputText value="#{personal.horasLaborables}" />
+					</p:column>
+
+					<p:column headerText=" Acción">
+						<p:commandButton icon="fa fa-edit" title="Editar"
+							actionListener="#{beanPersonal.actionListenerSelecionarPersonal(personal)}"
+							update="formEdicion" oncomplete="PF('dlgEdicion').show();">
+						</p:commandButton>
+						<p:commandButton icon="fa fa-remove" title="Eliminar"
+							update="@form"
+							actionListener="#{beanPersonal.actionListenerEliminarPersonal(personal.idPersonal)}">
+							<p:confirm header="Confirmacion"
+								message="¿Está seguro de eliminar?"
+								icon="fa fa-exclamation-triangle"></p:confirm>
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+			</p:panelGrid>
+		</p:panel>
+	</h:form>
+	<p:dialog header="Agregar Nuevo Personal" widgetVar="dlgAgregar"
+		modal="true">
+		<h:form id="formAgregar">
+			<p:growl>
+				<p:autoUpdate />
+			</p:growl>
+			<p:panelGrid columns="2">
+				<h:outputText value="Area " />
+				<h:inputText value="#{beanPersonal.codArea}">
+
+				</h:inputText>
+				<h:outputText value="Usuario " />
+				<h:inputText value="#{beanPersonal.idUsuario}">
+
+				</h:inputText>
+				
+				
+				<h:outputText value="Horas " />
+				<p:spinner value="#{beanPersonal.horas}"/>
+
+			
+
+			</p:panelGrid>
+			<p:commandButton value="Ingresar" icon="fa fa-save"
+				update="@form,:form2"
+				actionListener="#{beanPersonal.actionCrearPersonal()}"></p:commandButton>
+		</h:form>
+	</p:dialog>
+	<p:dialog header="Editar Informacion" widgetVar="dlgEdicion"
+		modal="true">
+		<h:form id="formEdicion">
+			<p:growl>
+				<p:autoUpdate />
+			</p:growl>
+			<h:outputText value="Id " />
+			<h:outputText value="#{beanPersonal.personalselecionado.idPersonal}" />
+			<p:panelGrid columns="2">
+
+				<h:outputText value="Area" />
+				<p:inputText
+					value="#{beanPersonal.personalselecionado.espArea.idArea}"
+					required="true" requiredMessage="Ingrese una Area">
+
+				</p:inputText>
+				<h:outputText value="Usuario" />
+				<p:inputText
+					value="#{beanPersonal.personalselecionado.usuario.idUsuario}"
+					required="true" requiredMessage="Ingrese un Usuario">
+
+				</p:inputText>
+				<h:outputText value="Horas" />
+				<p:inputText
+					value="#{beanPersonal.personalselecionado.horasLaborables}"
+					required="true" requiredMessage="Ingrese horas">
+
+				</p:inputText>
+
+			</p:panelGrid>
+			<p:commandButton value="Actualizar" icon="fa fa-save"
+				update="@form,:form2"
+				actionListener="#{beanPersonal.actionListenerActualizarPersonal()}"></p:commandButton>
+		</h:form>
+	</p:dialog>
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+		<p:commandButton value="Si" type="button"
+			styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+		<p:commandButton value="No" type="button"
+			styleClass="ui-confirmdialog-no" icon="fa fa-times" />
+	</p:confirmDialog>
 </body>
 </html>

@@ -19,14 +19,14 @@
 
 				<h:panelGrid columns="2">
 					<h:outputText value="Usuario:" />
-					<p:inputText required="true" size="30" maxlength="20"
+					<p:inputText required="true" size="30" maxlength="20" value="#{beanRol.cedula}"
 						requiredMessage="Debe ingresar su usuario. #{msg.validation_notNull}">
 						<f:validateRegex pattern="[A-Za-z0-9#]+" />
 					</p:inputText>
 					<h:outputText value="Clave:" />
-					<p:password required="true" size="30" maxlength="30"
+					<p:password  value="#{beanRol.clave}" required="true" size="30" maxlength="30"
 						requiredMessage="Debe ingresar su contraseña." />
-					<p:commandButton value="Ingresar" icon="fa fa-key"
+					<p:commandButton  action="#{beanRol.actionListenerUsuario()}" value="Ingresar" icon="fa fa-key"
 						update="mensajes" />
 					<p:messages id="mensajes" />
 				</h:panelGrid>

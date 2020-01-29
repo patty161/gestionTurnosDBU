@@ -21,15 +21,10 @@
 			<p:autoUpdate />
 		</p:messages>
 		<p:panel>
-			<f:facet name="header">
-				<p:commandButton value="Panel de Administración" icon="fa fa-plus"
-					update="@form"></p:commandButton>
-			</f:facet>
+		<p:link><h5> Cerrar Sesión</h5></p:link>
+	
 			<p:panelGrid>
-
-				<p:commandButton value="Iniciar Atención"
-					actionListener="#{}"
-					update="@form, :form2" />
+				<p:commandButton value="Mostrar Turnos"				 />
 			</p:panelGrid>
 		</p:panel>
 	

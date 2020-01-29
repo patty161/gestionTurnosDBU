@@ -26,7 +26,7 @@ public class BeanUsuario implements Serializable {
 	@PostConstruct
 
 	public void inicializar() {
-		listausuario= managerUsuario.findallUsuario();
+		listausuario= managerUsuario.findAllUsuario();
 		usuario=new Usuario();
 			
 	}
@@ -34,7 +34,7 @@ public class BeanUsuario implements Serializable {
 	public String actionListenerInsertarUsuario() {
 		try {
 			managerUsuario.insertarUsuario(usuario);
-			listausuario = managerUsuario.findallUsuario();
+			listausuario = managerUsuario.findAllUsuario();
 			usuario = new Usuario();
 			JSFUtil.createMensajeInfo("Datos Ingresados");
 		} catch (Exception e) {
@@ -45,7 +45,7 @@ public class BeanUsuario implements Serializable {
 	}
 	public void actionListenerEliminarUsuario(int IdUsuario) {
 		managerUsuario.eliminarUsuario(IdUsuario);
-		listausuario = managerUsuario.findallUsuario();
+		listausuario = managerUsuario.findAllUsuario();
 		JSFUtil.createMensajeInfo("Usuario Eliminada");
 	}
 
@@ -55,7 +55,7 @@ public class BeanUsuario implements Serializable {
 	public void actionListenerActualizarUsuario() {
 		try {
 			managerUsuario.actualizarUsuario(usuarioSeleccionado);
-			listausuario = managerUsuario.findallUsuario();
+			listausuario = managerUsuario.findAllUsuario();
 			JSFUtil.createMensajeInfo("Datos Actualizados");
 		} catch (Exception e) {
 			JSFUtil.createMensajeError(e.getMessage());
