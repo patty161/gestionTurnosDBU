@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<f:facet name="first">
+		<meta name="viewport"
+			content="width=divice-width, initial-scale=1,shrink-to-fit=no, user-scalable=no" />
+		<title>Listado de Usuarios</title>
+	</f:facet>
+</h:head>
+<body>
+	<h:form id="form2">
+		<p:growl>
+			<p:autoUpdate />
+		</p:growl>
+
+
+		<p:panel>
+			<f:facet name="header">
+				<p:commandButton value="Usuarios" update="@form"></p:commandButton>
+			</f:facet>
+			<p:panel>
+				<p:commandButton icon="fa fa-plus" title=" Añadir Nuevo"
+					actionListener="#{beanUsuario.actionListenerSelecionarUsuario(usuario)}"
+					update="formAgregar" oncomplete="PF('dlgAgregar').show();"
+					value=" Agregar Nuevo Usuario">
+				</p:commandButton>
+
+			</p:panel>
+			<p:panelGrid columns="2">
+				<p:dataTable value="#{beanUsuario.listausuario}" var="usuario"
+					reflow="true" paginator="true">
+					<p:column headerText="Id Usuario" sortBy="#{usuario.idUsuario}">
+						<h:outputText value="#{usuario.idUsuario}" />
+					</p:column>
+					<p:column headerText="Cédula" sortBy="#{usuario.cedula}">
+						<h:outputText value="#{usuario.cedula}" />
+					</p:column>
+					<p:column headerText="Nombres" sortBy="#{usuario.nombres}">
+						<h:outputText value="#{usuario.nombres}" />
+					</p:column>
+					<p:column headerText="Apellidos" sortBy="#{usuario.apellidos}">
+						<h:outputText value="#{usuario.apellidos}" />
+					</p:column>
+					<p:column headerText="Fecha Nacimiento"
+						sortBy="#{usuario.fechaNacimiento}">
+						<h:outputText value="#{usuario.fechaNacimiento}" />
+					</p:column>
+					<p:column headerText="Dirección" sortBy="#{usuario.direccion}">
+						<h:outputText value="#{usuario.direccion}" />
+					</p:column>
+					<p:column headerText="Email" sortBy="#{usuario.email}">
+						<h:outputText value="#{usuario.email}" />
+					</p:column>
+
+					<p:column headerText="Clave" sortBy="#{usuario.clave}">
+						<h:outputText value="#{usuario.clave}" />
+					</p:column>
+					<p:column headerText=" Acción">
+						<p:commandButton icon="fa fa-edit" title="Editar"
+							actionListener="#{beanUsuario.actionListenerSelecionarUsuario(usuario)}"
+							update="formEdicion" oncomplete="PF('dlgEdicion').show();">
+						</p:commandButton>
+						<p:commandButton icon="fa fa-remove" title="Eliminar"
+							update="@form"
+							actionListener="#{beanUsuario.actionListenerEliminarUsuario(usuario.idUsuario)}">
+							<p:confirm header="Confirmacion"
+								message="¿Está seguro de eliminar el usuario?"
+								icon="fa fa-exclamation-triangle"></p:confirm>
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+			</p:panelGrid>
+		</p:panel>
+	</h:form>
+	<p:dialog header="Agregar Nuevo Usuario" widgetVar="dlgAgregar"
+		modal="true">
+		<h:form id="formAgregar">
+			<p:growl>
+				<p:autoUpdate />
+			</p:growl>
+			<p:panelGrid columns="2">
+				<h:outputText value="Cédula " />
+				<p:inputText value="#{beanUsuario.usuario.cedula}" required="true"
+					maxlength="10" requiredMessage="Debe ingresar cedula">
+					<f:validateRegex pattern="[0-9#]+" />
+					<f:validateLength minimum="10" maximum="10" />
+				</p:inputText>
+				<h:outputText value="Nombres: " />
+				<h:inputText value="#{beanUsuario.usuario.nombres}" required="true"
+					requiredMessage="Debe ingresar nombres">
+					<f:validateRegex pattern="[A-Za-z]+" />
+				</h:inputText>
+
+				<h:outputText value="Apellidos: " />
+				<h:inputText value="#{beanUsuario.usuario.apellidos}"
+					required="true" requiredMessage="Debe ingresar apellidos">
+					<f:validateRegex pattern="[A-Za-z]+" />
+				</h:inputText>
+
+				<h:outputText value="Fecha de Nacimiento: " />
+				<p:calendar value="#{beanUsuario.usuario.fechaNacimiento}"
+					required="true" requiredMessage="Debe ingresar fecha de nacimiento"></p:calendar>
+
+				<h:outputText value="Dirección: " />
+				<h:inputText value="#{beanUsuario.usuario.direccion}"
+					required="true" requiredMessage="Debe ingresar dirección" />
+
+				<h:outputText value="Email: " />
+				<h:inputText value="#{beanUsuario.usuario.email}" required="true"
+					requiredMessage="Debe ingresar email ">
+					<f:validateRegex
+						pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+				</h:inputText>
+
+				<h:outputText value="Clave: " />
+				<h:inputText value="#{beanUsuario.usuario.clave}" required="true"
+					requiredMessage="Debe ingresar una clave " />
+
+
+			</p:panelGrid>
+			<p:commandButton value="Ingresar" icon="fa fa-save"
+				update="@form,:form2"
+				actionListener="#{beanUsuario.actionListenerInsertarUsuario()}"></p:commandButton>
+		</h:form>
+	</p:dialog>
+	<p:dialog header="Editar Informacion" widgetVar="dlgEdicion"
+		modal="true">
+		<h:form id="formEdicion">
+			<p:growl>
+				<p:autoUpdate />
+			</p:growl>
+			<h:outputText value="Id " />
+			<h:outputText value="#{beanUsuario.usuarioSeleccionado.idUsuario}"/>
+			<p:panelGrid columns="2">
+
+				<h:outputText value="Cedula " />
+				<p:inputText value="#{beanUsuario.usuarioSeleccionado.cedula}" required="true"
+					maxlength="10" requiredMessage="Debe ingresar cedula">
+					<f:validateRegex pattern="[0-9#]+" />
+					<f:validateLength minimum="10" maximum="10" />
+				</p:inputText> 
+
+				<h:outputText value="Nombres: " />
+				<h:inputText value="#{beanUsuario.usuarioSeleccionado.nombres}" required="true"
+					requiredMessage="Debe ingresar nombres">
+					<f:validateRegex pattern="[A-Za-z]+" />
+				</h:inputText>
+
+				<h:outputText value="Apellidos: " />
+				<h:inputText value="#{beanUsuario.usuarioSeleccionado.apellidos}" required="true" requiredMessage="Debe ingresar apellidos">
+					<f:validateRegex pattern="[A-Za-z]+" />
+				</h:inputText>
+				
+
+				<h:outputText value="Fecha de Nacimiento: " />
+				<p:calendar
+					value="#{beanUsuario.usuarioSeleccionado.fechaNacimiento}" />
+
+				<h:outputText value="Dirección: " />
+				<h:inputText value="#{beanUsuario.usuarioSeleccionado.direccion}" />
+
+				<h:outputText value="Email: " />
+				<h:inputText value="#{beanUsuario.usuarioSeleccionado.email}" required="true"
+					requiredMessage="Debe ingresar email ">
+					<f:validateRegex
+						pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+				</h:inputText>
+
+				<h:outputText value="Clave: " />
+				<h:inputText value="#{beanUsuario.usuarioSeleccionado.clave}" required="true"
+					requiredMessage="Debe ingresar una clave " />
+
+			</p:panelGrid>
+			<p:commandButton value="Actualizar" icon="fa fa-save"
+				update="@form,:form2"
+				actionListener="#{beanUsuario.actionListenerActualizarUsuario()}"></p:commandButton>
+		</h:form>
+	</p:dialog>
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+		<p:commandButton value="Si" type="button"
+			styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+		<p:commandButton value="No" type="button"
+			styleClass="ui-confirmdialog-no" icon="fa fa-times" />
+	</p:confirmDialog>
+</body>
+</html>
