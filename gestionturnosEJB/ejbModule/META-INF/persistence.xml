@@ -6,9 +6,9 @@
 		<class>gestionturnos.model.entities.Area</class>
 		<class>gestionturnos.model.entities.Personal</class>
 		<class>gestionturnos.model.entities.Asignacion</class>
+		<class>gestionturnos.model.entities.Rol</class>
 		<class>gestionturnos.model.entities.Estado</class>
 		<class>gestionturnos.model.entities.Turno</class>
 		<class>gestionturnos.model.entities.Usuario</class>
-		<class>gestionturnos.model.entities.Rol</class>
 	</persistence-unit>
 </persistence>

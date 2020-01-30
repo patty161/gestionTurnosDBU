@@ -3,6 +3,7 @@ package gestionturnos.model.entities;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -16,8 +17,8 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Basic(optional = false)
+	@SequenceGenerator(name="USUARIO_IDUSUARIO_GENERATOR", sequenceName="USUARIO_ID_USUARIO_SEQ")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="USUARIO_IDUSUARIO_GENERATOR")
 	@Column(name="id_usuario", unique=true, nullable=false)
 	private Integer idUsuario;
 
@@ -42,6 +43,21 @@ public class Usuario implements Serializable {
 
 	@Column(nullable=false, length=50)
 	private String nombres;
+
+	@Column(name="tipo_usuario", length=10)
+	private String tipoUsuario;
+
+	//bi-directional many-to-one association to Bitacora
+	@OneToMany(mappedBy="usuario")
+	private List<Bitacora> audBitacoras;
+
+	//bi-directional many-to-one association to Personal
+	@OneToMany(mappedBy="usuario")
+	private List<Personal> espPersonals;
+
+	//bi-directional many-to-one association to Asignacion
+	@OneToMany(mappedBy="usuario")
+	private List<Asignacion> segAsignacions;
 
 	public Usuario() {
 	}
@@ -108,6 +124,80 @@ public class Usuario implements Serializable {
 
 	public void setNombres(String nombres) {
 		this.nombres = nombres;
+	}
+
+	public String getTipoUsuario() {
+		return this.tipoUsuario;
+	}
+
+	public void setTipoUsuario(String tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
+	}
+
+	public List<Bitacora> getAudBitacoras() {
+		return this.audBitacoras;
+	}
+
+	public void setAudBitacoras(List<Bitacora> audBitacoras) {
+		this.audBitacoras = audBitacoras;
+	}
+
+	public Bitacora addAudBitacora(Bitacora audBitacora) {
+		getAudBitacoras().add(audBitacora);
+		audBitacora.setUsuario(this);
+
+		return audBitacora;
+	}
+
+	public Bitacora removeAudBitacora(Bitacora audBitacora) {
+		getAudBitacoras().remove(audBitacora);
+		audBitacora.setUsuario(null);
+
+		return audBitacora;
+	}
+
+	public List<Personal> getEspPersonals() {
+		return this.espPersonals;
+	}
+
+	public void setEspPersonals(List<Personal> espPersonals) {
+		this.espPersonals = espPersonals;
+	}
+
+	public Personal addEspPersonal(Personal espPersonal) {
+		getEspPersonals().add(espPersonal);
+		espPersonal.setUsuario(this);
+
+		return espPersonal;
+	}
+
+	public Personal removeEspPersonal(Personal espPersonal) {
+		getEspPersonals().remove(espPersonal);
+		espPersonal.setUsuario(null);
+
+		return espPersonal;
+	}
+
+	public List<Asignacion> getSegAsignacions() {
+		return this.segAsignacions;
+	}
+
+	public void setSegAsignacions(List<Asignacion> segAsignacions) {
+		this.segAsignacions = segAsignacions;
+	}
+
+	public Asignacion addSegAsignacion(Asignacion segAsignacion) {
+		getSegAsignacions().add(segAsignacion);
+		segAsignacion.setUsuario(this);
+
+		return segAsignacion;
+	}
+
+	public Asignacion removeSegAsignacion(Asignacion segAsignacion) {
+		getSegAsignacions().remove(segAsignacion);
+		segAsignacion.setUsuario(null);
+
+		return segAsignacion;
 	}
 
 }
