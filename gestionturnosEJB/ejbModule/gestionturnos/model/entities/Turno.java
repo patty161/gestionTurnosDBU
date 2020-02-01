@@ -16,8 +16,7 @@ public class Turno implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="TUR_TURNOS_IDTURNOS_GENERATOR", sequenceName="TUR_TURNOS_ID_TURNOS_SEQ")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="TUR_TURNOS_IDTURNOS_GENERATOR")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_turnos", unique=true, nullable=false)
 	private Integer idTurnos;
 

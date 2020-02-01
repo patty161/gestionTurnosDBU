@@ -17,8 +17,7 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="USUARIO_IDUSUARIO_GENERATOR", sequenceName="USUARIO_ID_USUARIO_SEQ")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="USUARIO_IDUSUARIO_GENERATOR")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_usuario", unique=true, nullable=false)
 	private Integer idUsuario;
 
@@ -43,9 +42,6 @@ public class Usuario implements Serializable {
 
 	@Column(nullable=false, length=50)
 	private String nombres;
-
-	@Column(name="tipo_usuario", length=10)
-	private String tipoUsuario;
 
 	//bi-directional many-to-one association to Bitacora
 	@OneToMany(mappedBy="usuario")
@@ -124,14 +120,6 @@ public class Usuario implements Serializable {
 
 	public void setNombres(String nombres) {
 		this.nombres = nombres;
-	}
-
-	public String getTipoUsuario() {
-		return this.tipoUsuario;
-	}
-
-	public void setTipoUsuario(String tipoUsuario) {
-		this.tipoUsuario = tipoUsuario;
 	}
 
 	public List<Bitacora> getAudBitacoras() {
