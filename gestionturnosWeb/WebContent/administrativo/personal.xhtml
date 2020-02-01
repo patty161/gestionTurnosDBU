@@ -34,10 +34,11 @@
 			<p:panelGrid columns="2">
 				<p:dataTable value="#{beanPersonal.listaPersonal}" var="personal"
 					reflow="true" paginator="true">
-					<p:column headerText="Id Estado" sortBy="#{personal.idPersonal}">
+					<p:column headerText="Id Personal" sortBy="#{personal.idPersonal}">
 						<h:outputText value="#{personal.idPersonal}" />
 					</p:column>
-					<p:column headerText="Área Asignada "
+
+					<p:column headerText="Codigo Area "
 						sortBy="#{personal.espArea.idArea}">
 						<h:outputText value="#{personal.espArea.nombreArea}" />
 					</p:column>
@@ -82,21 +83,31 @@
 			<p:growl>
 				<p:autoUpdate />
 			</p:growl>
+
+
 			<p:panelGrid columns="2">
-				<h:outputText value="Area " />
-				<h:inputText value="#{beanPersonal.codArea}">
 
-				</h:inputText>
-				<h:outputText value="Usuario " />
-				<h:inputText value="#{beanPersonal.idUsuario}">
 
-				</h:inputText>
-				
-				
+				<h:outputText value="Seleccione Área" />
+				<p:selectOneMenu value="#{beanPersonal.codArea}">
+					<f:selectItems value="#{beanArea.listaAreas}" var="per"
+						itemLabel="#{per.nombreArea}" itemValue="#{per.idArea}">
+					</f:selectItems>
+				</p:selectOneMenu>
+
+				<h:outputText value="Selecciones Usuario" />
+				<p:selectOneMenu value="#{beanPersonal.idUsuario}" required="true"
+					requiredMessage="Dede ingresar Usuario">
+					<f:selectItems value="#{beanUsuario.listausuario}" var="per"
+						itemLabel="#{per.nombres}" itemValue="#{per.idUsuario}">
+					</f:selectItems>
+				</p:selectOneMenu>
+
+
 				<h:outputText value="Horas " />
-				<p:spinner value="#{beanPersonal.horas}"/>
+				<p:spinner value="#{beanPersonal.horas}" />
 
-			
+
 
 			</p:panelGrid>
 			<p:commandButton value="Ingresar" icon="fa fa-save"
@@ -114,24 +125,29 @@
 			<h:outputText value="#{beanPersonal.personalselecionado.idPersonal}" />
 			<p:panelGrid columns="2">
 
-				<h:outputText value="Area" />
-				<p:inputText
-					value="#{beanPersonal.personalselecionado.espArea.idArea}"
-					required="true" requiredMessage="Ingrese una Area">
+				<h:outputText value="Seleccione Área" />
 
-				</p:inputText>
-				<h:outputText value="Usuario" />
-				<p:inputText
-					value="#{beanPersonal.personalselecionado.usuario.idUsuario}"
-					required="true" requiredMessage="Ingrese un Usuario">
+				<p:selectOneMenu value="#{beanPersonal.codArea}">
 
-				</p:inputText>
+					<f:selectItems value="#{beanArea.listaAreas}" var="per"
+						itemLabel="#{per.nombreArea}" itemValue="#{per.idArea}">
+					</f:selectItems>
+				</p:selectOneMenu>
+
+				<h:outputText value="Seleccione Usuario" />
+				<p:selectOneMenu value="#{beanPersonal.idUsuario}" required="true"
+					requiredMessage="Dede ingresar Usuario">
+					<f:selectItems value="#{beanUsuario.listausuario}" var="per"
+						itemLabel="#{per.nombres}" itemValue="#{per.idUsuario}">
+					</f:selectItems>
+				</p:selectOneMenu>
+
 				<h:outputText value="Horas" />
-				<p:inputText
+				<p:spinner
 					value="#{beanPersonal.personalselecionado.horasLaborables}"
 					required="true" requiredMessage="Ingrese horas">
 
-				</p:inputText>
+				</p:spinner>
 
 			</p:panelGrid>
 			<p:commandButton value="Actualizar" icon="fa fa-save"

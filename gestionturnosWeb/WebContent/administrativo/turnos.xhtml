@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<f:facet name="first">
+		<meta name="viewport"
+			content="width=divice-width, initial-scale=1,shrink-to-fit=no, user-scalable=no" />
+		<title>Listado de Turnos</title>
+	</f:facet>
+</h:head>
+<body>
+	<h:form id="form2">
+		<p:growl>
+			<p:autoUpdate />
+		</p:growl>
+
+
+		<p:panel>
+			<f:facet name="header">
+				<p:commandButton value="Turnos" update="@form"></p:commandButton>
+			</f:facet>
+			
+			<p:panelGrid columns="2">
+				<p:dataTable value="#{beanTurnos.listaTurnos}" var="turno"
+					reflow="true" paginator="true">
+					<p:column headerText="Id Turno" sortBy="#{turno.idTurnos}">
+						<h:outputText value="#{turno.idTurnos}" />
+					</p:column>
+					<p:column headerText="Area" sortBy="#{turno.espArea.idArea}">
+						<h:outputText value="#{turno.espArea.nombreArea}" />
+					</p:column>
+					<p:column headerText="Rol" sortBy="#{turno.segRol.idRol}">
+						<h:outputText value="#{turno.segRol.nombreRol}" />
+					</p:column>
+					<p:column headerText="Estado" sortBy="#{turno.turEstado.idEstado}">
+						<h:outputText value="#{turno.turEstado.descripcionEstado}" />
+					</p:column>
+					<p:column headerText="Personal"
+						sortBy="#{turno.espPersonal.idPersonal}">
+						<h:outputText value="#{turno.espPersonal.usuario.nombres}" />
+					</p:column>
+					<p:column headerText="Fecha" sortBy="#{turno.fecha}">
+						<h:outputText value="#{turno.fecha}" />
+					</p:column>
+					<p:column headerText="Numero Turno" sortBy="#{turno.nroTurno}">
+						<h:outputText value="#{turno.nroTurno}" />
+					</p:column>
+
+					<!--  <p:column headerText="Clave" sortBy="#{usuario.clave}">
+						<h:outputText value="#{usuario.clave}" />
+					</p:column>  -->
+					
+
+				</p:dataTable>
+			</p:panelGrid>
+		</p:panel>
+	</h:form>
+</body>
+</html>

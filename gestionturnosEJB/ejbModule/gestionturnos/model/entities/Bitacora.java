@@ -16,7 +16,8 @@ public class Bitacora implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@SequenceGenerator(name="AUD_BITACORA_CODEVENTO_GENERATOR", sequenceName="AUD_BITACORA_COD_EVENTO_SEQ")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="AUD_BITACORA_CODEVENTO_GENERATOR")
 	@Column(name="cod_evento", unique=true, nullable=false)
 	private Integer codEvento;
 

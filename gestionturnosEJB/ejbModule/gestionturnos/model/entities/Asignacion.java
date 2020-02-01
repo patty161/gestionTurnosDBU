@@ -15,7 +15,8 @@ public class Asignacion implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@SequenceGenerator(name="SEG_ASIGNACION_IDASIGNACION_GENERATOR", sequenceName="SEG_ASIGNACION_ID_ASIGNACION_SEQ")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEG_ASIGNACION_IDASIGNACION_GENERATOR")
 	@Column(name="id_asignacion", unique=true, nullable=false)
 	private Integer idAsignacion;
 

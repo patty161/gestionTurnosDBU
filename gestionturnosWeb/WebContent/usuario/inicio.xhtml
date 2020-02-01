@@ -40,30 +40,28 @@
 		<p:messages>
 			<p:autoUpdate />
 		</p:messages>
-		<p:panel>
-			<p:dataView value="#{beanArea.listaAreas}" var="area"  listIcon="pi pi-bars" gridIcon="pi pi-th-large">
+		  <center>     <font size="5" >
+				<p:panel>Bienvenido. Seleccione el área de atención</p:panel></font>
+				   </center>
+				<p:dataView value="#{beanArea.listaAreas}" var="area" >
 
-				<p:dataViewGridItem>
-					<p:panel style="text-align:center">
-						<h:panelGrid columns="1" style="width:100%">
-							<p:graphicImage />
-							<h:outputText value="#{area.nombreArea}" />
-						</h:panelGrid>
-					</p:panel>
-
-				</p:dataViewGridItem>
-
-			</p:dataView>
-		</p:panel>
-	</h:form>
-	<h:form id="form2">
-		<p:growl>
-			<p:autoUpdate />
-		</p:growl>
-		<f:facet name="header">
-			<p:commandButton value="Personal" icon="fa fa-plus" update="@form"></p:commandButton>
-		</f:facet>
-
-	</h:form>
+	<p:dataViewListItem >
+            <h:panelGrid columns="1" style="width:100%" columnClasses="detail,detail">
+                <p:outputPanel>
+                <center>
+                    <h:panelGrid columns="1" cellpadding="5">
+                         <p:commandLink  value="#{beanTurno.turno.espArea.idArea}" >
+                       <font size="5" >
+                        <h:outputText  value="#{area.nombreArea}" style="font-weight: bold" />
+                        </font>
+                        
+                <f:setPropertyActionListener value="#{area}" target="#{beanArea}" />                 </p:commandLink>
+                    </h:panelGrid>
+                    </center>
+                </p:outputPanel>      	          
+            </h:panelGrid> 
+        </p:dataViewListItem>
+    </p:dataView>
+	</h:form>	
 </body>
 </html>
