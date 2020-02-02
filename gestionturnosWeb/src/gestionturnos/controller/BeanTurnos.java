@@ -20,12 +20,23 @@ public class BeanTurnos implements Serializable {
 	@EJB
 	private ManagerTurnos managerdoctor;
 	private List<Turno> listaTurnos;
+	private List<Turno> listaTurnosXdoc;
 	private Turno turno;
 	
+	
+
+	public List<Turno> getListaTurnosXdoc() {
+		return listaTurnosXdoc;
+	}
+
+	public void setListaTurnosXdoc(List<Turno> listaTurnosXdoc) {
+		this.listaTurnosXdoc = listaTurnosXdoc;
+	}
 
 	@PostConstruct
 	public void inicializar() {
 		listaTurnos= managerdoctor.findAllDoctor();
+		listaTurnosXdoc= managerdoctor.findfinDoctor();
 		turno=new Turno();
 	}
 

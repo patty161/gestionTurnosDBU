@@ -20,13 +20,28 @@ public class ManagerTurnos {
 
 	@PersistenceContext
 	private EntityManager em;
+	private String idasi;
 	
-    public ManagerTurnos() {
+	
+    public String getIdasi() {
+		return idasi;
+	}
+
+	public void setIdasi(String idasi) {
+		this.idasi = idasi;
+	}
+
+	public ManagerTurnos() {
     	
     }
     
     public List<Turno> findAllDoctor(){
     	String consulta = "SELECT a FROM Turno a order by id_turnos";
+    	Query q= em.createQuery(consulta, Turno.class);
+    	return q.getResultList();
+    }
+    public List<Turno> findfinDoctor(){
+    	String consulta = "SELECT a FROM Turno a where id_asignacion="+idasi;
     	Query q= em.createQuery(consulta, Turno.class);
     	return q.getResultList();
     }

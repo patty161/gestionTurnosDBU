@@ -8,26 +8,56 @@
 <h:head>
 	<f:facet name="first">
 		<meta name="viewport"
-			content="width=divice-width, initial-sacle=1,shrink-to-fit=no, suer-saclable=no" />
-		<title>Página de Inicio - Personal de Atención</title>
+			content="width=divice-width, initial-scale=1,shrink-to-fit=no, user-scalable=no" />
+		<title>Listado de Turnos</title>
 	</f:facet>
 </h:head>
 <body>
-	<h:form id="form1">
+	<h:form id="form2">
 		<p:growl>
 			<p:autoUpdate />
 		</p:growl>
-		<p:messages>
-			<p:autoUpdate />
-		</p:messages>
+
+
 		<p:panel>
-		<p:link><h5> Cerrar Sesión</h5></p:link>
-	
-			<p:panelGrid>
-				<p:commandButton value="Mostrar Turnos"				 />
+			<f:facet name="header">
+				<p:commandButton value="Turnos" update="@form"></p:commandButton>
+			</f:facet>
+			
+			<p:panelGrid columns="2">
+				<p:dataTable value="#{beanTurnos.listaTurnosXdoc}" var="turno"
+					reflow="true" paginator="true">
+					<p:column headerText="Id Turno" sortBy="#{turno.idTurnos}">
+						<h:outputText value="#{turno.idTurnos}" />
+					</p:column>
+					<p:column headerText="Area" sortBy="#{turno.espArea.idArea}">
+						<h:outputText value="#{turno.espArea.nombreArea}" />
+					</p:column>
+					<p:column headerText="Doctor" sortBy="#{turno.segAsignacion.usuario.apellidos}">
+						<h:outputText value="#{turno.segAsignacion.usuario.apellidos}" />
+					</p:column>
+					<p:column headerText="Estado" sortBy="#{turno.turEstado.idEstado}">
+						<h:outputText value="#{turno.turEstado.descripcionEstado}" />
+					</p:column>
+					<p:column headerText="Usario"
+						sortBy="#{turno.usuario.idUsuario}">
+						<h:outputText value="#{turno.usuario.apellidos}" />
+					</p:column>
+					<p:column headerText="Fecha" sortBy="#{turno.fecha}">
+						<h:outputText value="#{turno.fecha}" />
+					</p:column>
+					<p:column headerText="Numero Turno" sortBy="#{turno.nroTurno}">
+						<h:outputText value="#{turno.nroTurno}" />
+					</p:column>
+
+					<!--  <p:column headerText="Clave" sortBy="#{usuario.clave}">
+						<h:outputText value="#{usuario.clave}" />
+					</p:column>  -->
+					
+
+				</p:dataTable>
 			</p:panelGrid>
 		</p:panel>
-	
 	</h:form>
 </body>
 </html>

@@ -28,10 +28,6 @@ public class Rol implements Serializable {
 	@OneToMany(mappedBy="segRol")
 	private List<Asignacion> segAsignacions;
 
-	//bi-directional many-to-one association to Turno
-	@OneToMany(mappedBy="segRol")
-	private List<Turno> turTurnos;
-
 	public Rol() {
 	}
 
@@ -71,28 +67,6 @@ public class Rol implements Serializable {
 		segAsignacion.setSegRol(null);
 
 		return segAsignacion;
-	}
-
-	public List<Turno> getTurTurnos() {
-		return this.turTurnos;
-	}
-
-	public void setTurTurnos(List<Turno> turTurnos) {
-		this.turTurnos = turTurnos;
-	}
-
-	public Turno addTurTurno(Turno turTurno) {
-		getTurTurnos().add(turTurno);
-		turTurno.setSegRol(this);
-
-		return turTurno;
-	}
-
-	public Turno removeTurTurno(Turno turTurno) {
-		getTurTurnos().remove(turTurno);
-		turTurno.setSegRol(null);
-
-		return turTurno;
 	}
 
 }

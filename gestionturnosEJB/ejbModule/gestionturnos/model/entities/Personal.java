@@ -2,7 +2,6 @@ package gestionturnos.model.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
 
 /**
@@ -33,10 +32,6 @@ public class Personal implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="id_usuario")
 	private Usuario usuario;
-
-	//bi-directional many-to-one association to Turno
-	@OneToMany(mappedBy="espPersonal")
-	private List<Turno> turTurnos;
 
 	public Personal() {
 	}
@@ -71,28 +66,6 @@ public class Personal implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
-	}
-
-	public List<Turno> getTurTurnos() {
-		return this.turTurnos;
-	}
-
-	public void setTurTurnos(List<Turno> turTurnos) {
-		this.turTurnos = turTurnos;
-	}
-
-	public Turno addTurTurno(Turno turTurno) {
-		getTurTurnos().add(turTurno);
-		turTurno.setEspPersonal(this);
-
-		return turTurno;
-	}
-
-	public Turno removeTurTurno(Turno turTurno) {
-		getTurTurnos().remove(turTurno);
-		turTurno.setEspPersonal(null);
-
-		return turTurno;
 	}
 
 }

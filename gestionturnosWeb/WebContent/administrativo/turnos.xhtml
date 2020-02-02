@@ -33,15 +33,15 @@
 					<p:column headerText="Area" sortBy="#{turno.espArea.idArea}">
 						<h:outputText value="#{turno.espArea.nombreArea}" />
 					</p:column>
-					<p:column headerText="Rol" sortBy="#{turno.segRol.idRol}">
-						<h:outputText value="#{turno.segRol.nombreRol}" />
+					<p:column headerText="Doctor" sortBy="#{turno.segAsignacion.usuario.apellidos}">
+						<h:outputText value="#{turno.segAsignacion.usuario.apellidos}" />
 					</p:column>
 					<p:column headerText="Estado" sortBy="#{turno.turEstado.idEstado}">
 						<h:outputText value="#{turno.turEstado.descripcionEstado}" />
 					</p:column>
-					<p:column headerText="Personal"
-						sortBy="#{turno.espPersonal.idPersonal}">
-						<h:outputText value="#{turno.espPersonal.usuario.nombres}" />
+					<p:column headerText="Usario"
+						sortBy="#{turno.usuario.idUsuario}">
+						<h:outputText value="#{turno.usuario.apellidos}" />
 					</p:column>
 					<p:column headerText="Fecha" sortBy="#{turno.fecha}">
 						<h:outputText value="#{turno.fecha}" />

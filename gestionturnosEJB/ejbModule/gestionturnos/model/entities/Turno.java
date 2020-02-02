@@ -32,20 +32,20 @@ public class Turno implements Serializable {
 	@JoinColumn(name="id_area")
 	private Area espArea;
 
-	//bi-directional many-to-one association to Personal
-	@ManyToOne
-	@JoinColumn(name="id_personal")
-	private Personal espPersonal;
-
-	//bi-directional many-to-one association to Rol
-	@ManyToOne
-	@JoinColumn(name="id_rol")
-	private Rol segRol;
-
 	//bi-directional many-to-one association to Estado
 	@ManyToOne
 	@JoinColumn(name="id_estado")
 	private Estado turEstado;
+
+	//bi-directional many-to-one association to Asignacion
+	@ManyToOne
+	@JoinColumn(name="id_asignacion")
+	private Asignacion segAsignacion;
+
+	//bi-directional many-to-one association to Usuario
+	@ManyToOne
+	@JoinColumn(name="id_usuario")
+	private Usuario usuario;
 
 	public Turno() {
 	}
@@ -82,28 +82,28 @@ public class Turno implements Serializable {
 		this.espArea = espArea;
 	}
 
-	public Personal getEspPersonal() {
-		return this.espPersonal;
-	}
-
-	public void setEspPersonal(Personal espPersonal) {
-		this.espPersonal = espPersonal;
-	}
-
-	public Rol getSegRol() {
-		return this.segRol;
-	}
-
-	public void setSegRol(Rol segRol) {
-		this.segRol = segRol;
-	}
-
 	public Estado getTurEstado() {
 		return this.turEstado;
 	}
 
 	public void setTurEstado(Estado turEstado) {
 		this.turEstado = turEstado;
+	}
+
+	public Asignacion getSegAsignacion() {
+		return this.segAsignacion;
+	}
+
+	public void setSegAsignacion(Asignacion segAsignacion) {
+		this.segAsignacion = segAsignacion;
+	}
+
+	public Usuario getUsuario() {
+		return this.usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 }

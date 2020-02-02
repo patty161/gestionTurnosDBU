@@ -22,6 +22,8 @@ public class ManagerSeguridad {
 	private ManagerAuditoria managerAuditoria;
 	@EJB
 	private ManagerUsuario managerUsuario;
+	@EJB
+	private ManagerTurnos managerTurnos;
 	private int idusuariobuscado;
 
 	public int getIdusuariobuscado() {
@@ -79,13 +81,30 @@ public class ManagerSeguridad {
 		List<Asignacion> asig = managerUsuario.findAllAsignacion();
 		String rol = "";
 		for (Asignacion asignacion : asig) {
-			System.out.println("entra..................." + asignacion.getUsuario().getIdUsuario());
+			System.out.println("entra..................." + asignacion.getIdAsignacion());
+
 			if (asignacion.getUsuario().getIdUsuario().equals(idUsu)) {
 				System.out.println("le econtro el rol " + asignacion.getSegRol().getNombreRol());
 				rol = asignacion.getSegRol().getNombreRol();
 			}
 		}
 		return rol;
+//		em.merge(usu);
+	}
+
+	public String getIdASI(int idUsu) throws Exception {
+		System.out.println("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiii " + idUsu);
+		List<Asignacion> asig = managerUsuario.findAllAsignacion();
+		String ID = "";
+		for (Asignacion asignacion : asig) {
+			System.out.println("entra..................." + asignacion.getIdAsignacion());
+
+			if (asignacion.getUsuario().getIdUsuario().equals(idUsu)) {
+				System.out.println("le econtro el rol " + asignacion.getSegRol().getNombreRol());
+				ID = asignacion.getIdAsignacion().toString();
+			}
+		}
+		return ID;
 //		em.merge(usu);
 	}
 
@@ -108,8 +127,11 @@ public class ManagerSeguridad {
 					loginDTO.setTipoUsuario("" + TipoUsuario(idusuariobuscado));
 					if (TipoUsuario(idusuariobuscado).equals("Administrativo"))
 						loginDTO.setRutaAcceso("/administrativo/indexPrincipal.xhtml");
-					else if (TipoUsuario(idusuariobuscado).equals("Especilista"))
+					else if (TipoUsuario(idusuariobuscado).equals("Especilista")) {
+						System.out.println("la idasigna del usuario que ingreso es..."+getIdASI(idusuariobuscado));
+						managerTurnos.setIdasi(getIdASI(idusuariobuscado));
 						loginDTO.setRutaAcceso("/personal/inicio.xhtml");
+					}
 //					managerAuditoria.crearEvento(usuario.getIdUsuario().toString(), ManagerUsuario.class, "Acesde",
 //							"INgreso al sistemas ");
 //					;
