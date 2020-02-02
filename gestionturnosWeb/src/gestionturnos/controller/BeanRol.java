@@ -26,8 +26,7 @@ public class BeanRol implements Serializable {
 	private List<Rol> listaRoles;
 	private Rol rol;
 	private Rol RolSeleccionado;
-	private String cedula;
-	private String clave;
+	
 
 	@PostConstruct
 	public void inicializar() {
@@ -58,45 +57,7 @@ public class BeanRol implements Serializable {
 		RolSeleccionado = rol;
 	}
 
-	/// USUARIO NORMAL
-	public String actionListenerUsuarioNor() throws Exception {
-		if (managerUsuario.ValidaUsuario(cedula, " n")) {
-			System.out.println("si vale aqui hay que poner el codigo que creer nuevo turno");
-			return "/usuario/inicio.xhtml";
 
-		} else {
-
-			System.out.println("ud no es un usuario registrado");
-		}
-		return "va el crud de escojer tunro.xhtml";
-
-	}
-
-	/// USUARIO OTRO
-	public String actionListenerUsuario() throws Exception {
-		if (managerUsuario.ValidaUsuario(cedula, clave)) {
-			System.out.println("sivale");
-			System.out.println("aaaaaaaaaaaaaaaaaaaaa" + managerUsuario.getIdusuariobuscado());
-
-			System.out.println("si vale aqui hay que poner la vista de "
-					+ managerUsuario.TipoUsuario(managerUsuario.getIdusuariobuscado()));
-			//////// editar por 2 para admin
-			if (managerUsuario.TipoUsuario(managerUsuario.getIdusuariobuscado()).equals("Administrativo")) {
-				System.out.println("entra 22222");
-				return "/administrativo/indexPrincipal.xhtml";
-			}
-			if (managerUsuario.TipoUsuario(managerUsuario.getIdusuariobuscado()).equals("Especilista")) {
-				System.out.println("entra 22222");
-				return "/personal/inicio.xhtml";
-			}
-		
-		} else {
-
-			System.out.println("ud no es un usuario registrado");
-		}
-		return "indexPrincipal.xhtml";
-
-	}
 
 	public void actionListenerActualizarRol() {
 		try {
@@ -133,20 +94,5 @@ public class BeanRol implements Serializable {
 		RolSeleccionado = rolSeleccionado;
 	}
 
-	public String getCedula() {
-		return cedula;
-	}
-
-	public void setCedula(String cedula) {
-		this.cedula = cedula;
-	}
-
-	public String getClave() {
-		return clave;
-	}
-
-	public void setClave(String clave) {
-		this.clave = clave;
-	}
 
 }

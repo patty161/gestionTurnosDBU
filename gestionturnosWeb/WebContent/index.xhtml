@@ -32,14 +32,14 @@
 				</h:panelGrid>
 				<h:panelGrid columns="2">
 					<h:outputText value="Cédula:   " />
-					<p:inputText  value="#{beanRol.cedula}" required="true" size="20" maxlength="10"
+					<p:inputText  value="#{beanLogin.cedula}" required="true" size="20" maxlength="10"
 						requiredMessage="Debe ingresar su cédula.">
 						<f:validateLongRange minimum="10"/>
 					</p:inputText>
 					<br />
 					<br />
 					<p:commandButton value="Ingresar" icon="fa fa-key"
-						action="#{beanRol.actionListenerUsuarioNor()}" update="mensajes" />
+						action="#{beanLogin.actionListenerUsuarioNor()}" update="mensajes" />
 					<p:messages id="mensajes" />
 					
 				</h:panelGrid>

@@ -6,48 +6,54 @@ import java.util.Date;
 
 
 /**
- * The persistent class for the aud_bitacora database table.
+ * The persistent class for the bitacora database table.
  * 
  */
 @Entity
-@Table(name="aud_bitacora")
+@Table(name="bitacora")
 @NamedQuery(name="Bitacora.findAll", query="SELECT b FROM Bitacora b")
 public class Bitacora implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="AUD_BITACORA_CODEVENTO_GENERATOR", sequenceName="AUD_BITACORA_COD_EVENTO_SEQ")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="AUD_BITACORA_CODEVENTO_GENERATOR")
-	@Column(name="cod_evento", unique=true, nullable=false)
-	private Integer codEvento;
+	@SequenceGenerator(name="BITACORA_CODIGOEVENTO_GENERATOR", sequenceName="BITACORA")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="BITACORA_CODIGOEVENTO_GENERATOR")
+	@Column(name="codigo_evento", unique=true, nullable=false)
+	private Integer codigoEvento;
 
-	@Column(length=100)
+	@Column(name="codigo_usuario", nullable=false, length=20)
+	private String codigoUsuario;
+
+	@Column(length=200)
 	private String descripcion;
 
 	@Column(name="direccion_ip", length=20)
 	private String direccionIp;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="fecha_evento")
+	@Column(name="fecha_evento", nullable=false)
 	private Date fechaEvento;
 
-	@Column(length=50)
+	@Column(nullable=false, length=100)
 	private String metodo;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="id_usuario")
-	private Usuario usuario;
 
 	public Bitacora() {
 	}
 
-	public Integer getCodEvento() {
-		return this.codEvento;
+	public Integer getCodigoEvento() {
+		return this.codigoEvento;
 	}
 
-	public void setCodEvento(Integer codEvento) {
-		this.codEvento = codEvento;
+	public void setCodigoEvento(Integer codigoEvento) {
+		this.codigoEvento = codigoEvento;
+	}
+
+	public String getCodigoUsuario() {
+		return this.codigoUsuario;
+	}
+
+	public void setCodigoUsuario(String codigoUsuario) {
+		this.codigoUsuario = codigoUsuario;
 	}
 
 	public String getDescripcion() {
@@ -80,14 +86,6 @@ public class Bitacora implements Serializable {
 
 	public void setMetodo(String metodo) {
 		this.metodo = metodo;
-	}
-
-	public Usuario getUsuario() {
-		return this.usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
 	}
 
 }
