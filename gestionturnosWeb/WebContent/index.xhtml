@@ -10,6 +10,10 @@
 	crossorigin="anonymous" />
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+<f:metadata>
+	<f:event listener="#{beanLogin.salirSistemaN()}"
+		type="preRenderView"></f:event>
+</f:metadata>
 <h:head>
 	<f:facet name="first">
 		<meta name="viewport"
@@ -32,16 +36,18 @@
 				</h:panelGrid>
 				<h:panelGrid columns="2">
 					<h:outputText value="Cédula:   " />
-					<p:inputText  value="#{beanLogin.cedula}" required="true" size="20" maxlength="10"
-						requiredMessage="Debe ingresar su cédula.">
-						<f:validateLongRange minimum="10"/>
+					<p:inputText value="#{beanLogin.cedula}" required="true" size="20"
+						maxlength="10" requiredMessage="Debe ingresar su cédula.">
+						<f:validateLongRange minimum="10" />
 					</p:inputText>
 					<br />
 					<br />
 					<p:commandButton value="Ingresar" icon="fa fa-key"
 						action="#{beanLogin.accederSistema()}" update="mensajes" />
 					<p:messages id="mensajes" />
-					
+					<p:commandButton value="Personal" class="pi pi-user-minus"
+						action="login.xhtml" update="mensajes" />
+
 				</h:panelGrid>
 			</p:panel>
 		</center>

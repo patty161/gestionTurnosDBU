@@ -134,9 +134,12 @@ public class BeanLogin implements Serializable {
 			e.printStackTrace();
 		}
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-		return "/index.html?faces-redirect=true";
+		return "/index.xhtml?faces-redirect=true";
 	}
-	
+	public void salirSistemaN(){
+		
+		clave="n";
+	}
 	public void actionVerificarLogin(){
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 		String requestPath=ec.getRequestPathInfo();
@@ -151,7 +154,7 @@ public class BeanLogin implements Serializable {
 				if(requestPath.contains("/usuario") && loginDTO.getRutaAcceso().startsWith("/usuario"))
 					return;
 				//caso contrario significa que hizo login pero intenta acceder a ruta no permitida:
-				ec.redirect(ec.getRequestContextPath() + "/faces/login.xhtml");
+				ec.redirect(ec.getRequestContextPath() + "/faces/index.xhtml");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
