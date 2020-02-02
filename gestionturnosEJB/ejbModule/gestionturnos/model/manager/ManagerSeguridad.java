@@ -109,7 +109,7 @@ public class ManagerSeguridad {
 					if (TipoUsuario(idusuariobuscado).equals("Administrativo"))
 						loginDTO.setRutaAcceso("/administrativo/indexPrincipal.xhtml");
 					else if (TipoUsuario(idusuariobuscado).equals("Especilista"))
-						loginDTO.setRutaAcceso("/Especilista/index.xhtml");
+						loginDTO.setRutaAcceso("/personal/inicio.xhtml");
 //					managerAuditoria.crearEvento(usuario.getIdUsuario().toString(), ManagerUsuario.class, "Acesde",
 //							"INgreso al sistemas ");
 //					;
