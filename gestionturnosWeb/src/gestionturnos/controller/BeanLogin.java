@@ -24,7 +24,7 @@ public class BeanLogin implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String codigoUsuario;
 	private String cedula;
-	private String clave;
+	private String clave="n";
 	@EJB
 	private ManagerSeguridad managerSeguridad;
 	@EJB
@@ -47,7 +47,7 @@ public class BeanLogin implements Serializable {
 		try {
 			
 			loginDTO=managerSeguridad.ValidaUsuario(cedula, clave);
-			System.out.println(""+loginDTO.getRutaAcceso()+"?faces-redirect=true");
+//			System.out.println(""+loginDTO.getRutaAcceso()+"?faces-redirect=true");
 			//redireccion dependiendo del tipo de usuario:
 			return loginDTO.getRutaAcceso()+"?faces-redirect=true";
 		} catch (Exception e) {
@@ -143,7 +143,7 @@ public class BeanLogin implements Serializable {
 		try {
 			//si no paso por login:
 			if(loginDTO==null || ModelUtil.isEmpty(loginDTO.getRutaAcceso())){
-				ec.redirect(ec.getRequestContextPath() + "/faces/login.xhtml");
+				ec.redirect(ec.getRequestContextPath() + "/faces/index.xhtml");
 			}else{
 				//validar las rutas de acceso:
 				if(requestPath.contains("/administrativo") && loginDTO.getRutaAcceso().startsWith("/administrativo"))
@@ -151,7 +151,7 @@ public class BeanLogin implements Serializable {
 				if(requestPath.contains("/usuario") && loginDTO.getRutaAcceso().startsWith("/usuario"))
 					return;
 				//caso contrario significa que hizo login pero intenta acceder a ruta no permitida:
-				ec.redirect(ec.getRequestContextPath() + "/faces/index.html");
+				ec.redirect(ec.getRequestContextPath() + "/faces/login.xhtml");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

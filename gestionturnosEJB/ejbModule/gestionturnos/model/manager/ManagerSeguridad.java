@@ -96,6 +96,7 @@ public class ManagerSeguridad {
 		for (Usuario usuario : usu) {
 			if (usuario.getCedula().equals(cedula) && clave.endsWith("n")) {
 				System.out.println("Usaurio encontrado " + usuario.getCedula());
+				loginDTO.setRutaAcceso("/usuario/inicio.xhtml");
 
 			} else {
 				if (usuario.getCedula().equals(cedula) && clave.endsWith(usuario.getClave())) {
@@ -109,9 +110,9 @@ public class ManagerSeguridad {
 						loginDTO.setRutaAcceso("/administrativo/indexPrincipal.xhtml");
 					else if (TipoUsuario(idusuariobuscado).equals("Especilista"))
 						loginDTO.setRutaAcceso("/Especilista/index.xhtml");
-					managerAuditoria.crearEvento(usuario.getIdUsuario().toString(), ManagerUsuario.class, "Acesde",
-							"INgreso al sistemas ");
-					;
+//					managerAuditoria.crearEvento(usuario.getIdUsuario().toString(), ManagerUsuario.class, "Acesde",
+//							"INgreso al sistemas ");
+//					;
 
 				}
 
