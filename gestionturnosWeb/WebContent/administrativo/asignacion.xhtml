@@ -21,52 +21,43 @@
 
 		<p:panel>
 			<f:facet name="header">
-				<p:commandButton value="Personal" update="@form"></p:commandButton>
+				<p:commandButton value="Asignacion" update="@form"></p:commandButton>
 			</f:facet>
 			<p:panel>
 				<p:commandButton icon="fa fa-plus" title=" Añadir Nueva"
-					actionListener="#{beanPersonal.actionListenerSelecionarPersonal(personal)}"
+					actionListener="#{beanAsignacion.actionListenerSelecionarAsignacion(asignacion)}"
 					update="formAgregar" oncomplete="PF('dlgAgregar').show();"
-					value=" Agregar Personal">
+					value=" Agregar Asignacion">
 				</p:commandButton>
 
 			</p:panel>
 			<p:panelGrid columns="2">
-				<p:dataTable value="#{beanPersonal.listaPersonal}" var="personal"
-					reflow="true" paginator="true">
-					<p:column headerText="Id Personal" sortBy="#{personal.idPersonal}">
-						<h:outputText value="#{personal.idPersonal}" />
+				<p:dataTable value="#{beanAsignacion.listaAsignacion}"
+					var="asignacion" reflow="true" paginator="true">
+					<p:column headerText="Id Asignacion"
+						sortBy="#{asignacion.idAsignacion}">
+						<h:outputText value="#{asignacion.idAsignacion}" />
 					</p:column>
-
-					<p:column headerText="Codigo Area "
-						sortBy="#{personal.espArea.idArea}">
-						<h:outputText value="#{personal.espArea.nombreArea}" />
+					<p:column headerText="Rol" sortBy="#{asignacion.segRol.idRol}">
+						<h:outputText value="#{asignacion.segRol.nombreRol}" />
+					</p:column>
+					<p:column headerText="Cedula "
+						sortBy="#{asignacion.usuario.cedula}">
+						<h:outputText value="#{asignacion.usuario.cedula}" />
 					</p:column>
 					<p:column headerText="Usuario "
-						sortBy="#{personal.usuario.idUsuario}">
-						<h:outputText value="#{personal.usuario.cedula}" />
-					</p:column>
-					<p:column headerText="Nombre "
-						sortBy="#{personal.usuario.idUsuario}">
-						<h:outputText value="#{personal.usuario.nombres}" />
-					</p:column>
-					<p:column headerText="Apellidos "
-						sortBy="#{personal.usuario.idUsuario}">
-						<h:outputText value="#{personal.usuario.apellidos}" />
-					</p:column>
-					<p:column headerText="Horas Laborables "
-						sortBy="#{personal.horasLaborables}">
-						<h:outputText value="#{personal.horasLaborables}" />
+						sortBy="#{asignacion.usuario.idUsuario}">
+						<h:outputText value="#{asignacion.usuario.nombres}" />
 					</p:column>
 
 					<p:column headerText=" Acción">
 						<p:commandButton icon="fa fa-edit" title="Editar"
-							actionListener="#{beanPersonal.actionListenerSelecionarPersonal(personal)}"
+							actionListener="#{beanAsignacion.actionListenerSelecionarAsignacion(asignacion)}"
 							update="formEdicion" oncomplete="PF('dlgEdicion').show();">
 						</p:commandButton>
 						<p:commandButton icon="fa fa-remove" title="Eliminar"
 							update="@form"
-							actionListener="#{beanPersonal.actionListenerEliminarPersonal(personal.idPersonal)}">
+							actionListener="#{beanAsignacion.actionListenerEliminarAsignacion(asignacion.idAsignacion)}">
 							<p:confirm header="Confirmacion"
 								message="¿Está seguro de eliminar?"
 								icon="fa fa-exclamation-triangle"></p:confirm>
@@ -77,85 +68,84 @@
 			</p:panelGrid>
 		</p:panel>
 	</h:form>
-	<p:dialog header="Agregar Nuevo Personal" widgetVar="dlgAgregar"
+	<p:dialog header="Agregar Asignacion" widgetVar="dlgAgregar"
 		modal="true">
 		<h:form id="formAgregar">
 			<p:growl>
 				<p:autoUpdate />
 			</p:growl>
-
-
 			<p:panelGrid columns="2">
 
-
-				<h:outputText value="Seleccione Área" />
-				<h:selectOneMenu value="#{beanPersonal.codArea}">
-					<f:selectItems value="#{beanArea.listaAreas}" var="per"
-						itemLabel="#{per.nombreArea}" itemValue="#{per.idArea}">
+				<h:outputText value="Seleccione Rol" />
+				<h:selectOneMenu value="#{beanAsignacion.idRol}">
+					<f:selectItems value="#{beanRol.listaRoles}" var="per"
+						itemLabel="#{per.nombreRol}" itemValue="#{per.idRol}">
 					</f:selectItems>
 				</h:selectOneMenu>
+				
+				
 
-				<h:outputText value="Selecciones Usuario" />
-				<h:selectOneMenu value="#{beanPersonal.idUsuario}" required="true"
+				<h:outputText value="Seleccione Usuario" />
+				<h:selectOneMenu value="#{beanAsignacion.idUsuario}" required="true"
+					requiredMessage="Dede ingresar Usuario">
+					<f:selectItems value="#{beanUsuario.listausuario}" var="per"
+						itemLabel="#{per.nombres}" itemValue="#{per.idUsuario}">
+					</f:selectItems>
+				</h:selectOneMenu>
+				
+
+			</p:panelGrid>
+			<p:commandButton value="Ingresar" icon="fa fa-save"
+				update="@form,:form2"
+				actionListener="#{beanAsignacion.actionCrearAsignacion()}"></p:commandButton>
+		</h:form>
+	</p:dialog>
+	<p:dialog header="Editar Informacion" widgetVar="dlgEdicion"
+		modal="true">
+
+		<h:form id="formEdicion">
+			<p:growl>
+				<p:autoUpdate />
+			</p:growl>
+			<h:outputText value="Id " />
+			<h:outputText
+				value="#{beanAsignacion.asignacionselecionado.idAsignacion}" />
+			<p:panelGrid columns="2">
+
+				<h:outputText value="Seleccione Rol" />
+				<h:selectOneMenu value="#{beanAsignacion.asignacionselecionado.segRol.idRol}">
+					<f:selectItems value="#{beanRol.listaRoles}" var="per"
+						itemLabel="#{per.nombreRol}" itemValue="#{per.idRol}">
+					</f:selectItems>
+				</h:selectOneMenu>
+				
+
+				<h:outputText value="Seleccione Usuario" />
+				<h:selectOneMenu value="#{beanAsignacion.asignacionselecionado.usuario.idUsuario}" required="true"
 					requiredMessage="Dede ingresar Usuario">
 					<f:selectItems value="#{beanUsuario.listausuario}" var="per"
 						itemLabel="#{per.nombres}" itemValue="#{per.idUsuario}">
 					</f:selectItems>
 				</h:selectOneMenu>
 
+				<!-- 	<h:outputText value="Rol" />
+				<p:inputText
+					value="#{beanAsignacion.asignacionselecionado.segRol.idRol}"
+					required="true" requiredMessage="Ingrese un Rol">
 
-				<h:outputText value="Horas " />
-				<p:spinner value="#{beanPersonal.horas}" />
+				</p:inputText>
+				<h:outputText value="Usuario" />
+				<p:inputText
+					value="#{beanAsignacion.asignacionselecionado.usuario.idUsuario}"
+					required="true" requiredMessage="Ingrese un Usuario">
 
+				</p:inputText>  -->
 
-
-			</p:panelGrid>
-			<p:commandButton value="Ingresar" icon="fa fa-save"
-				update="@form,:form2"
-				actionListener="#{beanPersonal.actionCrearPersonal()}"></p:commandButton>
-		</h:form>
-	</p:dialog>
-	<p:dialog header="Editar Informacion" widgetVar="dlgEdicion"
-		modal="true">
-		<h:form id="formEdicion">
-			<p:growl>
-				<p:autoUpdate />
-			</p:growl>
-			<h:outputText value="Id " />
-			<h:outputText value="#{beanPersonal.personalselecionado.idPersonal}" />
-			<p:panelGrid columns="2">
-
-				<h:outputText value="Seleccione Área" />
-
-				<h:selectOneMenu
-					value="#{beanPersonal.personalselecionado.espArea.idArea}">
-
-					<f:selectItems value="#{beanArea.listaAreas}" var="per"
-						itemLabel="#{per.nombreArea}" itemValue="#{per.idArea}">
-					</f:selectItems>
-				</h:selectOneMenu>
-
-
-				<h:outputText value="Seleccione Usuario" />
-				<h:selectOneMenu
-					value="#{beanPersonal.personalselecionado.usuario.idUsuario}"
-					required="true" requiredMessage="Dede ingresar Usuario">
-					<f:selectItems value="#{beanUsuario.listausuario}" var="per"
-						itemLabel="#{per.nombres}" itemValue="#{per.idUsuario}">
-					</f:selectItems>
-				</h:selectOneMenu>
-
-				<h:outputText value="Horas" />
-				<p:spinner
-					value="#{beanPersonal.personalselecionado.horasLaborables}"
-					required="true" requiredMessage="Ingrese horas">
-
-				</p:spinner>
 
 			</p:panelGrid>
 			<p:commandButton value="Actualizar" icon="fa fa-save"
 				update="@form,:form2"
-				actionListener="#{beanPersonal.actionListenerActualizarPersonal()}"></p:commandButton>
+				actionListener="#{beanAsignacion.actionListenerActualizarAsignacion()}"></p:commandButton>
 		</h:form>
 	</p:dialog>
 	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
