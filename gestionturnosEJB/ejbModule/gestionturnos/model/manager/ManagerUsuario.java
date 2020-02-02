@@ -2,12 +2,14 @@ package gestionturnos.model.manager;
 
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import gestionturnos.model.dto.LoginDTO;
 import gestionturnos.model.entities.Asignacion;
 import gestionturnos.model.entities.Usuario;
 
@@ -21,6 +23,8 @@ public class ManagerUsuario {
 	@PersistenceContext
 	private EntityManager em;
 	private int idusuariobuscado;
+	@EJB
+	private ManagerAuditoria managerAuditoria;
 
 	public int getIdusuariobuscado() {
 		return idusuariobuscado;
@@ -72,48 +76,6 @@ public class ManagerUsuario {
 		em.merge(usu);
 	}
 
-	public String TipoUsuario(int idUsu) throws Exception {
-		System.out.println("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiii "+ idUsu);
-		List<Asignacion> asig = findAllAsignacion();
-		String rol="";
-	for (Asignacion asignacion : asig) {
-		System.out.println("entra..................."+asignacion.getUsuario().getIdUsuario());
-		if (asignacion.getUsuario().getIdUsuario().equals(idUsu)) {
-			System.out.println("le econtro el rol "+asignacion.getSegRol().getNombreRol());
-			rol=asignacion.getSegRol().getNombreRol();
-		}
-	}
-	return rol;
-//		em.merge(usu);
-	}
-
-	public boolean ValidaUsuario(String cedula, String clave) {
-
-		boolean fn = false;
-		List<Usuario> usu = findAllUsuario();
-		for (Usuario usuario : usu) {
-			if (usuario.getCedula().equals(cedula) && clave.endsWith("n")) {
-				System.out.println("Usaurio encontrado " + usuario.getCedula());
-				fn = true;
-			} else {
-				if (usuario.getCedula().equals(cedula) && clave.endsWith(usuario.getClave())) {
-					System.out.println("Usaurio con id " + usuario.getIdUsuario());
-					idusuariobuscado = usuario.getIdUsuario();
-					fn = true;
-				}
-
-			}
-//			}else {
-//			
-//				System.out.println("no hay ese usuario porque esta el "+usuario.getCedula());
-//				
-//			
-//
-//			}
-		}
-
-		// em.merge(usu);
-		return fn;
-	}
+	
 
 }

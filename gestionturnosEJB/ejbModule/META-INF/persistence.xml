@@ -2,7 +2,6 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="gestionturnosDS" transaction-type="JTA">
 		<jta-data-source>java:/gestionturnosDS</jta-data-source>
-		<class>gestionturnos.model.entities.Bitacora</class>
 		<class>gestionturnos.model.entities.Area</class>
 		<class>gestionturnos.model.entities.Personal</class>
 		<class>gestionturnos.model.entities.Asignacion</class>
@@ -10,5 +9,6 @@
 		<class>gestionturnos.model.entities.Estado</class>
 		<class>gestionturnos.model.entities.Turno</class>
 		<class>gestionturnos.model.entities.Usuario</class>
+		<class>gestionturnos.model.entities.Bitacora</class>
 	</persistence-unit>
 </persistence>

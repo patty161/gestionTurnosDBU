@@ -26,7 +26,7 @@
 					<h:outputText value="Clave:" />
 					<p:password  value="#{beanLogin.clave}" required="true" size="30" maxlength="30"
 						requiredMessage="Debe ingresar su contraseña." />
-					<p:commandButton  action="#{beanLogin.actionListenerUsuario()}" value="Ingresar" icon="fa fa-key"
+					<p:commandButton  action="#{beanLogin.accederSistema()}" value="Ingresar" icon="fa fa-key"
 						update="mensajes" />
 					<p:messages id="mensajes" />
 				</h:panelGrid>

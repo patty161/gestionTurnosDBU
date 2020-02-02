@@ -1,10 +1,13 @@
 package gestionturnos.model.manager;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 import gestionturnos.model.dto.LoginDTO;
+import gestionturnos.model.entities.Asignacion;
 import gestionturnos.model.entities.Usuario;
 
 /**
@@ -19,6 +22,15 @@ public class ManagerSeguridad {
 	private ManagerAuditoria managerAuditoria;
 	@EJB
 	private ManagerUsuario managerUsuario;
+	private int idusuariobuscado;
+
+	public int getIdusuariobuscado() {
+		return idusuariobuscado;
+	}
+
+	public void setIdusuariobuscado(int idusuariobuscado) {
+		this.idusuariobuscado = idusuariobuscado;
+	}
 
 	/**
 	 * Default constructor.
@@ -62,6 +74,63 @@ public class ManagerSeguridad {
 		return loginDTO;
 	}
 
+	public String TipoUsuario(int idUsu) throws Exception {
+		System.out.println("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiii " + idUsu);
+		List<Asignacion> asig = managerUsuario.findAllAsignacion();
+		String rol = "";
+		for (Asignacion asignacion : asig) {
+			System.out.println("entra..................." + asignacion.getUsuario().getIdUsuario());
+			if (asignacion.getUsuario().getIdUsuario().equals(idUsu)) {
+				System.out.println("le econtro el rol " + asignacion.getSegRol().getNombreRol());
+				rol = asignacion.getSegRol().getNombreRol();
+			}
+		}
+		return rol;
+//		em.merge(usu);
+	}
+
+	public LoginDTO ValidaUsuario(String cedula, String clave) throws Exception {
+		LoginDTO loginDTO = new LoginDTO();
+
+		List<Usuario> usu = managerUsuario.findAllUsuario();
+		for (Usuario usuario : usu) {
+			if (usuario.getCedula().equals(cedula) && clave.endsWith("n")) {
+				System.out.println("Usaurio encontrado " + usuario.getCedula());
+
+			} else {
+				if (usuario.getCedula().equals(cedula) && clave.endsWith(usuario.getClave())) {
+					System.out.println("Usaurio con id " + usuario.getIdUsuario());
+					idusuariobuscado = usuario.getIdUsuario();
+					loginDTO.setCodigoUsuario(usuario.getCedula());
+					loginDTO.setUsuario(usuario.getNombres() + " " + usuario.getApellidos());
+					loginDTO.setDireccion(usuario.getDireccion());
+					loginDTO.setTipoUsuario("" + TipoUsuario(idusuariobuscado));
+					if (TipoUsuario(idusuariobuscado).equals("Administrativo"))
+						loginDTO.setRutaAcceso("/administrativo/indexPrincipal.xhtml");
+					else if (TipoUsuario(idusuariobuscado).equals("Especilista"))
+						loginDTO.setRutaAcceso("/Especilista/index.xhtml");
+					managerAuditoria.crearEvento(usuario.getIdUsuario().toString(), ManagerUsuario.class, "Acesde",
+							"INgreso al sistemas ");
+					;
+
+				}
+
+			}
+//			}else {
+//			
+//				System.out.println("no hay ese usuario porque esta el "+usuario.getCedula());
+//				
+//			
+//
+//			}
+
+		}
+		System.out.println("llllllllllllllllllllllllllllllllllllllllllll");
+
+		return loginDTO;
+
+	}
+
 	/**
 	 * Metodo para que los clientes puedan acceder al sistema.
 	 * 
@@ -81,7 +150,7 @@ public class ManagerSeguridad {
 		LoginDTO loginDTO = new LoginDTO();
 		loginDTO.setCodigoUsuario(usuario.getCedula());
 		loginDTO.setUsuario(usuario.getNombres() + " " + usuario.getApellidos());
-		
+
 		loginDTO.setTipoUsuario("Normal");
 		loginDTO.setRutaAcceso("/usuario/inicio.xhtml");
 		managerAuditoria.crearEvento(loginDTO.getCodigoUsuario(), ManagerSeguridad.class, "accederSistemaClientes",

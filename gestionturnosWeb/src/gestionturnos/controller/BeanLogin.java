@@ -7,6 +7,8 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
+import com.sun.corba.se.spi.orbutil.fsm.Action;
+
 import gestionturnos.model.dto.LoginDTO;
 import gestionturnos.model.manager.ManagerAuditoria;
 import gestionturnos.model.manager.ManagerSeguridad;
@@ -43,7 +45,9 @@ public class BeanLogin implements Serializable {
 	 */
 	public String accederSistema(){
 		try {
-			loginDTO=managerSeguridad.accederSistema(codigoUsuario, clave);
+			
+			loginDTO=managerSeguridad.ValidaUsuario(cedula, clave);
+			System.out.println(""+loginDTO.getRutaAcceso()+"?faces-redirect=true");
 			//redireccion dependiendo del tipo de usuario:
 			return loginDTO.getRutaAcceso()+"?faces-redirect=true";
 		} catch (Exception e) {
@@ -55,48 +59,66 @@ public class BeanLogin implements Serializable {
 	
 
 	/// USUARIO NORMAL
-	public String actionListenerUsuarioNor() throws Exception {
-		if (managerUsuario.ValidaUsuario(cedula, " n")) {
-			System.out.println("si vale aqui hay que poner el codigo que creer nuevo turno");
-			return "/usuario/inicio.xhtml";
-
-		} else {
-
-			System.out.println("ud no es un usuario registrado");
-		}
-		return "va el crud de escojer tunro.xhtml";
-
-	}
+//	public String actionListenerUsuarioNor() throws Exception {
+//		if (managerUsuario.ValidaUsuario(cedula, " n")) {
+//			System.out.println("si vale aqui hay que poner el codigo que creer nuevo turno");
+//			return "/usuario/inicio.xhtml";
+//
+//		} else {
+//
+//			System.out.println("ud no es un usuario registrado");
+//		}
+//		return "va el crud de escojer tunro.xhtml";
+//
+//	}
 
 	/// USUARIO OTRO
-	public String actionListenerUsuario() throws Exception {
-		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-		String requestPath=ec.getRequestPathInfo();
-		if (managerUsuario.ValidaUsuario(cedula, clave)) {
-			System.out.println("sivale");
-			System.out.println("aaaaaaaaaaaaaaaaaaaaa" + managerUsuario.getIdusuariobuscado());
-
-			System.out.println("si vale aqui hay que poner la vista de "
-					+ managerUsuario.TipoUsuario(managerUsuario.getIdusuariobuscado()));
-			//////// editar por 2 para admin
-			if (managerUsuario.TipoUsuario(managerUsuario.getIdusuariobuscado()).equals("Administrativo")) {
-				System.out.println("entra 22222");
-				ec.redirect("faces/administrativo/indexPrincipal.xhtml");
-				
-			}
-			if (managerUsuario.TipoUsuario(managerUsuario.getIdusuariobuscado()).equals("Especilista")) {
-				
-				ec.redirect("faces/personal/inicio.xhtml");
-				
-			}
-		
-		} else {
-
-			System.out.println("ud no es un usuario registrado");
-		}
-		return "indexPrincipal.xhtml";
-
-	}
+//	public void actionListenerUsuario() throws Exception {
+//		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+//		String requestPath=ec.getRequestPathInfo();
+//		
+//		try {
+//			//si no paso por login:
+//			if(loginDTO==null || ModelUtil.isEmpty(loginDTO.getRutaAcceso())){
+//				ec.redirect(ec.getRequestContextPath() + "/index.html");
+//			}else{
+//				//validar las rutas de acceso:
+//				if(requestPath.contains("/administrativo") && loginDTO.getRutaAcceso().startsWith("/administrativo"))
+//					return;
+//				if(requestPath.contains("/vendedor") && loginDTO.getRutaAcceso().startsWith("/vendedor"))
+//					return;
+//				//caso contrario significa que hizo login pero intenta acceder a ruta no permitida:
+//				ec.redirect(ec.getRequestContextPath() + "/index.html");
+//			}
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		if (managerUsuario.ValidaUsuario(cedula, clave)) {
+//			System.out.println("sivale");
+//			System.out.println("aaaaaaaaaaaaaaaaaaaaa" + managerUsuario.getIdusuariobuscado());
+//
+//			System.out.println("si vale aqui hay que poner la vista de "
+//					+ managerUsuario.TipoUsuario(managerUsuario.getIdusuariobuscado()));
+//			//////// editar por 2 para admin
+//			if (managerUsuario.TipoUsuario(managerUsuario.getIdusuariobuscado()).equals("Administrativo")) {
+//				System.out.println("entra 22222");
+//				ec.redirect("faces/administrativo/indexPrincipal.xhtml");
+//				
+//			}
+//			if (managerUsuario.TipoUsuario(managerUsuario.getIdusuariobuscado()).equals("Especilista")) {
+//				
+//				ec.redirect("faces/personal/inicio.xhtml");
+//				
+//			}
+//		
+//		} else {
+//
+//			System.out.println("ud no es un usuario registrado");
+//		}
+//		
+//
+//	}
 	
 	
 	
@@ -121,15 +143,15 @@ public class BeanLogin implements Serializable {
 		try {
 			//si no paso por login:
 			if(loginDTO==null || ModelUtil.isEmpty(loginDTO.getRutaAcceso())){
-				ec.redirect(ec.getRequestContextPath() + "/index.html");
+				ec.redirect(ec.getRequestContextPath() + "/faces/login.xhtml");
 			}else{
 				//validar las rutas de acceso:
-				if(requestPath.contains("/supervisor") && loginDTO.getRutaAcceso().startsWith("/supervisor"))
+				if(requestPath.contains("/administrativo") && loginDTO.getRutaAcceso().startsWith("/administrativo"))
 					return;
-				if(requestPath.contains("/vendedor") && loginDTO.getRutaAcceso().startsWith("/vendedor"))
+				if(requestPath.contains("/usuario") && loginDTO.getRutaAcceso().startsWith("/usuario"))
 					return;
 				//caso contrario significa que hizo login pero intenta acceder a ruta no permitida:
-				ec.redirect(ec.getRequestContextPath() + "/index.html");
+				ec.redirect(ec.getRequestContextPath() + "/faces/index.html");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
