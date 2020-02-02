@@ -64,17 +64,19 @@ public class ManagerUsuario {
 		em.persist(usuario);
 	}
 
-	public void actualizarUsuario(Usuario usuario) throws Exception {
-		Usuario usu = findUsuarioById(usuario.getIdUsuario());
-		if (usu == null)
-			usu.setApellidos(usu.getApellidos());
-		usu.setCedula(usu.getCedula());
-		usu.setClave(usu.getClave());
-		usu.setDireccion(usu.getDireccion());
-		usu.setNombres(usu.getNombres());
-
-		em.merge(usu);
-	}
+	 public void actualizarUsuario(Usuario usuario) throws Exception {
+			Usuario user = findUsuarioById(usuario.getIdUsuario());
+			if (user == null)
+				throw new Exception("No existe el Usuario con el Id especificada");
+			user.setCedula(usuario.getCedula());
+			user.setNombres(usuario.getNombres());
+			user.setApellidos(usuario.getApellidos());
+			user.setFechaNacimiento(usuario.getFechaNacimiento());
+			user.setDireccion(usuario.getDireccion());
+			user.setEmail(usuario.getEmail());
+			user.setClave(usuario.getClave());
+			em.merge(user);
+		}
 
 	
 
