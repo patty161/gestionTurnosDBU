@@ -140,7 +140,7 @@ public class BeanLogin implements Serializable {
 		
 		clave="n";
 	}
-	public void actionVerificarLogin(){
+	public void actionVerificarLogin() throws IOException{
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 		String requestPath=ec.getRequestPathInfo();
 		try {
@@ -157,6 +157,7 @@ public class BeanLogin implements Serializable {
 				ec.redirect(ec.getRequestContextPath() + "/faces/index.xhtml");
 			}
 		} catch (IOException e) {
+			ec.redirect(ec.getRequestContextPath() + "/colorlib-error-404-10/colorlib-error-404-10/index.html");
 			e.printStackTrace();
 		}
 	}
