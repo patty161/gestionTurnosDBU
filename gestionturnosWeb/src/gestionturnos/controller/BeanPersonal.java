@@ -43,7 +43,7 @@ public class BeanPersonal implements Serializable {
 			JSFUtil.createMensajeError(e.getMessage());
 			e.printStackTrace();
 		}
-		return"personalprueba.xhtml";
+		return"personal.xhtml";
 	}
 	public void actionListenerEliminarPersonal(int idPersonal) {
 		managepersonal.eliminarPersonal(idPersonal);

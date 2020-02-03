@@ -2,7 +2,6 @@ package gestionturnos.model.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.Date;
 
 
 /**
@@ -27,7 +26,7 @@ public class Usuario implements Serializable {
 	@Column(nullable=false, length=10)
 	private String cedula;
 
-	@Column(length=50)
+	@Column(length=20)
 	private String clave;
 
 	@Column(length=50)
@@ -36,12 +35,11 @@ public class Usuario implements Serializable {
 	@Column(length=30)
 	private String email;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="fecha_nacimiento")
-	private Date fechaNacimiento;
-
 	@Column(nullable=false, length=50)
 	private String nombres;
+
+	@Column(length=15)
+	private String telefono;
 
 	public Usuario() {
 	}
@@ -94,20 +92,20 @@ public class Usuario implements Serializable {
 		this.email = email;
 	}
 
-	public Date getFechaNacimiento() {
-		return this.fechaNacimiento;
-	}
-
-	public void setFechaNacimiento(Date fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
-	}
-
 	public String getNombres() {
 		return this.nombres;
 	}
 
 	public void setNombres(String nombres) {
 		this.nombres = nombres;
+	}
+
+	public String getTelefono() {
+		return this.telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
 	}
 
 }

@@ -11,6 +11,7 @@ import javax.persistence.Query;
 
 import gestionturnos.model.dto.LoginDTO;
 import gestionturnos.model.entities.Asignacion;
+import gestionturnos.model.entities.Personal;
 import gestionturnos.model.entities.Usuario;
 
 /**
@@ -71,13 +72,12 @@ public class ManagerUsuario {
 			user.setCedula(usuario.getCedula());
 			user.setNombres(usuario.getNombres());
 			user.setApellidos(usuario.getApellidos());
-			user.setFechaNacimiento(usuario.getFechaNacimiento());
 			user.setDireccion(usuario.getDireccion());
 			user.setEmail(usuario.getEmail());
+			user.setTelefono(usuario.getTelefono());
 			user.setClave(usuario.getClave());
 			em.merge(user);
 		}
 
-	
 
 }

@@ -22,6 +22,7 @@ public class BeanUsuario implements Serializable {
 	private List<Usuario> listausuario;
 	private Usuario usuario;
 	private Usuario usuarioSeleccionado;
+	private String cedula;
 	
 	@PostConstruct
 
@@ -32,16 +33,21 @@ public class BeanUsuario implements Serializable {
 	}
 
 	public String actionListenerInsertarUsuario() {
+		boolean a=false;
 		try {
 			managerUsuario.insertarUsuario(usuario);
 			listausuario = managerUsuario.findAllUsuario();
-			usuario = new Usuario();
+
+			usuario = new Usuario();			
+			
 			JSFUtil.createMensajeInfo("Datos Ingresados");
+			
 		} catch (Exception e) {
 			JSFUtil.createMensajeError(e.getMessage());
 			e.printStackTrace();
 		}
 		return "usuario.xhtml";
+		
 	}
 	public void actionListenerEliminarUsuario(int IdUsuario) {
 		managerUsuario.eliminarUsuario(IdUsuario);
@@ -64,6 +70,14 @@ public class BeanUsuario implements Serializable {
 	}
 	
 	
+	public String getCedula() {
+		return cedula;
+	}
+
+	public void setCedula(String cedula) {
+		this.cedula = cedula;
+	}
+
 	public Usuario getUsuario() {
 		return usuario;
 	}
