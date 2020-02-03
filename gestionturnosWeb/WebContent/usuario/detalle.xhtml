@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<f:facet name="first">
+		<meta name="viewport"
+			content="width=divice-width, initial-scale=1,shrink-to-fit=no, user-scalable=no" />
+		<title>Detalle de su Turno</title>
+		
+	</f:facet>
+</h:head>
+<body>
+<h:form id="form1">
+			<p:growl>
+				<p:autoUpdate />
+			</p:growl>
+			<p:messages>
+				<p:autoUpdate />
+			</p:messages>
+			<center>
+			<h4>Turno Generado Exitosamente</h4>
+			<p:panelGrid columns="2">
+				<h:outputText value="Área" style="font-weight: bold"/>		
+				<h:outputText value="Medicina General"/>
+					<h:outputText value="Turno" style="font-weight: bold"/>		
+				<h:outputText value="MG00045"/>
+</p:panelGrid>
+				<br />
+				
+				<br />
+				 <a
+				class="btn btn-info" href="../index.xhtml"><span
+				class="glyphicon glyphicon-log-in"></span> Generar nuevo Turno</a> 
+			</center>
+			
+		</h:form>
+</body>
+</html>
