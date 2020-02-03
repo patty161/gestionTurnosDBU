@@ -24,39 +24,93 @@ public class BeanLogin implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String codigoUsuario;
 	private String cedula;
-	private String clave="n";
+	private String clave = "n";
 	@EJB
 	private ManagerSeguridad managerSeguridad;
 	@EJB
 	private ManagerAuditoria managerAuditoria;
 	@EJB
 	private ManagerUsuario managerUsuario;
-	
-	//objeto DTO para control de sesion:
+
+	// objeto DTO para control de sesion:
 	private LoginDTO loginDTO;
 
 	@PostConstruct
 	public void inicializar() {
-		loginDTO=new LoginDTO();
+		loginDTO = new LoginDTO();
 	}
+
+	public boolean validadorDeCedula() {
+		cedula=this.cedula;
+		boolean cedulaCorrecta = false;
+
+		try {
+
+			if (cedula.length() == 10) // ConstantesApp.LongitudCedula
+			{
+				int tercerDigito = Integer.parseInt(cedula.substring(2, 3));
+				if (tercerDigito < 6) {
+					// Coeficientes de validación cédula
+					// El decimo digito se lo considera dígito verificador
+					int[] coefValCedula = { 2, 1, 2, 1, 2, 1, 2, 1, 2 };
+					int verificador = Integer.parseInt(cedula.substring(9, 10));
+					int suma = 0;
+					int digito = 0;
+					for (int i = 0; i < (cedula.length() - 1); i++) {
+						digito = Integer.parseInt(cedula.substring(i, i + 1)) * coefValCedula[i];
+						suma += ((digito % 10) + (digito / 10));
+					}
+
+					if ((suma % 10 == 0) && (suma % 10 == verificador)) {
+						cedulaCorrecta = true;
+					} else if ((10 - (suma % 10)) == verificador) {
+						cedulaCorrecta = true;
+					} else {
+						cedulaCorrecta = false;
+					}
+				} else {
+					cedulaCorrecta = false;
+				}
+			} else {
+				cedulaCorrecta = false;
+			}
+		} catch (NumberFormatException nfe) {
+			cedulaCorrecta = false;
+		} catch (Exception err) {
+			System.out.println("Una excepcion ocurrio en el proceso de validadcion");
+			cedulaCorrecta = false;
+		}
+
+		if (!cedulaCorrecta) {
+			System.out.println("La Cédula ingresada es Incorrecta");
+		}
+		return cedulaCorrecta;
+	}
+
 	/**
 	 * Action que permite el acceso al sistema.
+	 * 
 	 * @return
 	 */
-	public String accederSistema(){
+	public String accederSistema() {
 		try {
 			
-			loginDTO=managerSeguridad.ValidaUsuario(cedula, clave);
+			if (!validadorDeCedula()) {
+				JSFUtil.createMensajeError("No es la cedula correcta");
+			};
+		System.out.println("laaaaaaaaaaaaaa cedulavale :"+validadorDeCedula());
+		
+			loginDTO = managerSeguridad.ValidaUsuario(cedula, clave);
 //			System.out.println(""+loginDTO.getRutaAcceso()+"?faces-redirect=true");
-			//redireccion dependiendo del tipo de usuario:
-			return loginDTO.getRutaAcceso()+"?faces-redirect=true";
+			// redireccion dependiendo del tipo de usuario:
+			return loginDTO.getRutaAcceso() + "?faces-redirect=true";
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			JSFUtil.createMensajeError(e.getMessage());
 		}
 		return "";
 	}
-	
 
 	/// USUARIO NORMAL
 //	public String actionListenerUsuarioNor() throws Exception {
@@ -119,14 +173,13 @@ public class BeanLogin implements Serializable {
 //		
 //
 //	}
-	
-	
-	
+
 	/**
 	 * Finaliza la sesion web del usuario.
+	 * 
 	 * @return
 	 */
-	public String salirSistema(){
+	public String salirSistema() {
 		System.out.println("salirSistema");
 		try {
 			managerAuditoria.crearEvento(loginDTO.getCodigoUsuario(), this.getClass(), "salisSistema", "Cerrar sesion");
@@ -136,24 +189,27 @@ public class BeanLogin implements Serializable {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		return "/index.xhtml?faces-redirect=true";
 	}
-	public void salirSistemaN(){
-		
-		clave="n";
+
+	public void salirSistemaN() {
+
+		clave = "n";
 	}
-	public void actionVerificarLogin() throws IOException{
+
+	public void actionVerificarLogin() throws IOException {
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-		String requestPath=ec.getRequestPathInfo();
+		String requestPath = ec.getRequestPathInfo();
 		try {
-			//si no paso por login:
-			if(loginDTO==null || ModelUtil.isEmpty(loginDTO.getRutaAcceso())){
+			// si no paso por login:
+			if (loginDTO == null || ModelUtil.isEmpty(loginDTO.getRutaAcceso())) {
 				ec.redirect(ec.getRequestContextPath() + "/faces/index.xhtml");
-			}else{
-				//validar las rutas de acceso:
-				if(requestPath.contains("/administrativo") && loginDTO.getRutaAcceso().startsWith("/administrativo"))
+			} else {
+				// validar las rutas de acceso:
+				if (requestPath.contains("/administrativo") && loginDTO.getRutaAcceso().startsWith("/administrativo"))
 					return;
-				if(requestPath.contains("/usuario") && loginDTO.getRutaAcceso().startsWith("/usuario"))
+				if (requestPath.contains("/usuario") && loginDTO.getRutaAcceso().startsWith("/usuario"))
 					return;
-				//caso contrario significa que hizo login pero intenta acceder a ruta no permitida:
+				// caso contrario significa que hizo login pero intenta acceder a ruta no
+				// permitida:
 				ec.redirect(ec.getRequestContextPath() + "/faces/index.xhtml");
 			}
 		} catch (IOException e) {
@@ -181,15 +237,17 @@ public class BeanLogin implements Serializable {
 	public LoginDTO getLoginDTO() {
 		return loginDTO;
 	}
+
 	public void setLoginDTO(LoginDTO loginDTO) {
 		this.loginDTO = loginDTO;
 	}
+
 	public String getCedula() {
 		return cedula;
 	}
+
 	public void setCedula(String cedula) {
 		this.cedula = cedula;
 	}
-	
-	
+
 }

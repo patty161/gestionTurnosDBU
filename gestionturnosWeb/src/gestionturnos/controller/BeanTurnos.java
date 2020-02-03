@@ -39,11 +39,12 @@ public class BeanTurnos implements Serializable {
 
 	@PersistenceContext
 	private EntityManager em;
-	
+	private int ico=1;
 	private Integer idUsuario;
 	private Integer idArea;
 	private Integer idAsignacion;
 	private Integer idEstado;
+	
 
 	private Date fecha1 = new Date();
 	Timestamp fecha = new Timestamp(fecha1.getTime());
@@ -88,8 +89,8 @@ public class BeanTurnos implements Serializable {
 			turno = new Turno();
 			JSFUtil.createMensajeInfo("Turno Generado");
 		} catch (Exception e) {
-			JSFUtil.createMensajeError(e.getMessage());
-			e.printStackTrace();
+//			JSFUtil.createMensajeError(e.getMessage());
+//			e.printStackTrace();
 		}
 		return "detalle.xhtml";
 	}

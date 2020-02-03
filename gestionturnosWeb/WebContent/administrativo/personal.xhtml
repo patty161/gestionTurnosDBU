@@ -110,7 +110,8 @@
 
 				<h:outputText value="Horas " />
 				<p:spinner value="#{beanPersonal.horas}" required="true"
-					requiredMessage="Dede ingresar horas">			
+					requiredMessage="Dede ingresar horas" maxlength="1">	
+						
 				</p:spinner>
 				
 
@@ -153,11 +154,11 @@
 				</h:selectOneMenu>
 
 				<h:outputText value="Horas" />
-				<p:spinner
+				<p:spinner 
 					value="#{beanPersonal.personalselecionado.horasLaborables}"
-					required="true" requiredMessage="Ingrese horas">
-
+					required="true" requiredMessage="Ingrese horas" maxlength="1">
 				</p:spinner>
+				
 
 			</p:panelGrid>
 			<p:commandButton value="Actualizar" icon="fa fa-save"

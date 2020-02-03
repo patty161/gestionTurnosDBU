@@ -17,6 +17,12 @@ public class JSFUtil {
 		msg.setSummary(mensaje);
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
+	public static void createMensajeWarning2(String mensaje) {
+		FacesMessage msg=new FacesMessage();
+		msg.setSeverity(FacesMessage.SEVERITY_WARN);
+		msg.setSummary(mensaje);
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
 	
 	public static void createMensajeError(String mensaje) {
 		FacesMessage msg=new FacesMessage();
