@@ -21,7 +21,7 @@ public class BeanPersonal implements Serializable {
 	private ManagerPersonal managepersonal;
 	private int codArea;
 	private int idUsuario;
-	private int horas;
+	private int horas=4;
 
 	private Personal personal;
 	private Personal personalselecionado;
