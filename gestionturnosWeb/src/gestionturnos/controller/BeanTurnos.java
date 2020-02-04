@@ -15,9 +15,15 @@ import javax.persistence.PersistenceContext;
 
 import gestionturnos.model.entities.Area;
 import gestionturnos.model.entities.Asignacion;
+import gestionturnos.model.entities.Estado;
+import gestionturnos.model.entities.Personal;
 import gestionturnos.model.entities.Turno;
 import gestionturnos.model.entities.Usuario;
+import gestionturnos.model.manager.ManagerArea;
+import gestionturnos.model.manager.ManagerEstado;
+import gestionturnos.model.manager.ManagerPersonal;
 import gestionturnos.model.manager.ManagerTurnos;
+import gestionturnos.model.manager.ManagerUsuario;
 
 @Named
 @SessionScoped
@@ -27,36 +33,33 @@ public class BeanTurnos implements Serializable {
 
 	@EJB
 	private ManagerTurnos managerTurnos;
+	@EJB
+	private ManagerArea managerArea;
+	@EJB
+	private ManagerUsuario managerUsuario;
+	@EJB
+	private ManagerPersonal managerPersonal;
+	@EJB
+	private ManagerEstado managerEstado;
+
 	private List<Turno> listaTurnos;
 	private List<Turno> listaTurnosXdoc;
 	private List<Turno> UltimoTurno;
 	private Turno turno;
-	private Turno turnoTmp;
-	private boolean turnoTmpGuardado;
-	
 	@Inject
 	private BeanLogin beanLogin;
 
-	@PersistenceContext
-	private EntityManager em;
-	private int ico=1;
-	private Integer idUsuario;
-	private Integer idArea;
-	private Integer idAsignacion;
-	private Integer idEstado;
-	
+	private Area area;
+	private Usuario usuario;
+	private Personal personal;
+	private Estado estado;
+
+	private Integer n_turno=0;
+	private Integer n_turnosArea=1;
+	private String codArea;
 
 	private Date fecha1 = new Date();
 	Timestamp fecha = new Timestamp(fecha1.getTime());
-
-	
-	public List<Turno> getListaTurnosXdoc() {
-		return listaTurnosXdoc;
-	}
-
-	public void setListaTurnosXdoc(List<Turno> listaTurnosXdoc) {
-		this.listaTurnosXdoc = listaTurnosXdoc;
-	}
 
 	public BeanTurnos() {
 
@@ -66,42 +69,45 @@ public class BeanTurnos implements Serializable {
 	public void inicializar() {
 		listaTurnos = managerTurnos.findAllDoctor();
 		listaTurnosXdoc = managerTurnos.findfinDoctor();
-		turnoTmp = new Turno();
 		turno = new Turno();
 	}
 
-	public String actionListenerInsertarTurno() {
-		Turno t= new Turno();
-//		Area a=em.find(Area.class, idArea);
-//		t.setEspArea(a);
-//		
-//		Asignacion asig= em.find(Asignacion.class, idAsignacion);
-//		t.setSegAsignacion(asig);
-		
-		//Usuario us= em.find(Usuario.class, idUsuario);
-		//t.setUsuario(us);
-		
+	public String actionListenerInsertarTurno(Integer id) {
+		area = managerArea.findAreaById(id);
+		codArea=area.getCodArea();
+		n_turno++;
+		estado = managerEstado.findEstadoById(1);
+		Turno t = new Turno();
+		t.setEspArea(area);
 		t.setFecha(fecha);
-		
-			try {
-			managerTurnos.insertarTurno(t);	
+		t.setNroTurno(n_turno);
+		// t.setUsuario(Integer.parseInt(usuario));
+		t.setTurEstado(estado);
+		System.out.println(estado);
+//		for (Personal p : area.getEspPersonals()) {
+//			p.getEspArea().getNombreArea();
+//			p.getUsuario().getApellidos();
+//			System.out.println("area -> "+p.getEspArea().getNombreArea() +"   cccc "+p.getUsuario().getApellidos());
+//		}
+
+		try {
+			managerTurnos.insertarTurno(t);
 			listaTurnos = managerTurnos.findAllTurnos();
 			turno = new Turno();
-			JSFUtil.createMensajeInfo("Turno Generado");
+			JSFUtil.createMensajeInfo("Turno generado");
+			return "detalle";
 		} catch (Exception e) {
-//			JSFUtil.createMensajeError(e.getMessage());
-//			e.printStackTrace();
+			JSFUtil.createMensajeError("Ha ocurrido un error. Intente nuevamente");
+			return "";
 		}
-		return "detalle.xhtml";
 	}
 
-	public void crearNuevoTurno() {
-		turnoTmp = managerTurnos.crearTurnoTmp();
-		idUsuario = null;
-		idAsignacion = null;
-		idArea = null;
-		idEstado = null;
-		setTurnoTmpGuardado(false);
+	public List<Turno> getListaTurnosXdoc() {
+		return listaTurnosXdoc;
+	}
+
+	public void setListaTurnosXdoc(List<Turno> listaTurnosXdoc) {
+		this.listaTurnosXdoc = listaTurnosXdoc;
 	}
 
 	public List<Turno> getListaTurnos() {
@@ -120,22 +126,6 @@ public class BeanTurnos implements Serializable {
 		this.turno = turno;
 	}
 
-	public Turno getTurnoTmp() {
-		return turnoTmp;
-	}
-
-	public void setTurnoTmp(Turno turnoTmp) {
-		this.turnoTmp = turnoTmp;
-	}
-
-	public boolean isTurnoTmpGuardado() {
-		return turnoTmpGuardado;
-	}
-
-	public void setTurnoTmpGuardado(boolean turnoTmpGuardado) {
-		this.turnoTmpGuardado = turnoTmpGuardado;
-	}
-
 	public BeanLogin getBeanLogin() {
 		return beanLogin;
 	}
@@ -144,39 +134,44 @@ public class BeanTurnos implements Serializable {
 		this.beanLogin = beanLogin;
 	}
 
-	public Integer getIdUsuario() {
-		return idUsuario;
+	public Area getArea() {
+		return area;
 	}
 
-	public void setIdUsuario(Integer idUsuario) {
-		this.idUsuario = idUsuario;
+	public void setArea(Area area) {
+		this.area = area;
 	}
 
-	public Integer getIdArea() {
-		return idArea;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setIdArea(Integer idArea) {
-		this.idArea = idArea;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
-	public Integer getIdAsignacion() {
-		return idAsignacion;
+	public Personal getPersonal() {
+		return personal;
 	}
 
-	public void setIdAsignacion(Integer idAsignacion) {
-		this.idAsignacion = idAsignacion;
+	public void setPersonal(Personal personal) {
+		this.personal = personal;
 	}
 
-	public Integer getIdEstado() {
-		return idEstado;
+	public Estado getEstado() {
+		return estado;
 	}
 
-	public List<Turno> getUltimoTurno() {
-		return UltimoTurno;
+	public void setEstado(Estado estado) {
+		this.estado = estado;
 	}
 
-	public void setUltimoTurno(List<Turno> ultimoTurno) {
-		UltimoTurno = ultimoTurno;
+	public Integer getN_turno() {
+		return n_turno;
 	}
+
+	public void setN_turno(Integer n_turno) {
+		this.n_turno = n_turno;
+	}
+	
 }

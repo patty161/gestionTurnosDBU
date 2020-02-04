@@ -4,10 +4,6 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
-	<f:metadata>
-	<f:event listener="#{beanLogin.actionVerificarLogin()}"
-		type="preRenderView"></f:event>
-</f:metadata>
 
 <h:head>
 	<f:facet name="first">
@@ -16,7 +12,7 @@
 		<title>Bienvenido - Solicite su Turno</title>
 	</f:facet>
 </h:head>
-<body>
+<body onload="#{beanArea.inicializar()}">
 
 
 	<style type="text/css">
@@ -47,16 +43,17 @@
 		<center>
 			<font size="5"> <p:panel>Bienvenido. Seleccione el área de atención</p:panel></font>
 		</center>
+		
 		<p:dataView value="#{beanArea.listaAreas}" var="area">
 
-			<p:dataViewListItem itemValue="#{area.idArea}">
+			<p:dataViewListItem >
 				<h:panelGrid columns="1" style="width:100%"
 					columnClasses="detail,detail">
 					<p:outputPanel>
 						<center>
 							<h:panelGrid columns="1" cellpadding="5">
-								<p:commandLink value="#{beanTurnos.turno.fecha}"
-									action="#{beanTurnos.actionListenerInsertarTurno()}">
+								<p:commandLink 
+									action="#{beanTurnos.actionListenerInsertarTurno(area.idArea)}">
 									<font size="5"> 
 										<h:outputText
 											value="#{area.nombreArea}"
@@ -72,5 +69,6 @@
 			</p:dataViewListItem>
 		</p:dataView>
 	</h:form>
+
 </body>
 </html>

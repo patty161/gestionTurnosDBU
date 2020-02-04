@@ -4,43 +4,37 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
-	<f:metadata>
-	<f:event listener="#{beanLogin.actionVerificarLogin()}"
-		type="preRenderView"></f:event>
-</f:metadata>
 
 <h:head>
 	<f:facet name="first">
 		<meta name="viewport"
 			content="width=divice-width, initial-scale=1,shrink-to-fit=no, user-scalable=no" />
 		<title>Detalle de su Turno</title>
-		
+
 	</f:facet>
 </h:head>
 <body>
-<h:form id="form1">
-			<p:growl>
-				<p:autoUpdate />
-			</p:growl>
-			<p:messages>
-				<p:autoUpdate />
-			</p:messages>
-			<center>
+	<h:form id="form1">
+		<p:growl>
+			<p:autoUpdate />
+		</p:growl>
+		<p:messages>
+			<p:autoUpdate />
+		</p:messages>
+		<center>
 			<h4>Turno Generado Exitosamente</h4>
 			<p:panelGrid columns="2">
-				<h:outputText value="Área" style="font-weight: bold"/>		
-				<h:outputText value="Medicina General"/>
-					<h:outputText value="Turno" style="font-weight: bold"/>		
-				<h:outputText value="MG00045"/>
-</p:panelGrid>
-				<br />
-				
-				<br />
-				 <a
-				class="btn btn-info" href="../index.xhtml"><span
-				class="glyphicon glyphicon-log-in"></span> Generar nuevo Turno</a> 
-			</center>
-			
-		</h:form>
+				<h:outputText value="Área: " style="font-weight: bold" />
+				<h:outputText value="#{beanTurnos.area.nombreArea}" />
+				<h:outputText value="N° Turno: " style="font-weight: bold" />
+				<h:outputText value="#{beanTurnos.area.codArea} 00#{beanTurnos.n_turno}" />				
+				<h:outputText value="Estado: " style="font-weight: bold" />
+				<h:outputText value="#{beanTurnos.estado.descripcionEstado}" />
+			</p:panelGrid>
+			<br /> <br /> <a class="btn btn-info" href="../index.xhtml"><span
+				class="glyphicon glyphicon-log-in"></span> Generar nuevo Turno</a>
+		</center>
+
+	</h:form>
 </body>
 </html>

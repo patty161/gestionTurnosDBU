@@ -47,11 +47,13 @@ public class ManagerTurnos {
 		Turno turnoTmp = new Turno();
 		return turnoTmp;
 	}
+
 	public List<Area> findAllAreas() {
 		String consulta = "SELECT a FROM Area a";
 		Query q = em.createQuery(consulta, Area.class);
 		return q.getResultList();
 	}
+
 	public List<Turno> findAllDoctor() {
 		String consulta = "SELECT a FROM Turno a order by id_turnos";
 		Query q = em.createQuery(consulta, Turno.class);
@@ -100,28 +102,8 @@ public class ManagerTurnos {
 			em.remove(turno);
 	}
 
-	public void insertarTurno(int idUsuario, int idArea, int idAsignacion, int idEstado)
-			throws Exception {
-				
-		Turno turno = new Turno();
-		Turno turnoTemp = new Turno();
-
-		turno.setFecha(fecha);
-		Area a=em.find(Area.class, idArea);
-		turno.setEspArea(a);
-		
-		Asignacion asig= em.find(Asignacion.class, idAsignacion);
-		turno.setSegAsignacion(asig);
-		turno.setFecha(fecha);
-		em.persist(turnoTemp);
+	public void insertarTurno(Turno turno) throws Exception {
 		em.persist(turno);
 	}
-
-	public void insertarTurno(Turno turno) throws Exception {
-		
-		turno.setFecha(fecha);
-			em.persist(turno);
-	}
-
 
 }
