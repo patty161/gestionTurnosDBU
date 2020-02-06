@@ -128,7 +128,7 @@ public class ManagerSeguridad {
 					if (TipoUsuario(idusuariobuscado).equals("Administrativo"))
 						loginDTO.setRutaAcceso("/administrativo/indexPrincipal.xhtml");
 					else if (TipoUsuario(idusuariobuscado).equals("Especialista")) {
-						System.out.println("la idasigna del usuario que ingreso es..."+getIdASI(idusuariobuscado));
+						System.out.println("laaaaaaaaaaaaaaaaa idasigna del usuario que ingreso es..."+getIdASI(idusuariobuscado));
 						managerTurnos.setIdasi(getIdASI(idusuariobuscado));
 						loginDTO.setRutaAcceso("/personal/inicio.xhtml");
 					}

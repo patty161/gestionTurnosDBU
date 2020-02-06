@@ -17,6 +17,9 @@
 		<p:growl>
 			<p:autoUpdate />
 		</p:growl>
+<p:commandButton  action="#{beanLogin.salirSistema()}" value="Salir" icon="fa fa-key"
+						update="mensajes" />
+					<p:messages id="mensajes" />
 
 
 		<p:panel>
@@ -49,6 +52,7 @@
 					<p:column headerText="Numero Turno" sortBy="#{turno.nroTurno}">
 						<h:outputText value="#{turno.nroTurno}" />
 					</p:column>
+					
 
 					<!--  <p:column headerText="Clave" sortBy="#{usuario.clave}">
 						<h:outputText value="#{usuario.clave}" />

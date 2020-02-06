@@ -27,6 +27,9 @@
 	</f:facet>
 </h:head>
 <body>
+<p:commandButton  action="#{beanLogin.salirSistema()}" value="Salir" icon="fa fa-key"
+						update="mensajes" />
+					<p:messages id="mensajes" />
 	<h:form id="form1">
 		<p:growl>
 			<p:autoUpdate />

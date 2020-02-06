@@ -61,6 +61,7 @@ public class ManagerTurnos {
 	}
 
 	public List<Turno> findfinDoctor() {
+		System.out.println("ssssssssssssssssssssssssssssssssssssssssssss"+idasi);
 		String consulta = "SELECT t FROM Turno t where id_asignacion=" + idasi;
 		Query q = em.createQuery(consulta, Turno.class);
 		return q.getResultList();
