@@ -30,10 +30,14 @@
 		<center>
 			<p:panel
 				header="SGT Departamento de Bienestar Universitario - Autentificación de usuarios">
-				<h:panelGrid>
-					<h4>Identifíquese para acceder al sistema:</h4>
+			
+				<a href="index.html"  class="btn btn-success btn float-right" >Menú principal</a>
+				
+			<h:panelGrid>
+		<center>			<h4>Identifíquese para acceder al sistema</h4></center>
 
 				</h:panelGrid>
+				
 				<h:panelGrid columns="2">
 					<h:outputText value="Cédula:   " />
 					<p:inputText value="#{beanLogin.cedula}" required="true" size="20"
@@ -45,6 +49,7 @@
 					<p:commandButton value="Ingresar" icon="fa fa-key"
 						action="#{beanLogin.accederSistema()}" update="mensajes" />
 					<p:messages id="mensajes" />
+					
 					<p:commandButton value="Personal" class="pi pi-user-minus"
 						action="login.xhtml" update="mensajes" />
 
@@ -52,7 +57,7 @@
 			</p:panel>
 		</center>
 	</h:form>
-
-
+		
+		
 </body>
 </html>
