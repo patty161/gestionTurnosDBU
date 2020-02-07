@@ -27,14 +27,14 @@ public class UsuarioSoap {
 		return mUsuario.findAllUsuario();
 	}
 	
-// 	@WebMethod(operationName = "crearUsuario")
-//	public String crearUsuario(@WebParam(name = "usuario") Usuario usuario) {
-//		String resultado=mUsuario.crearUsuario(usuario);
-//		return resultado;
-//	}
+ 	@WebMethod(operationName = "crearUsuario")
+	public String crearUsuario(@WebParam(name = "usuario") Usuario usuario) {
+		String resultado=mUsuario.crearUsuario(usuario);
+		return resultado;
+	}
 // 	
  	@WebMethod(operationName = "eliminarUsuarioR")
-	public String eliminarUsuarioR(@WebParam(name = "usuario") int idusu) {
+	public String eliminarUsuarioR(@WebParam(name = "idusuario") int idusu) {
 		String resultado=mUsuario.eliminarUsuarioR(idusu);
 		return resultado;
 	}

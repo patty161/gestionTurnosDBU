@@ -65,6 +65,7 @@ public class ManagerUsuario {
 
 	public void insertarUsuario(Usuario usuario) {
 		em.persist(usuario);
+		System.out.println("Usuario insertado.........");
 	}
 	public String crearUsuario(Usuario usuario) {
 		Usuario p=new Usuario();
