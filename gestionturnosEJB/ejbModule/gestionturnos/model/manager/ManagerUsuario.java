@@ -14,6 +14,8 @@ import gestionturnos.model.entities.Asignacion;
 import gestionturnos.model.entities.Personal;
 import gestionturnos.model.entities.Usuario;
 
+
+
 /**
  * 
  */
@@ -64,6 +66,27 @@ public class ManagerUsuario {
 	public void insertarUsuario(Usuario usuario) {
 		em.persist(usuario);
 	}
+	public String crearUsuario(Usuario usuario) {
+		Usuario p=new Usuario();
+    	p.setNombres(usuario.getNombres());
+    	p.setCedula(usuario.getCedula());
+    	p.setClave(usuario.getClave());
+    	p.setApellidos(usuario.getApellidos());
+    	p.setDireccion(usuario.getDireccion());
+    	p.setEmail(usuario.getEmail());
+    	p.setTelefono(usuario.getTelefono());
+    	
+    
+    	em.persist(p);
+    	return "usuario creado ok.";
+    }
+	
+	 public String eliminarUsuarioR(int idusu) {
+	    	Usuario p=em.find(Usuario.class, idusu);
+	    	em.remove(p);
+	    	return "se ha eliminado el usuario ok.";
+	    }
+	
 
 	 public void actualizarUsuario(Usuario usuario) throws Exception {
 			Usuario user = findUsuarioById(usuario.getIdUsuario());
