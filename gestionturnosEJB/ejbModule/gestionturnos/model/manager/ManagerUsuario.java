@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+
 import gestionturnos.model.dto.LoginDTO;
 import gestionturnos.model.entities.Asignacion;
 import gestionturnos.model.entities.Personal;
@@ -64,14 +65,17 @@ public class ManagerUsuario {
 	}
 
 	public void insertarUsuario(Usuario usuario) {
+		usuario.setClave(Hash.md5(usuario.getClave()));
 		em.persist(usuario);
+		
 		System.out.println("Usuario insertado.........");
 	}
 	public String crearUsuario(Usuario usuario) {
 		Usuario p=new Usuario();
     	p.setNombres(usuario.getNombres());
     	p.setCedula(usuario.getCedula());
-    	p.setClave(usuario.getClave());
+    	System.out.println("laaaaaaaaaaaaaaaaaaaaa clave a ingresar es");
+    	p.setClave(Hash.md5(usuario.getClave()));
     	p.setApellidos(usuario.getApellidos());
     	p.setDireccion(usuario.getDireccion());
     	p.setEmail(usuario.getEmail());
@@ -99,7 +103,7 @@ public class ManagerUsuario {
 			user.setDireccion(usuario.getDireccion());
 			user.setEmail(usuario.getEmail());
 			user.setTelefono(usuario.getTelefono());
-			user.setClave(usuario.getClave());
+			user.setClave(Hash.md5(usuario.getClave()));
 			em.merge(user);
 		}
 

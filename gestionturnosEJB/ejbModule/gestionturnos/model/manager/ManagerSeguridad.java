@@ -109,6 +109,8 @@ public class ManagerSeguridad {
 	}
 
 	public LoginDTO ValidaUsuario(String cedula, String clave) throws Exception {
+		
+		
 		LoginDTO loginDTO = new LoginDTO();
 
 		List<Usuario> usu = managerUsuario.findAllUsuario();
@@ -118,6 +120,7 @@ public class ManagerSeguridad {
 				loginDTO.setRutaAcceso("/usuario/inicio.xhtml");
 
 			} else {
+				clave=Hash.md5(clave);
 				if (usuario.getCedula().equals(cedula) && clave.endsWith(usuario.getClave())) {
 					System.out.println("Usaurio con id " + usuario.getIdUsuario());
 					idusuariobuscado = usuario.getIdUsuario();

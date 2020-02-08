@@ -35,7 +35,9 @@ public class BeanUsuario implements Serializable {
 	public String actionListenerInsertarUsuario() {
 		boolean a=false;
 		try {
+			
 			managerUsuario.insertarUsuario(usuario);
+			
 			listausuario = managerUsuario.findAllUsuario();
 
 			usuario = new Usuario();			
@@ -45,6 +47,7 @@ public class BeanUsuario implements Serializable {
 		} catch (Exception e) {
 			JSFUtil.createMensajeError(e.getMessage());
 			e.printStackTrace();
+			JSFUtil.createMensajeInfo("Usuario incorrecto");
 		}
 		return "usuario.xhtml";
 		
