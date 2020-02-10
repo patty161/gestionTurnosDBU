@@ -36,6 +36,9 @@ public class ManagerAsignacion {
 	public Asignacion findAsignacionById(int idAsignacion) {
 		return em.find(Asignacion.class, idAsignacion);
 	}
+	public Asignacion findAsignacionByUsuario(int idUsuario) {
+		return em.find(Asignacion.class, idUsuario);
+	}
 
 	public void eliminarAsignacion(int IdAsignacion) {
 		Asignacion asignacion = findAsignacionById(IdAsignacion);

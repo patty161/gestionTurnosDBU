@@ -124,6 +124,7 @@ public class ManagerSeguridad {
 				if (usuario.getCedula().equals(cedula) && clave.endsWith(usuario.getClave())) {
 					System.out.println("Usaurio con id " + usuario.getIdUsuario());
 					idusuariobuscado = usuario.getIdUsuario();
+					loginDTO.setIdUsuario(usuario.getIdUsuario());
 					loginDTO.setCodigoUsuario(usuario.getCedula());
 					loginDTO.setUsuario(usuario.getNombres() + " " + usuario.getApellidos());
 					loginDTO.setDireccion(usuario.getDireccion());
@@ -174,6 +175,7 @@ public class ManagerSeguridad {
 			throw new Exception("Error en cedula/clave");
 
 		LoginDTO loginDTO = new LoginDTO();
+		loginDTO.setIdUsuario(usuario.getIdUsuario());
 		loginDTO.setCodigoUsuario(usuario.getCedula());
 		loginDTO.setUsuario(usuario.getNombres() + " " + usuario.getApellidos());
 
