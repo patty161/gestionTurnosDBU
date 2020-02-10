@@ -4,11 +4,15 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
-	<f:metadata>
-	<f:event listener="#{beanLogin.actionVerificarLogin()}"
-		type="preRenderView"></f:event>
-</f:metadata>
 
+
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
 <h:head>
 	<f:facet name="first">
 		<meta name="viewport"
@@ -24,9 +28,38 @@
 
 
 		<p:panel>
-			<f:facet name="header">
-				<p:commandButton value="Personal" update="@form"></p:commandButton>
-			</f:facet>
+			<div align="center">
+			<h1 style="color: black;">REGISTRO DE PERSONAL</h1>
+		</div>
+	<CENTER>
+		<a href="./indexPrincipal.xhtml"><span class="glyphicon glyphicon-log-in" /> Menu Principal</a>
+				</CENTER>
+				<hr/>
+		<CENTER>
+			<a class="btn btn-warning" href="areas_dbu.xhtml"><span
+				class="glyphicon glyphicon-log-in"></span> Áreas</a> <a
+				class="btn btn-info" href="usuario.xhtml"><span
+				class="glyphicon glyphicon-log-in"></span> Usuarios</a> <a
+				class="btn btn-danger" href="roles.xhtml"><span
+				class="glyphicon glyphicon-log-in"></span> Roles</a> <a
+				class="btn btn-success" href="personal.xhtml"><span
+				class="glyphicon glyphicon-log-in"></span> Personal</a><a
+				class="btn btn-warning" href="turnos.xhtml"><span
+				class="glyphicon glyphicon-log-in"></span> Reporte Turnos</a> <a
+				class="btn btn-success" href="asignacion.xhtml"><span
+				class="glyphicon glyphicon-log-in"></span> Asignación</a>
+				
+<!-- 				<a href="../index.xhtml" class="btn btn-danger float-right">Cerrar -->
+<!-- 				sesión</a> -->
+				<div class="collapse navbar-collapse navbar-right">
+					<ul class="nav navbar-nav">
+						<li><a href="../index.xhtml"><span
+								class="glyphicon glyphicon-log-in" /> Cerrar Sesión</a></li>
+					</ul>
+				</div>
+
+		</CENTER>
+
 			<p:panel>
 				<p:commandButton icon="fa fa-plus" title=" Añadir Nueva"
 					actionListener="#{beanPersonal.actionListenerSelecionarPersonal(personal)}"
