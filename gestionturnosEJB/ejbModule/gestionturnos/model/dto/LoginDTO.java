@@ -10,6 +10,7 @@ public class LoginDTO {
 	private String direccion;
 	private String tipoUsuario;
 	private String rutaAcceso;
+	private int idUsuario;
 	
 	public String getUsuario() {
 		return usuario;
@@ -40,6 +41,12 @@ public class LoginDTO {
 	}
 	public void setRutaAcceso(String rutaAcceso) {
 		this.rutaAcceso = rutaAcceso;
+	}
+	public int getIdUsuario() {
+		return idUsuario;
+	}
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 	
 }

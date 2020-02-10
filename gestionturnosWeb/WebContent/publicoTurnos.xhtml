@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+
+<h:head>
+	<f:facet name="first">
+		<meta name="viewport"
+			content="width=divice-width, initial-scale=1,shrink-to-fit=no, user-scalable=no" />
+		<title>Departamento de Bienestar Universitario</title>
+	</f:facet>
+</h:head>
+<body>
+
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<h:form>
+		<center>
+
+			<p:panel header="SGT Departamento de Bienestar Universitario">
+				<h:panelGrid columns="2">
+					<p:column>
+						<p:galleria value="#{beanImagen.images}" var="image"
+							panelWidth="600" panelHeight="413">
+							<p:graphicImage name="WebContent/imagenes/dbu/#{image}" />
+						</p:galleria>
+						</p:column>
+				
+					<p:dataTable value="#{beanTurnos.listaTurnosProximos}" var="turnos"
+						reflow="true" rows="5">
+						<p:column headerText="Turnos Próximos">
+							<center>
+								<h1>
+									<h:outputText
+										value="#{turnos.espArea.codArea}00#{turnos.nroTurno}" />
+								</h1>
+							</center>
+						</p:column>
+
+					</p:dataTable>
+
+				</h:panelGrid>
+
+			</p:panel>
+		</center>
+	</h:form>
+
+
+</body>
+</html>

@@ -39,6 +39,10 @@ public class ManagerPersonal {
 		return em.find(Personal.class, idPersonal);
 	}
 
+	public Personal findPersonalByArea(Integer idArea) {
+		return em.find(Personal.class, idArea);
+	}
+
 	public void eliminarPersonal(int IdPersonal) {
 		Personal personal = findPersonalById(IdPersonal);
 		if (personal != null)
@@ -57,6 +61,7 @@ public class ManagerPersonal {
 		p.setEspArea(a);
 		em.persist(p);
 	}
+
 	public void actualizarPersonal(Personal personal) throws Exception {
 		Personal p = findPersonalById(personal.getIdPersonal());
 		if (p == null)
@@ -66,5 +71,5 @@ public class ManagerPersonal {
 		p.setHorasLaborables(personal.getHorasLaborables());
 		em.merge(p);
 	}
-    
+
 }

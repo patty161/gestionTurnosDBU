@@ -10,8 +10,6 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import gestionturnos.model.entities.Area;
 import gestionturnos.model.entities.Asignacion;
@@ -24,6 +22,7 @@ import gestionturnos.model.manager.ManagerEstado;
 import gestionturnos.model.manager.ManagerPersonal;
 import gestionturnos.model.manager.ManagerTurnos;
 import gestionturnos.model.manager.ManagerUsuario;
+import gestionturnos.model.manager.ManagerAsignacion;
 
 @Named
 @SessionScoped
@@ -41,10 +40,12 @@ public class BeanTurnos implements Serializable {
 	private ManagerPersonal managerPersonal;
 	@EJB
 	private ManagerEstado managerEstado;
+	@EJB
+	private ManagerAsignacion managerAsignacion;
 
 	private List<Turno> listaTurnos;
+	private List<Turno> listaTurnosProximos;
 	private List<Turno> listaTurnosXdoc;
-	private List<Turno> UltimoTurno;
 	private Turno turno;
 	@Inject
 	private BeanLogin beanLogin;
@@ -53,10 +54,12 @@ public class BeanTurnos implements Serializable {
 	private Usuario usuario;
 	private Personal personal;
 	private Estado estado;
+	private Asignacion asignacion;
 
-	private Integer n_turno=0;
-	private Integer n_turnosArea=1;
+	private Integer n_turno = 0;
+	private Integer n_turnosArea = 1;
 	private String codArea;
+	private Turno turnoSeleccionado;
 
 	private Date fecha1 = new Date();
 	Timestamp fecha = new Timestamp(fecha1.getTime());
@@ -67,29 +70,36 @@ public class BeanTurnos implements Serializable {
 
 	@PostConstruct
 	public void inicializar() {
-		listaTurnos = managerTurnos.findAllDoctor();
+		listaTurnos = managerTurnos.findAllTurnos();
+		listaTurnosProximos = managerTurnos.findTurnosProximos();
 		listaTurnosXdoc = managerTurnos.findfinDoctor();
 		turno = new Turno();
 	}
 
+	public List<Turno> getListaTurnosProximos() {
+		return listaTurnosProximos;
+	}
+
+	public void setListaTurnosProximos(List<Turno> listaTurnosProximos) {
+		this.listaTurnosProximos = listaTurnosProximos;
+	}
+
 	public String actionListenerInsertarTurno(Integer id) {
 		area = managerArea.findAreaById(id);
-		codArea=area.getCodArea();
+		personal = managerPersonal.findPersonalByArea(id);
+		codArea = area.getCodArea();
 		n_turno++;
 		estado = managerEstado.findEstadoById(1);
+		usuario = managerUsuario.findUsuarioById(beanLogin.getLoginDTO().getIdUsuario());
+		setUsuario(usuario);
+
 		Turno t = new Turno();
 		t.setEspArea(area);
 		t.setFecha(fecha);
+		// t.setSegAsignacion(managerPersonal.findPersonalByArea(id));
 		t.setNroTurno(n_turno);
-		// t.setUsuario(Integer.parseInt(usuario));
 		t.setTurEstado(estado);
-		System.out.println(estado);
-//		for (Personal p : area.getEspPersonals()) {
-//			p.getEspArea().getNombreArea();
-//			p.getUsuario().getApellidos();
-//			System.out.println("area -> "+p.getEspArea().getNombreArea() +"   cccc "+p.getUsuario().getApellidos());
-//		}
-
+		t.setUsuario(usuario);
 		try {
 			managerTurnos.insertarTurno(t);
 			listaTurnos = managerTurnos.findAllTurnos();
@@ -100,6 +110,35 @@ public class BeanTurnos implements Serializable {
 			JSFUtil.createMensajeError("Ha ocurrido un error. Intente nuevamente");
 			return "";
 		}
+	}
+
+	public void actionListenerSelecionarTurno(Turno turno) {
+		turnoSeleccionado = turno;
+	}
+
+	public String actionListenerActualizarTurno() {
+		try {
+			managerTurnos.actualizarTurno(turnoSeleccionado);
+			listaTurnosXdoc = managerTurnos.findfinDoctor();
+			JSFUtil.createMensajeInfo("Turno Actualizados");
+		} catch (Exception e) {
+			JSFUtil.createMensajeError(e.getMessage());
+			e.printStackTrace();
+		}
+		return "";
+
+	}
+
+	public String actionListenerCancelarTurno() {
+		try {
+			managerTurnos.cancelarTurno(turnoSeleccionado);
+			listaTurnosXdoc = managerTurnos.findfinDoctor();
+			JSFUtil.createMensajeInfo("Turno Actualizados");
+		} catch (Exception e) {
+			JSFUtil.createMensajeError(e.getMessage());
+			e.printStackTrace();
+		}
+		return "";
 	}
 
 	public List<Turno> getListaTurnosXdoc() {
@@ -173,5 +212,21 @@ public class BeanTurnos implements Serializable {
 	public void setN_turno(Integer n_turno) {
 		this.n_turno = n_turno;
 	}
-	
+
+	public Asignacion getAsignacion() {
+		return asignacion;
+	}
+
+	public void setAsignacion(Asignacion asignacion) {
+		this.asignacion = asignacion;
+	}
+
+	public Turno getTurnoSeleccionado() {
+		return turnoSeleccionado;
+	}
+
+	public void setTurnoSeleccionado(Turno turnoSeleccionado) {
+		this.turnoSeleccionado = turnoSeleccionado;
+	}
+
 }
