@@ -88,8 +88,6 @@
 					value=" Agregar Nueva Área">
 				</p:commandButton>
 
-				
-
 			</p:panel>
 			<p:panelGrid columns="2">
 				<p:dataTable value="#{beanArea.listaAreas}" var="area" reflow="true"
@@ -192,13 +190,13 @@
 				actionListener="#{beanArea.actionListenerActualizarArea()}"></p:commandButton>
 		</h:form>
 	</p:dialog>
+	
 	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
 		<p:commandButton value="Si" type="button"
-			styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+			styleClass="ui-confirmdialog-yes" icon="fa fa-check" ></p:commandButton>
 		<p:commandButton value="No" type="button"
-			styleClass="ui-confirmdialog-no" icon="fa fa-times" />
+			styleClass="ui-confirmdialog-no" icon="fa fa-times" ></p:commandButton>
 	</p:confirmDialog>
-
 
 
 
