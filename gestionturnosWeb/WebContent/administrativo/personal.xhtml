@@ -30,12 +30,18 @@
 		<p:panel>
 			<div align="center">
 				<h1 style="color: black;">REGISTRO DE PERSONAL</h1>
+				<div class="collapse navbar-collapse navbar-right">
+					<ul class="nav navbar-nav">
+							<p:commandButton action="#{beanLogin.salirSistema()}" align="left"
+				value="Cerrar sesion" icon="fa fa-times" update="mensajes" />
+			<p:messages id="mensajes" />
+					</ul>
+				</div>
 			</div>
-			<CENTER>
-				<a href="./indexPrincipal.xhtml"><span
-					class="glyphicon glyphicon-log-in" /> Menu Principal</a>
-			</CENTER>
-			<hr />
+			<div class="float-right">
+		<a href="./indexPrincipal.xhtml"><span class="glyphicon glyphicon-log-in" /> Menu Principal</a>
+		</div>		
+				<hr/>
 			<CENTER>
 				<img src="../img/ges.jpeg" height="150"></img>
 				<a class="btn btn-warning" href="areas_dbu.xhtml"><span
