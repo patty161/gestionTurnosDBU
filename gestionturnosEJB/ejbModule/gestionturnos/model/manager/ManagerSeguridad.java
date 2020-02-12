@@ -160,6 +160,7 @@ public class ManagerSeguridad {
 			System.out.println("" + usuario.getCedula() + "=" + cedula + "la calve es n:" + clave);
 //			if (usuario.getCedula().equals(cedula) ) {
 			if (usuario.getCedula().equals(cedula) && clave.equals("n")) {
+				loginDTO.setIdUsuario(usuario.getIdUsuario());
 				System.out.println("Usaurio encontrado " + usuario.getCedula());
 				loginDTO.setRutaAcceso("/usuario/inicio.xhtml");
 

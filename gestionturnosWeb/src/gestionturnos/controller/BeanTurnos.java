@@ -55,6 +55,7 @@ public class BeanTurnos implements Serializable {
 	private Personal personal;
 	private Estado estado;
 	private Asignacion asignacion;
+	private Asignacion asignacion1;
 
 	private Integer n_turno = 0;
 	private Integer n_turnosArea = 1;
@@ -84,22 +85,39 @@ public class BeanTurnos implements Serializable {
 		this.listaTurnosProximos = listaTurnosProximos;
 	}
 
-	public String actionListenerInsertarTurno(Integer id) {
-		area = managerArea.findAreaById(id);
-		personal = managerPersonal.findPersonalByArea(id);
+
+public Asignacion findAsignacion(int idPersonal) {
+		List<Asignacion> asig = managerUsuario.findAllAsignacion();
+		for (Asignacion asignacion : asig) {
+			if (asignacion.getUsuario().getIdUsuario().equals(idPersonal)) {
+				System.out.println("asiiiiiiig " + asignacion.getIdAsignacion() + "... perssso "
+						+ asignacion.getUsuario().getIdUsuario());
+				asignacion1 = asignacion;
+				break;
+			}
+		}
+		System.out.println("asig final metodo. "+asignacion1.getIdAsignacion());
+		return asignacion1;
+	}
+
+	public String actionListenerInsertarTurno(Integer idArea) {
+		area = managerArea.findAreaById(idArea);
+		personal = managerPersonal.findPersonalByArea(idArea);
+		int idPersonal = personal.getUsuario().getIdUsuario();
 		codArea = area.getCodArea();
 		n_turno++;
 		estado = managerEstado.findEstadoById(1);
 		usuario = managerUsuario.findUsuarioById(beanLogin.getLoginDTO().getIdUsuario());
-		setUsuario(usuario);
+		asignacion= findAsignacion(idPersonal);
 
 		Turno t = new Turno();
+
 		t.setEspArea(area);
 		t.setFecha(fecha);
-		// t.setSegAsignacion(managerPersonal.findPersonalByArea(id));
 		t.setNroTurno(n_turno);
 		t.setTurEstado(estado);
 		t.setUsuario(usuario);
+		t.setSegAsignacion(asignacion);
 		try {
 			managerTurnos.insertarTurno(t);
 			listaTurnos = managerTurnos.findAllTurnos();
@@ -108,10 +126,9 @@ public class BeanTurnos implements Serializable {
 			return "detalle";
 		} catch (Exception e) {
 			JSFUtil.createMensajeError("Ha ocurrido un error. Intente nuevamente");
-			return "";
+			return "detalle";
 		}
 	}
-
 	public void actionListenerSelecionarTurno(Turno turno) {
 		turnoSeleccionado = turno;
 	}
