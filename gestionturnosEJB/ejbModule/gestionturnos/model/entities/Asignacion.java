@@ -32,7 +32,7 @@ public class Asignacion implements Serializable {
 	private Usuario usuario;
 
 	//bi-directional many-to-one association to Turno
-	@OneToMany(mappedBy="segAsignacion")
+	@OneToMany(mappedBy="segAsignacion",cascade= CascadeType.ALL)
 	private List<Turno> turTurnos;
 
 	public Asignacion() {

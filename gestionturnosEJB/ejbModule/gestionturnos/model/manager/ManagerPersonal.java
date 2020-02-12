@@ -10,6 +10,7 @@ import javax.persistence.Query;
 
 import gestionturnos.model.entities.Usuario;
 import gestionturnos.model.entities.Area;
+import gestionturnos.model.entities.Asignacion;
 import gestionturnos.model.entities.Estado;
 import gestionturnos.model.entities.Personal;
 import gestionturnos.model.entities.Personal;
@@ -54,8 +55,10 @@ public class ManagerPersonal {
 		p.setHorasLaborables(new Integer(horas));
 
 		// ClavesForaneas
+		
 		Usuario u = em.find(Usuario.class, idUsuario);
 		p.setUsuario(u);
+		
 
 		Area a = em.find(Area.class, codArea);
 		p.setEspArea(a);

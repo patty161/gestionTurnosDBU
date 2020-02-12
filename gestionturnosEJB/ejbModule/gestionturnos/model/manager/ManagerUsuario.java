@@ -57,6 +57,9 @@ public class ManagerUsuario {
 	public Usuario findUsuarioById(int idUsuario) {
 		return em.find(Usuario.class, idUsuario);
 	}
+	public Usuario findUsuarioBycedula(String cedula) {
+		return em.find(Usuario.class, cedula);
+	}
 
 	public void eliminarUsuario(int IdUsuario) {
 		Usuario usuario = findUsuarioById(IdUsuario);
@@ -64,12 +67,13 @@ public class ManagerUsuario {
 			em.remove(usuario);
 	}
 
-	public void insertarUsuario(Usuario usuario) {
+	public void insertarUsuario(Usuario usuario) throws Exception {
 		usuario.setClave(Hash.md5(usuario.getClave()));
 		em.persist(usuario);
 		
 		System.out.println("Usuario insertado.........");
 	}
+	
 	public String crearUsuario(Usuario usuario) {
 		Usuario p=new Usuario();
     	p.setNombres(usuario.getNombres());
@@ -80,7 +84,7 @@ public class ManagerUsuario {
     	p.setDireccion(usuario.getDireccion());
     	p.setEmail(usuario.getEmail());
     	p.setTelefono(usuario.getTelefono());
-    	
+    	p.setFechanacimiento(usuario.getFechanacimiento());
     
     	em.persist(p);
     	return "usuario creado ok.";
@@ -103,6 +107,7 @@ public class ManagerUsuario {
 			user.setDireccion(usuario.getDireccion());
 			user.setEmail(usuario.getEmail());
 			user.setTelefono(usuario.getTelefono());
+			user.setFechanacimiento(usuario.getFechanacimiento());
 			user.setClave(Hash.md5(usuario.getClave()));
 			em.merge(user);
 		}

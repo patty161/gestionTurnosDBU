@@ -65,27 +65,28 @@
 				<p:commandButton icon="fa fa-plus" title=" Añadir Nueva"
 					actionListener="#{beanAsignacion.actionListenerSelecionarAsignacion(asignacion)}"
 					update="formAgregar" oncomplete="PF('dlgAgregar').show();"
-					value=" Agregar Asignacion">
+					value=" Agregar Asignación">
 				</p:commandButton>
 
 			</p:panel>
 			<p:panelGrid columns="2">
 				<p:dataTable value="#{beanAsignacion.listaAsignacion}"
 					var="asignacion" reflow="true" paginator="true">
-					<p:column headerText="Id Asignacion"
+					<p:column headerText="Id Asignación"
 						sortBy="#{asignacion.idAsignacion}">
 						<h:outputText value="#{asignacion.idAsignacion}" />
 					</p:column>
 					<p:column headerText="Rol" sortBy="#{asignacion.segRol.idRol}">
 						<h:outputText value="#{asignacion.segRol.nombreRol}" />
 					</p:column>
-					<p:column headerText="Cedula "
+					<p:column headerText="Cédula "
 						sortBy="#{asignacion.usuario.cedula}">
 						<h:outputText value="#{asignacion.usuario.cedula}" />
 					</p:column>
 					<p:column headerText="Usuario "
 						sortBy="#{asignacion.usuario.idUsuario}">
-						<h:outputText value="#{asignacion.usuario.nombres}" />
+						<h:outputText value="#{asignacion.usuario.nombres } " />
+						<h:outputText value="#{asignacion.usuario.apellidos}" />
 					</p:column>
 
 					<p:column headerText=" Acción">
@@ -106,7 +107,7 @@
 			</p:panelGrid>
 		</p:panel>
 	</h:form>
-	<p:dialog header="Agregar Asignacion" widgetVar="dlgAgregar"
+	<p:dialog header="Agregar Asignación" widgetVar="dlgAgregar"
 		modal="true">
 		<h:form id="formAgregar">
 			<p:growl>
@@ -127,7 +128,7 @@
 				<h:selectOneMenu value="#{beanAsignacion.idUsuario}" required="true"
 					requiredMessage="Dede ingresar Usuario">
 					<f:selectItems value="#{beanUsuario.listausuario}" var="per"
-						itemLabel="#{per.nombres}" itemValue="#{per.idUsuario}">
+						itemLabel="#{per.apellidos} #{per.nombres}" itemValue="#{per.idUsuario}">
 					</f:selectItems>
 				</h:selectOneMenu>
 				
@@ -162,7 +163,7 @@
 				<h:selectOneMenu value="#{beanAsignacion.asignacionselecionado.usuario.idUsuario}" required="true"
 					requiredMessage="Dede ingresar Usuario">
 					<f:selectItems value="#{beanUsuario.listausuario}" var="per"
-						itemLabel="#{per.nombres}" itemValue="#{per.idUsuario}">
+						itemLabel="#{per.apellidos } #{per.nombres}" itemValue="#{per.idUsuario}">
 					</f:selectItems>
 				</h:selectOneMenu>
 

@@ -29,28 +29,29 @@
 
 		<p:panel>
 			<div align="center">
-			<h1 style="color: black;">REGISTRO DE PERSONAL</h1>
-		</div>
-	<CENTER>
-		<a href="./indexPrincipal.xhtml"><span class="glyphicon glyphicon-log-in" /> Menu Principal</a>
-				</CENTER>
-				<hr/>
-		<CENTER>
-			<a class="btn btn-warning" href="areas_dbu.xhtml"><span
-				class="glyphicon glyphicon-log-in"></span> Áreas</a> <a
-				class="btn btn-info" href="usuario.xhtml"><span
-				class="glyphicon glyphicon-log-in"></span> Usuarios</a> <a
-				class="btn btn-danger" href="roles.xhtml"><span
-				class="glyphicon glyphicon-log-in"></span> Roles</a> <a
-				class="btn btn-success" href="personal.xhtml"><span
-				class="glyphicon glyphicon-log-in"></span> Personal</a><a
-				class="btn btn-warning" href="turnos.xhtml"><span
-				class="glyphicon glyphicon-log-in"></span> Reporte Turnos</a> <a
-				class="btn btn-success" href="asignacion.xhtml"><span
-				class="glyphicon glyphicon-log-in"></span> Asignación</a>
-				
-<!-- 				<a href="../index.xhtml" class="btn btn-danger float-right">Cerrar -->
-<!-- 				sesión</a> -->
+				<h1 style="color: black;">REGISTRO DE PERSONAL</h1>
+			</div>
+			<CENTER>
+				<a href="./indexPrincipal.xhtml"><span
+					class="glyphicon glyphicon-log-in" /> Menu Principal</a>
+			</CENTER>
+			<hr />
+			<CENTER>
+				<a class="btn btn-warning" href="areas_dbu.xhtml"><span
+					class="glyphicon glyphicon-log-in"></span> Áreas</a> <a
+					class="btn btn-info" href="usuario.xhtml"><span
+					class="glyphicon glyphicon-log-in"></span> Usuarios</a> <a
+					class="btn btn-danger" href="roles.xhtml"><span
+					class="glyphicon glyphicon-log-in"></span> Roles</a> <a
+					class="btn btn-success" href="personal.xhtml"><span
+					class="glyphicon glyphicon-log-in"></span> Personal</a><a
+					class="btn btn-warning" href="turnos.xhtml"><span
+					class="glyphicon glyphicon-log-in"></span> Reporte Turnos</a> <a
+					class="btn btn-success" href="asignacion.xhtml"><span
+					class="glyphicon glyphicon-log-in"></span> Asignación</a>
+
+				<!-- 				<a href="../index.xhtml" class="btn btn-danger float-right">Cerrar -->
+				<!-- 				sesión</a> -->
 				<div class="collapse navbar-collapse navbar-right">
 					<ul class="nav navbar-nav">
 						<li><a href="../index.xhtml"><span
@@ -58,7 +59,7 @@
 					</ul>
 				</div>
 
-		</CENTER>
+			</CENTER>
 
 			<p:panel>
 				<p:commandButton icon="fa fa-plus" title=" Añadir Nueva"
@@ -75,22 +76,22 @@
 						<h:outputText value="#{personal.idPersonal}" />
 					</p:column>
 
-					<p:column headerText="Codigo Area "
+					<p:column headerText="Código Área "
 						sortBy="#{personal.espArea.idArea}">
 						<h:outputText value="#{personal.espArea.nombreArea}" />
 					</p:column>
-					<p:column headerText="Usuario "
+					<p:column headerText="Cédula "
 						sortBy="#{personal.usuario.idUsuario}">
 						<h:outputText value="#{personal.usuario.cedula}" />
+						
 					</p:column>
-					<p:column headerText="Nombre "
+					<p:column headerText="Usuario "
 						sortBy="#{personal.usuario.idUsuario}">
-						<h:outputText value="#{personal.usuario.nombres}" />
+						<h:outputText value="#{personal.usuario.nombres} " />
+						<h:outputText value=" #{personal.usuario.apellidos}" />
+						
 					</p:column>
-					<p:column headerText="Apellidos "
-						sortBy="#{personal.usuario.idUsuario}">
-						<h:outputText value="#{personal.usuario.apellidos}" />
-					</p:column>
+					
 					<p:column headerText="Horas Laborables "
 						sortBy="#{personal.horasLaborables}">
 						<h:outputText value="#{personal.horasLaborables}" />
@@ -132,21 +133,22 @@
 					</f:selectItems>
 				</h:selectOneMenu>
 
-				<h:outputText value="Selecciones Usuario" />
-				<h:selectOneMenu value="#{beanPersonal.idUsuario}" required="true"
-					requiredMessage="Dede ingresar Usuario">
-					<f:selectItems value="#{beanUsuario.listausuario}" var="per"
-						itemLabel="#{per.nombres}" itemValue="#{per.idUsuario}">
+				<h:outputText value="Seleccione Usuario" />
+				<h:selectOneMenu
+					value="#{beanPersonal.idUsuario}"
+					required="true" requiredMessage="Dede ingresar Usuario">
+					<f:selectItems value="#{beanAsignacion.listaAsignacion}" var="per"
+						itemLabel="#{ per.usuario.apellidos} #{ per.usuario.nombres}"  itemValue="#{per.usuario.idUsuario}">
 					</f:selectItems>
-				</h:selectOneMenu>
+					</h:selectOneMenu>
 
 
 				<h:outputText value="Horas " />
 				<p:spinner value="#{beanPersonal.horas}" required="true"
-					requiredMessage="Dede ingresar horas" maxlength="1">	
-						
+					requiredMessage="Dede ingresar horas" maxlength="1">
+					<f:validateLongRange minimum="4" />
 				</p:spinner>
-				
+
 
 
 
@@ -181,17 +183,18 @@
 				<h:selectOneMenu
 					value="#{beanPersonal.personalselecionado.usuario.idUsuario}"
 					required="true" requiredMessage="Dede ingresar Usuario">
-					<f:selectItems value="#{beanUsuario.listausuario}" var="per"
-						itemLabel="#{per.nombres}" itemValue="#{per.idUsuario}">
+					<f:selectItems value="#{beanAsignacion.listaAsignacion}" var="per"
+						itemLabel="#{per.usuario.apellidos } #{ per.usuario.nombres}"  itemValue="#{per.usuario.idUsuario}">
 					</f:selectItems>
 				</h:selectOneMenu>
 
 				<h:outputText value="Horas" />
-				<p:spinner 
+				<p:spinner
 					value="#{beanPersonal.personalselecionado.horasLaborables}"
 					required="true" requiredMessage="Ingrese horas" maxlength="1">
+					<f:validateLongRange minimum="4" />
 				</p:spinner>
-				
+
 
 			</p:panelGrid>
 			<p:commandButton value="Actualizar" icon="fa fa-save"

@@ -6,6 +6,8 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	
+
+	
 	<link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -84,6 +86,10 @@
 					<p:column headerText="Apellidos" sortBy="#{usuario.apellidos}" filterBy="#{usuario.apellidos}" filterMatchMode="contains" >
 						<h:outputText value="#{usuario.apellidos}" />
 					</p:column>
+					<p:column headerText="Fecha Nacimiento"
+						sortBy="#{usuario.fechanacimiento}">
+						<h:outputText value="#{usuario.fechanacimiento}" />
+					</p:column>
 
 					<p:column headerText="Dirección" sortBy="#{usuario.direccion}">
 						<h:outputText value="#{usuario.direccion}" />
@@ -138,6 +144,17 @@
 					required="true" requiredMessage="Debe ingresar apellidos">
 					<f:validateRegex pattern="[A-Za-z]+" />
 				</h:inputText>
+				
+				<h:outputText value="Fecha Nacimiento " />
+				<p:calendar value="#{beanUsuario.usuario.fechanacimiento}"
+					pattern="dd/MM/yyyy" maxdate="02/12/2004" required="true"
+					onkeypress="return permite(event, 'none')"
+					requiredMessage="Fecha  Requerida" navigator="true"
+					effectDuration="100">
+					<p:ajax event="dateSelect" />
+
+
+				</p:calendar>
 
 				<h:outputText value="Dirección: " />
 				<h:inputText value="#{beanUsuario.usuario.direccion}"
@@ -151,10 +168,8 @@
 				</h:inputText>
 
 				<h:outputText value="Telefono " />
-				<h:inputText value="#{beanUsuario.usuario.telefono}" required="true" maxlength="10" 
-					requiredMessage="Debe ingresar telefono ">
-					<f:validateRegex pattern="[0-9#]+" />
-					<f:validateLength minimum="10" maximum="10" />
+				<h:inputText value="#{beanUsuario.usuario.telefono}" >
+					<!--  <f:validateRegex pattern="[0-9#]+" />-->
 				</h:inputText>
 
 				<h:outputText value="Clave: " />
@@ -197,6 +212,16 @@
 					required="true" requiredMessage="Debe ingresar apellidos">
 					<f:validateRegex pattern="^[A-Za-z ]+" />
 				</h:inputText>
+				
+		
+				<h:outputText value="Fecha Nacimiento " />
+				<p:calendar value="#{beanUsuario.usuarioSeleccionado.fechanacimiento}"
+					pattern="dd/MM/yyyy" maxdate="02/12/2004" required="true"
+					onkeypress="return permite(event, 'none')"
+					requiredMessage="Fecha  Requerida" navigator="true"
+					effectDuration="100">
+					<p:ajax event="dateSelect" />
+				</p:calendar>
 
 				<h:outputText value="Dirección: " />
 				<h:inputText value="#{beanUsuario.usuarioSeleccionado.direccion}">
@@ -209,7 +234,7 @@
 						pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 				</h:inputText>
 
-				<h:outputText value="Telefono " />
+				<h:outputText value="Teléfono " />
 				<h:inputText value="#{beanUsuario.usuarioSeleccionado.telefono}"
 					required="true" requiredMessage="Debe ingresar telefono "
 					maxlength="10">

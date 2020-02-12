@@ -2,6 +2,7 @@ package gestionturnos.model.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.Date;
 
 
 /**
@@ -15,7 +16,7 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="USUARIO_IDUSUARIO_GENERATOR", sequenceName="USUARIO_ID_USUARIO_SEQ")
+	@SequenceGenerator(name="USUARIO_IDUSUARIO_GENERATOR", sequenceName="USUARIO_ID_USUARIO_SEQ", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="USUARIO_IDUSUARIO_GENERATOR")
 	@Column(name="id_usuario", unique=true, nullable=false)
 	private Integer idUsuario;
@@ -26,7 +27,7 @@ public class Usuario implements Serializable {
 	@Column(nullable=false, length=10)
 	private String cedula;
 
-	@Column(length=20)
+	@Column(length=255)
 	private String clave;
 
 	@Column(length=50)
@@ -34,6 +35,9 @@ public class Usuario implements Serializable {
 
 	@Column(length=30)
 	private String email;
+
+	@Temporal(TemporalType.DATE)
+	private Date fechanacimiento;
 
 	@Column(nullable=false, length=50)
 	private String nombres;
@@ -90,6 +94,14 @@ public class Usuario implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Date getFechanacimiento() {
+		return this.fechanacimiento;
+	}
+
+	public void setFechanacimiento(Date fechanacimiento) {
+		this.fechanacimiento = fechanacimiento;
 	}
 
 	public String getNombres() {

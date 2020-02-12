@@ -6,8 +6,11 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
+import org.wildfly.security.authz.Roles;
+
 import gestionturnos.model.entities.Personal;
 import gestionturnos.model.manager.ManagerPersonal;
+import gestionturnos.model.manager.ManagerRoles;
 
 import java.io.Serializable;
 import java.util.List;
@@ -26,6 +29,7 @@ public class BeanPersonal implements Serializable {
 	private Personal personal;
 	private Personal personalselecionado;
 	private List<Personal> listaPersonal;
+	
 
 	@PostConstruct
 	public void inicializar() {
@@ -34,9 +38,12 @@ public class BeanPersonal implements Serializable {
 	} 
 	
 	public String actionCrearPersonal() {
+		
 		try {
+		
 			
 		managepersonal.crearPersonal(codArea,idUsuario, horas);
+		
 		listaPersonal = managepersonal.findallPersonal();
 		JSFUtil.createMensajeInfo("Datos Ingresados");
 		} catch (Exception e) {
