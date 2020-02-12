@@ -4,7 +4,10 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
-
+<f:metadata>
+	<f:event listener="#{beanLogin.actionVerificarLogin()}"
+		type="preRenderView"></f:event>
+</f:metadata>
 <h:head>
 	<f:facet name="first">
 		<meta name="viewport"
@@ -17,8 +20,9 @@
 		<p:growl>
 			<p:autoUpdate />
 		</p:growl>
-		<p:commandButton class="btn btn-success btn float-right" action="#{beanLogin.salirSistema()}" value="Salir"
-			icon="fa fa-key" update="mensajes" />
+		<p:commandButton class="btn btn-success btn float-right"
+			action="#{beanLogin.salirSistema()}" value="Salir" icon="fa fa-key"
+			update="mensajes" />
 		<p:messages id="mensajes" />
 
 
@@ -47,13 +51,15 @@
 							value="#{turno.usuario.apellidos} #{turno.usuario.nombres}" />
 					</p:column>
 					<p:column headerText=" Acción">
-						<p:commandButton icon="fa fa-check" title="	Atendido"						
+						<p:commandButton icon="fa fa-check" title="	Atendido"
 							actionListener="#{beanTurnos.actionListenerSelecionarTurno(turno)}"
-							action="#{beanTurnos.actionListenerActualizarTurno()}" 	update="@form">
+							action="#{beanTurnos.actionListenerActualizarTurno()}"
+							update="@form">
 						</p:commandButton>
 						<p:commandButton icon="fa fa-remove" title="Cancelado"
 							actionListener="#{beanTurnos.actionListenerSelecionarTurno(turno)}"
-							action="#{beanTurnos.actionListenerCancelarTurno()}" 	update="@form">
+							action="#{beanTurnos.actionListenerCancelarTurno()}"
+							update="@form">
 						</p:commandButton>
 					</p:column>
 

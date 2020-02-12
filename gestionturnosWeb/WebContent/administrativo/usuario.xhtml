@@ -15,7 +15,10 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
 	
-
+<f:metadata>
+	<f:event listener="#{beanLogin.actionVerificarLogin()}"
+		type="preRenderView"></f:event>
+</f:metadata>
 <h:head>
 	<f:facet name="first">
 		<meta name="viewport"
