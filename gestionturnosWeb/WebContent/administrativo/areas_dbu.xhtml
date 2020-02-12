@@ -52,10 +52,17 @@
 				
 <!-- 				<a href="../index.xhtml" class="btn btn-danger float-right">Cerrar -->
 <!-- 				sesión</a> -->
+<!-- 				<div class="collapse navbar-collapse navbar-right"> -->
+<!-- 					<ul class="nav navbar-nav"> -->
+<!-- 						<li><a href="../index.xhtml"><span -->
+<!-- 								class="glyphicon glyphicon-log-in" /> Cerrar Sesión</a></li> -->
+<!-- 					</ul> -->
+<!-- 				</div> -->
 				<div class="collapse navbar-collapse navbar-right">
 					<ul class="nav navbar-nav">
-						<li><a href="../index.xhtml"><span
-								class="glyphicon glyphicon-log-in" /> Cerrar Sesión</a></li>
+							<p:commandButton action="#{beanLogin.salirSistema()}" align="left"
+				value="Cerrar sesion" icon="fa fa-times" update="mensajes" />
+			<p:messages id="mensajes" />
 					</ul>
 				</div>
 
