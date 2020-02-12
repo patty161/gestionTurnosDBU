@@ -6,6 +6,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <link rel="stylesheet" href="../css/fondoInferior.css" />
+<link rel="stylesheet" href="../css/fondo.css" />
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -33,34 +34,43 @@
 		<p:messages>
 			<p:autoUpdate />
 		</p:messages>
-		<CENTER>
+		
 
-			<h1>Universidad Técnica Del Norte</h1>
-			<h1>GESTIÓN DE TURNOS</h1>
-			
-
-
-			<img src="../imagenes/logoUTN.jpg" width="150" /> <br />
-			<div class="collapse navbar-collapse navbar-right">
+		<div class="collapse navbar-collapse navbar-right">
+		
 					<ul class="nav navbar-nav">
 							<p:commandButton action="#{beanLogin.salirSistema()}" align="left"
 				value="Cerrar sesion" icon="fa fa-times" update="mensajes" />
 			<p:messages id="mensajes" />
 					</ul>
-				</div>
+				</div><hr/>
+			<CENTER><img src="../img/ges.jpeg" height="200" width="500"></img>
+			
+			</CENTER><br/><br/>
+<CENTER>
+
 			 <a
-				class="btn btn-warning" href="areas_dbu.xhtml"><span
-				class="glyphicon glyphicon-log-in"></span> Áreas</a> <a
-				class="btn btn-info" href="usuario.xhtml"><span
-				class="glyphicon glyphicon-log-in"></span> Usuarios</a> <a
+				class="btn btn-warning" href="areas_dbu.xhtml">
+				<span class="glyphicon glyphicon-log-in"></span> Áreas</a> 
+					<img src="../img/index.jpg" width="90"  height="100" class="img-rounded"
+					alt="Cinque Terre" />
+					
+			<a class="btn btn-info" href="usuario.xhtml"><span
+				class="glyphicon glyphicon-log-in"></span> Usuarios</a><img src="../img/index.jpg" width="90"  height="100" class="img-rounded"
+					alt="Cinque Terre" />
+			 <a
 				class="btn btn-danger" href="roles.xhtml"><span
-				class="glyphicon glyphicon-log-in"></span> Roles</a> <a
+				class="glyphicon glyphicon-log-in"></span> Roles</a><img src="../img/index.jpg" width="90"  height="100" class="img-rounded"
+					alt="Cinque Terre" /><br/><hr/> <a
 				class="btn btn-success" href="personal.xhtml"><span
-				class="glyphicon glyphicon-log-in"></span> Personal</a><a
+				class="glyphicon glyphicon-log-in"></span> Personal</a><img src="../img/index.jpg" width="90"  height="100" class="img-rounded"
+					alt="Cinque Terre" /><a
 				class="btn btn-warning" href="turnos.xhtml"><span
-				class="glyphicon glyphicon-log-in"></span> Reporte Turnos</a> <a
+				class="glyphicon glyphicon-log-in"></span> Reporte Turnos</a> <img src="../img/index.jpg" width="90"  height="100" class="img-rounded"
+					alt="Cinque Terre" /><a
 				class="btn btn-success" href="asignacion.xhtml"><span
-				class="glyphicon glyphicon-log-in"></span> Asignación</a>
+				class="glyphicon glyphicon-log-in"></span> Asignación</a><img src="../img/index.jpg" width="90"  height="100" class="img-rounded"
+					alt="Cinque Terre" />
 
 		</CENTER>
 
@@ -68,17 +78,17 @@
 	</h:form>
 
 	<br />
-	<CENTER>
-		<div id="container">
-			<div>
-				<img src="../imagenes/gestion.jpeg" class="img-rounded"
-					alt="Cinque Terre" />
-			</div>
+<!-- 	<CENTER> -->
+<!-- 		<div id="container"> -->
+<!-- 			<div> -->
+<!-- 				<img src="../imagenes/gestion.jpeg" width="600"  height="400" class="img-rounded" -->
+<!-- 					alt="Cinque Terre" /> -->
+<!-- 			</div> -->
 
 
-		</div>
+<!-- 		</div> -->
 
-	</CENTER>
+<!-- 	</CENTER> -->
 
 
 	<footer class="site-footer seccion">
