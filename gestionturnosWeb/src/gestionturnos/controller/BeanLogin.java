@@ -102,6 +102,30 @@ public class BeanLogin implements Serializable {
 		BeanEnvio envio= new BeanEnvio();
 //		envio.enviarCorreo("ajvallejosm@utn.edu.ec");
 			loginDTO = managerSeguridad.ValidaUsuario(cedula, clave);
+			
+				
+//			System.out.println(""+loginDTO.getRutaAcceso()+"?faces-redirect=true");
+			// redireccion dependiendo del tipo de usuario:
+			return loginDTO.getRutaAcceso() + "?faces-redirect=true";
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			JSFUtil.createMensajeError(e.getMessage());
+		}
+		return "";
+	}
+	public String accederSistemaA() {
+		try {
+			
+			if (!validadorDeCedula()) {
+				JSFUtil.createMensajeError("No es la cedula correcta");
+			};
+		System.out.println("laaaaaaaaaaaaaa cedulavale :"+validadorDeCedula());
+		BeanEnvio envio= new BeanEnvio();
+//		envio.enviarCorreo("ajvallejosm@utn.edu.ec");
+			loginDTO = managerSeguridad.ValidaUsuarioA(cedula, clave);
+			
+				
 //			System.out.println(""+loginDTO.getRutaAcceso()+"?faces-redirect=true");
 			// redireccion dependiendo del tipo de usuario:
 			return loginDTO.getRutaAcceso() + "?faces-redirect=true";

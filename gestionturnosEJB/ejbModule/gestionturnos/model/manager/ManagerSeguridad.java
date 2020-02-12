@@ -24,7 +24,7 @@ public class ManagerSeguridad {
 	private ManagerUsuario managerUsuario;
 	@EJB
 	private ManagerTurnos managerTurnos;
-	
+
 	private String codigo;
 
 	public String getCodigo() {
@@ -104,7 +104,6 @@ public class ManagerSeguridad {
 //		em.merge(usu);
 	}
 
-	
 	public String BusquedaActualizaContra(String correo, String clavenueva, String codigo) throws Exception {
 //		correo="ajvallejosm@utn.edu.ec";
 		System.out.println("correo  " + correo);
@@ -114,10 +113,11 @@ public class ManagerSeguridad {
 
 		for (Usuario usuario : usu) {
 
-			System.out.println("entra..................." + usuario.getEmail().toString() + " con el correo " + correo+" cidog "+this.codigo+"="+codigo);
+			System.out.println("entra..................." + usuario.getEmail().toString() + " con el correo " + correo
+					+ " cidog " + this.codigo + "=" + codigo);
 
 //			if (usuario.getEmail().equals(correo) && codigo==this.codigo) {
-			if (usuario.getEmail().equals(correo) ) {
+			if (usuario.getEmail().equals(correo)) {
 				System.out.println("usuarios iguales");
 				System.out.println("ingresa al if con la clave" + clavenueva + "y se pasa a " + hash.md5(clavenueva));
 				usuario.setClave(clavenueva);
@@ -152,38 +152,55 @@ public class ManagerSeguridad {
 	}
 
 	public LoginDTO ValidaUsuario(String cedula, String clave) throws Exception {
-
+		System.out.println("" + clave);
 		LoginDTO loginDTO = new LoginDTO();
 
 		List<Usuario> usu = managerUsuario.findAllUsuario();
 		for (Usuario usuario : usu) {
-			if (usuario.getCedula().equals(cedula) && clave.endsWith("n")) {
+			System.out.println("" + usuario.getCedula() + "=" + cedula + "la calve es n:" + clave);
+//			if (usuario.getCedula().equals(cedula) ) {
+			if (usuario.getCedula().equals(cedula) && clave.equals("n")) {
 				System.out.println("Usaurio encontrado " + usuario.getCedula());
 				loginDTO.setRutaAcceso("/usuario/inicio.xhtml");
 
-			} else {
-				clave = Hash.md5(clave);
-				if (usuario.getCedula().equals(cedula) && clave.endsWith(usuario.getClave())) {
-					System.out.println("Usaurio con id " + usuario.getIdUsuario());
-					idusuariobuscado = usuario.getIdUsuario();
-					loginDTO.setIdUsuario(usuario.getIdUsuario());
-					loginDTO.setCodigoUsuario(usuario.getCedula());
-					loginDTO.setUsuario(usuario.getNombres() + " " + usuario.getApellidos());
-					loginDTO.setDireccion(usuario.getDireccion());
-					loginDTO.setTipoUsuario("" + TipoUsuario(idusuariobuscado));
-					if (TipoUsuario(idusuariobuscado).equals("Administrativo"))
-						loginDTO.setRutaAcceso("/administrativo/indexPrincipal.xhtml");
-					else if (TipoUsuario(idusuariobuscado).equals("Especialista")) {
-						System.out.println("laaaaaaaaaaaaaaaaa idasigna del usuario que ingreso es..."
-								+ getIdASI(idusuariobuscado));
-						managerTurnos.setIdasi(getIdASI(idusuariobuscado));
-						loginDTO.setRutaAcceso("/personal/inicio.xhtml");
-					}
+			}
+		}
+		System.out.println("llllllllllllllllllllllllllllllllllllllllllll");
+
+		return loginDTO;
+
+	}
+
+	public LoginDTO ValidaUsuarioA(String cedula, String clave) throws Exception {
+		System.out.println("" + clave);
+		LoginDTO loginDTO = new LoginDTO();
+		clave = hash.md5(clave);
+		List<Usuario> usu = managerUsuario.findAllUsuario();
+		for (Usuario usuario : usu) {
+			System.out.println("" + usuario.getCedula() + "=" + cedula +usuario.getClave()+"la calve es n:" + clave);
+//			if (usuario.getCedula().equals(cedula) ) {
+
+			
+			if (usuario.getCedula().equals(cedula) && clave.endsWith(usuario.getClave())) {
+//					if (usuario.getCedula().equals(cedula) && clave.endsWith(usuario.getClave())) {
+				System.out.println("Usaurio con id " + usuario.getIdUsuario());
+				idusuariobuscado = usuario.getIdUsuario();
+				loginDTO.setIdUsuario(usuario.getIdUsuario());
+				loginDTO.setCodigoUsuario(usuario.getCedula());
+				loginDTO.setUsuario(usuario.getNombres() + " " + usuario.getApellidos());
+				loginDTO.setDireccion(usuario.getDireccion());
+				loginDTO.setTipoUsuario("" + TipoUsuario(idusuariobuscado));
+				if (TipoUsuario(idusuariobuscado).equals("Administrativo"))
+					loginDTO.setRutaAcceso("/administrativo/indexPrincipal.xhtml");
+				else if (TipoUsuario(idusuariobuscado).equals("Especialista")) {
+					System.out.println(
+							"laaaaaaaaaaaaaaaaa idasigna del usuario que ingreso es..." + getIdASI(idusuariobuscado));
+					managerTurnos.setIdasi(getIdASI(idusuariobuscado));
+					loginDTO.setRutaAcceso("/personal/inicio.xhtml");
+				}
 //					managerAuditoria.crearEvento(usuario.getIdUsuario().toString(), ManagerUsuario.class, "Acesde",
 //							"INgreso al sistemas ");
 //					;
-
-				}
 
 			}
 //			}else {
