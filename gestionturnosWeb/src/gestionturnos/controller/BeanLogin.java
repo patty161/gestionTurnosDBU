@@ -99,7 +99,8 @@ public class BeanLogin implements Serializable {
 				JSFUtil.createMensajeError("No es la cedula correcta");
 			};
 		System.out.println("laaaaaaaaaaaaaa cedulavale :"+validadorDeCedula());
-		
+		BeanEnvio envio= new BeanEnvio();
+//		envio.enviarCorreo("ajvallejosm@utn.edu.ec");
 			loginDTO = managerSeguridad.ValidaUsuario(cedula, clave);
 //			System.out.println(""+loginDTO.getRutaAcceso()+"?faces-redirect=true");
 			// redireccion dependiendo del tipo de usuario:

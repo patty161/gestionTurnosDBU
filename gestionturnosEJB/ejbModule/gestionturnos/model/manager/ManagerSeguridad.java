@@ -24,6 +24,18 @@ public class ManagerSeguridad {
 	private ManagerUsuario managerUsuario;
 	@EJB
 	private ManagerTurnos managerTurnos;
+	
+	private String codigo;
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+	Hash hash = new Hash();
 	private int idusuariobuscado;
 
 	public int getIdusuariobuscado() {
@@ -92,6 +104,36 @@ public class ManagerSeguridad {
 //		em.merge(usu);
 	}
 
+	
+	public String BusquedaActualizaContra(String correo, String clavenueva, String codigo) throws Exception {
+//		correo="ajvallejosm@utn.edu.ec";
+		System.out.println("correo  " + correo);
+		System.out.println("codigoa  ingresar" + this.codigo);
+		List<Usuario> usu = managerUsuario.findAllUsuario();
+		String rol = "";
+
+		for (Usuario usuario : usu) {
+
+			System.out.println("entra..................." + usuario.getEmail().toString() + " con el correo " + correo+" cidog "+this.codigo+"="+codigo);
+
+//			if (usuario.getEmail().equals(correo) && codigo==this.codigo) {
+			if (usuario.getEmail().equals(correo) ) {
+				System.out.println("usuarios iguales");
+				System.out.println("ingresa al if con la clave" + clavenueva + "y se pasa a " + hash.md5(clavenueva));
+				usuario.setClave(clavenueva);
+
+				managerUsuario.actualizarUsuario(usuario);
+
+				System.out.println("funciono");
+			} else {
+				System.out.println("usuarios nooooooooooooo iguales");
+
+			}
+		}
+		return rol;
+//		em.merge(usu);
+	}
+
 	public String getIdASI(int idUsu) throws Exception {
 		System.out.println("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiii " + idUsu);
 		List<Asignacion> asig = managerUsuario.findAllAsignacion();
@@ -100,6 +142,7 @@ public class ManagerSeguridad {
 			System.out.println("entra..................." + asignacion.getIdAsignacion());
 
 			if (asignacion.getUsuario().getIdUsuario().equals(idUsu)) {
+
 				System.out.println("le econtro el rol " + asignacion.getSegRol().getNombreRol());
 				ID = asignacion.getIdAsignacion().toString();
 			}
@@ -109,8 +152,7 @@ public class ManagerSeguridad {
 	}
 
 	public LoginDTO ValidaUsuario(String cedula, String clave) throws Exception {
-		
-		
+
 		LoginDTO loginDTO = new LoginDTO();
 
 		List<Usuario> usu = managerUsuario.findAllUsuario();
@@ -120,7 +162,7 @@ public class ManagerSeguridad {
 				loginDTO.setRutaAcceso("/usuario/inicio.xhtml");
 
 			} else {
-				clave=Hash.md5(clave);
+				clave = Hash.md5(clave);
 				if (usuario.getCedula().equals(cedula) && clave.endsWith(usuario.getClave())) {
 					System.out.println("Usaurio con id " + usuario.getIdUsuario());
 					idusuariobuscado = usuario.getIdUsuario();
@@ -132,7 +174,8 @@ public class ManagerSeguridad {
 					if (TipoUsuario(idusuariobuscado).equals("Administrativo"))
 						loginDTO.setRutaAcceso("/administrativo/indexPrincipal.xhtml");
 					else if (TipoUsuario(idusuariobuscado).equals("Especialista")) {
-						System.out.println("laaaaaaaaaaaaaaaaa idasigna del usuario que ingreso es..."+getIdASI(idusuariobuscado));
+						System.out.println("laaaaaaaaaaaaaaaaa idasigna del usuario que ingreso es..."
+								+ getIdASI(idusuariobuscado));
 						managerTurnos.setIdasi(getIdASI(idusuariobuscado));
 						loginDTO.setRutaAcceso("/personal/inicio.xhtml");
 					}

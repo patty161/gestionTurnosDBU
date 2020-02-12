@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	
+	<title>SGT Departamento de Bienestar Universitario -
+		Recuperacion de Usuario</title>
+</h:head>
+<body>
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<h:form>
+		<center>
+			<p:panel header="Parametros para recuperar clave:">
+
+				<h:panelGrid columns="2">
+					
+					<h:outputText value="Ingresar su correo institucional:" />
+					<p:inputText  value="#{beanEnvio.correo}" required="true" size="30" maxlength="30"
+						requiredMessage="Debe ingresar su correo institucional." />
+					
+					<p:commandButton  action="#{beanEnvio.enviarCorreoDes()}" value="Ingresar" icon="fa fa-key"
+						update="mensajes" />
+					<p:messages id="mensajes" />
+				</h:panelGrid>
+			</p:panel>
+		</center>
+	</h:form>
+
+
+</body>
+</html>
