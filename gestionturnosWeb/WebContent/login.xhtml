@@ -4,6 +4,9 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+	
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	
@@ -16,6 +19,9 @@
 	</p:growl>
 	<h:form>
 		<center>
+		
+		<img src="img/log.jpeg" height="200"></img>
+		
 			<p:panel header="Iniciar Sesión">
 
 				<h:panelGrid columns="2">
@@ -30,13 +36,24 @@
 					<p:commandButton  action="#{beanLogin.accederSistema()}" value="Ingresar" icon="fa fa-key"
 						update="mensajes" />
 						<br/>
-							<a href="faces/administrativo/RecuperaCont.xhtml">Recuperar Clave</a> 
+							<a href="faces/administrativo/RecuperaCont.xhtml"> Recuperar Clave</a>
+							
+						
 					<p:messages id="mensajes" />
 				</h:panelGrid>
 			</p:panel>
 		</center>
 	</h:form>
 
-
+<br/>
+ 
+ <br/>
+ 
+ <br/>
+ 
+ <p align="center" class="copyright">Todos los Derechos Reservados 2020 &copy; </p>
+ 
+ 
+ 
 </body>
 </html>
