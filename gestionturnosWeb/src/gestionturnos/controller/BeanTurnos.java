@@ -108,8 +108,7 @@ public Asignacion findAsignacion(int idPersonal) {
 		n_turno++;
 		estado = managerEstado.findEstadoById(1);
 		usuario = managerUsuario.findUsuarioById(beanLogin.getLoginDTO().getIdUsuario());
-		asignacion= findAsignacion(idPersonal);
-
+		
 		Turno t = new Turno();
 
 		t.setEspArea(area);
@@ -117,7 +116,9 @@ public Asignacion findAsignacion(int idPersonal) {
 		t.setNroTurno(n_turno);
 		t.setTurEstado(estado);
 		t.setUsuario(usuario);
-		t.setSegAsignacion(asignacion);
+		asignacion=findAsignacion(idPersonal);
+		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaa "+asignacion.getIdAsignacion());
+		t.setSegAsignacion(findAsignacion(idPersonal));
 		try {
 			managerTurnos.insertarTurno(t);
 			listaTurnos = managerTurnos.findAllTurnos();

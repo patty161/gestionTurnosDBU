@@ -115,7 +115,7 @@ public class ManagerTurnos {
 
 	public List<Turno> findfinDoctor() {
 		// String consulta = "SELECT t FROM Turno t where id_asignacion=" + idasi+" and id_estado='1' order by id_turnos";
-		String consulta = "SELECT t FROM Turno t where id_asignacion='"+idasi+"' and id_estado='1' order by id_turnos";
+		String consulta = "SELECT t FROM Turno t where id_asignacion="+idasi+" and id_estado='1' order by id_turnos";
 		Query q = em.createQuery(consulta, Turno.class);
 		return q.getResultList();
 	}
@@ -133,7 +133,6 @@ public class ManagerTurnos {
 	int n_turno = 0;
 
 	public void insertarTurno(Turno turno) throws Exception {
-		turno.setSegAsignacion(asignacion);
 		em.persist(turno);
 	}
 
