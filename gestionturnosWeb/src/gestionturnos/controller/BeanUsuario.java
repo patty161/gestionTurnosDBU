@@ -35,6 +35,9 @@ public class BeanUsuario implements Serializable {
 	public String actionListenerInsertarUsuario() {
 		
 		try {
+			if (!validadorDeCedula()) {
+				JSFUtil.createMensajeError("No es la cedula correcta");
+			};
 			
 			managerUsuario.insertarUsuario(usuario);
 			
@@ -63,6 +66,9 @@ public class BeanUsuario implements Serializable {
 	}
 	public void actionListenerActualizarUsuario() {
 		try {
+			if (!validadorDeCedula()) {
+				JSFUtil.createMensajeError("No es la cedula correcta");
+			};
 			managerUsuario.actualizarUsuario(usuarioSeleccionado);
 			listausuario = managerUsuario.findAllUsuario();
 			JSFUtil.createMensajeInfo("Datos Actualizados");

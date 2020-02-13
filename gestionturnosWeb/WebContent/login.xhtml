@@ -26,12 +26,12 @@
 				<h:panelGrid columns="2">
 					<h:outputText value="Usuario:" />
 					<p:inputText required="true" size="30" maxlength="20" value="#{beanLogin.cedula}"
-						requiredMessage="Debe ingresar su usuario. #{msg.validation_notNull}">
+						requiredMessage="Datos incompletos #{msg.validation_notNull}">
 						<f:validateRegex pattern="[A-Za-z0-9#]+" />
 					</p:inputText>
 					<h:outputText value="Clave:" />
 					<p:password  value="#{beanLogin.clave}" required="true" size="30" maxlength="30"
-						requiredMessage="Debe ingresar su contraseña." />
+						requiredMessage="Datos incompletos" />
 					<p:commandButton  action="#{beanLogin.accederSistemaA()}" value="Ingresar" icon="fa fa-key"
 						update="mensajes" />
 						<br/>
