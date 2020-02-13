@@ -29,12 +29,10 @@
 			<p:panel header="SGT Departamento de Bienestar Universitario">
 				<h:panelGrid columns="2">
 					<p:column>
-						<p:galleria value="#{beanImagen.images}" var="image"
-							panelWidth="600" panelHeight="413">
-							<p:graphicImage name="faces/imagenes/dbu/#{image}" />
-						</p:galleria>
-						</p:column>
-				
+						<img src="imagenes/dbu.gif"  width="540" height="420" border="0"/>
+
+					</p:column>
+
 					<p:dataTable value="#{beanTurnos.listaTurnosProximos}" var="turnos"
 						reflow="true" rows="5">
 						<p:column headerText="Turnos Próximos">
