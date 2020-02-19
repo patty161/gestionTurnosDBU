@@ -10,5 +10,6 @@
 		<class>gestionturnos.model.entities.Estado</class>
 		<class>gestionturnos.model.entities.Turno</class>
 		<class>gestionturnos.model.entities.Usuario</class>
+		<class>gestionturnos.model.entities.Parametro</class>
 	</persistence-unit>
 </persistence>
