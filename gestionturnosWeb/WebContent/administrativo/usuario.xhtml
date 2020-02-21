@@ -51,7 +51,9 @@
 				class="btn btn-warning" href="turnos.xhtml"><span
 				class="glyphicon glyphicon-log-in"></span> Reporte Turnos</a> <a
 				class="btn btn-success" href="asignacion.xhtml"><span
-				class="glyphicon glyphicon-log-in"></span> Asignación</a>
+				class="glyphicon glyphicon-log-in"></span> Asignación</a> <a
+				class="btn btn-success" href="prueba.xhtml"><span
+				class="glyphicon glyphicon-log-in"></span> Prueba</a>
 
 
 		</CENTER>
@@ -171,9 +173,12 @@
 							pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 					</h:inputText>
 
-					<h:outputText value="Telefono " />
-					<h:inputText value="#{beanUsuario.usuario.telefono}">
-						<!--  <f:validateRegex pattern="[0-9#]+" />-->
+						<h:outputText value="Teléfono " />
+					<h:inputText value="#{beanUsuario.usuario.telefono}"
+						required="true" requiredMessage="Debe ingresar telefono "
+						maxlength="10">
+						<f:validateRegex pattern="[0-9#]+" />
+						<f:validateLength minimum="9" maximum="10" />
 					</h:inputText>
 
 					<h:outputText value="Clave: " />
@@ -248,9 +253,7 @@
 					</h:inputText>
 
 
-					<h:outputText value="Clave: " />
-					<h:inputText value="#{beanUsuario.usuarioSeleccionado.clave}"
-						required="true" requiredMessage="Debe ingresar una clave " />
+					
 
 				</p:panelGrid>
 				<p:commandButton value="Actualizar" icon="fa fa-save"

@@ -69,7 +69,7 @@ public class BeanEnvio implements Serializable {
 		managerSeguridad.setCodigo(codigoenvia);
 //		System.out.println("correo" + correo);
 		System.out.println("codigo    "+codigoenvia );
-		String mensaje1 = "Ha solicitado recuperar su contraseña ingrese al siguiente link: http://localhost:8080/gestionturnosWeb/faces/administrativo/RecuperaCont2.xhtml";
+		String mensaje1 = "Ha solicitado recuperar su contraseña ingrese al siguiente link: https://172.17.42.100:41/gestionturnosWeb/faces/administrativo/RecuperaCont2.xhtml";
 				//				+ "de verificacion: " + (codigoenvia);
 		try {
 			Properties p = new Properties();
