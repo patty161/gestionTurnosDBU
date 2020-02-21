@@ -2,7 +2,7 @@ package gestionturnos.model.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
 
 
 /**
@@ -23,7 +23,8 @@ public class Prueba implements Serializable {
 	@Column(nullable=false, length=50)
 	private String descripcion;
 
-	private Timestamp fecha;
+	@Temporal(TemporalType.DATE)
+	private Date fecha;
 
 	private Integer numero;
 
@@ -48,11 +49,11 @@ public class Prueba implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public Timestamp getFecha() {
+	public Date getFecha() {
 		return this.fecha;
 	}
 
-	public void setFecha(Timestamp fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 
