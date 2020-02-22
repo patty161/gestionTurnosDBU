@@ -32,6 +32,8 @@ public class BeanPrueba implements Serializable {
 
 	public void inicializar() {
 		listaprueba= managerPrueba.findAllPrueba();
+		total=managerPrueba.total(listaprueba);
+		totalpago=managerPrueba.totalPago(listaprueba);
 		prueba=new Prueba();
 			
 	}
@@ -62,6 +64,8 @@ public class BeanPrueba implements Serializable {
 	public void actionListenerEliminarPrueba(int Id) {
 		managerPrueba.eliminarPrueba(Id);
 		listaprueba = managerPrueba.findAllPrueba();
+		total=managerPrueba.total(listaprueba);
+		totalpago=managerPrueba.totalPago(listaprueba);
 		JSFUtil.createMensajeInfo("Usuario Eliminada");
 	}
 
