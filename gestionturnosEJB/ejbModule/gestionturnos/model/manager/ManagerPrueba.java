@@ -58,6 +58,21 @@ public class ManagerPrueba {
 		System.out.println("Usuario insertado.........");
 	}
 	
+	public int total(List<Prueba> prueba) {
+		int suma=0;
+		for(Prueba p:prueba)
+			suma+=p.getNumero();
+		return suma;
+		
+	}
+	
+	public double totalPago(List<Prueba> prueba) {
+		double suma=0;
+		for(Prueba p:prueba)
+			suma+=p.getPago();
+		return suma;
+		
+	}
 
 
 

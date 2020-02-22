@@ -25,6 +25,7 @@ public class BeanPrueba implements Serializable {
 	private Prueba prueba;
 	private Prueba pruebaSeleccionado;
 	private int total=0;
+	private double totalpago;
 	//private String cedula;
 	
 	@PostConstruct
@@ -43,8 +44,10 @@ public class BeanPrueba implements Serializable {
 			
 			//total=managerPrueba.insertarPrueba(prueba);
 			listaprueba = managerPrueba.findAllPrueba();
-             
-			prueba = new Prueba();			
+			prueba = new Prueba();	
+			total=managerPrueba.total(listaprueba);
+			totalpago=managerPrueba.totalPago(listaprueba); 
+					
 			
 			JSFUtil.createMensajeInfo("Datos Ingresados");
 			
@@ -91,7 +94,22 @@ public class BeanPrueba implements Serializable {
 		this.pruebaSeleccionado = pruebaSeleccionado;
 	}
 
-	
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
+
+	public double getTotalpago() {
+		return totalpago;
+	}
+
+	public void setTotalpago(double totalpago) {
+		this.totalpago = totalpago;
+	}
+
 
 
 }
