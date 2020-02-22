@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+<f:metadata>
+	<f:event listener="#{beanLogin.actionVerificarLogin()}"
+		type="preRenderView"></f:event>
+</f:metadata>
+<h:head>
+	<f:facet name="first">
+		<meta name="viewport"
+			content="width=divice-width, initial-scale=1,shrink-to-fit=no, user-scalable=no" />
+		<title>Áreas de Atención - Departamento de Bienestar
+			Universitario</title>
+	</f:facet>
+</h:head>
+
+<body>
+	<h:form id="form2">
+		<p:growl>
+			<p:autoUpdate />
+		</p:growl>
+		<p:messages>
+			<p:autoUpdate />
+		</p:messages>
+
+
+		<div></div>
+		<div align="center">
+			<h1 style="color: black;">REGISTRO DE PRODUCTOS</h1>
+
+
+		</div>
+
+
+		<div class="collapse navbar-collapse navbar-right">
+			<ul class="nav navbar-nav">
+				<li><a href="./indexPrincipal.xhtml"><span
+						class="glyphicon glyphicon-log-in" /> Menu Principal</a><a
+					href="../index.xhtml"><span class="glyphicon glyphicon-log-in" />
+						Cerrar Sesión</a></li>
+			</ul>
+		</div>
+		<hr />
+
+		<CENTER>
+			<img src="../img/ges.jpeg" height="150"></img> <a
+				class="btn btn-warning" href="productos_dbu.xhtml"><span
+				class="glyphicon glyphicon-log-in"></span> Áreas</a> <a
+				class="btn btn-info" href="usuario.xhtml"><span
+				class="glyphicon glyphicon-log-in"></span> Usuarios</a><a
+				class="btn btn-success" href="personal.xhtml"><span
+				class="glyphicon glyphicon-log-in"></span> Personal</a><a
+				class="btn btn-warning" href="turnos.xhtml"><span
+				class="glyphicon glyphicon-log-in"></span> Reporte Turnos</a> <a
+				class="btn btn-success" href="asignacion.xhtml"><span
+				class="glyphicon glyphicon-log-in"></span> Asignación</a>
+
+			<!-- 				<a href="../index.xhtml" class="btn btn-danger float-right">Cerrar -->
+			<!-- 				sesión</a> -->
+			<!-- 				<div class="collapse navbar-collapse navbar-right"> -->
+			<!-- 					<ul class="nav navbar-nav"> -->
+			<!-- 						<li><a href="../index.xhtml"><span -->
+			<!-- 								class="glyphicon glyphicon-log-in" /> Cerrar Sesión</a></li> -->
+			<!-- 					</ul> -->
+			<!-- 				</div> -->
+
+
+		</CENTER>
+
+		<p:panel>
+
+
+
+
+			<p:panel>
+				<p:commandButton icon="fa fa-plus" title=" Añadir Nueva"
+					actionListener="#{beanProducto.actionListenerSelecionarProducto(producto)}"
+					update="formAgregar" oncomplete="PF('dlgAgregar').show();"
+					value=" Agregar Nuevo">
+				</p:commandButton>
+
+			</p:panel>
+			<p:panelGrid columns="2">
+				<p:dataTable value="#{beanProducto.listaProductos}" var="producto"
+					reflow="true" paginator="true">
+					<p:column headerText="Id Producto">
+						<h:outputText value="#{producto.id}" />
+					</p:column>
+					<p:column headerText="Producto ">
+						<h:outputText value="#{producto.nombre}" />
+					</p:column>
+					<p:column headerText="Fecha">
+						<h:outputText value="#{producto.fecha}" />
+					</p:column>
+					<p:column headerText="Valor">
+						<h:outputText value="#{producto.valor}" />
+					</p:column>
+					<p:column headerText="CAntidad">
+						<h:outputText value="#{producto.cantidad}" />
+					</p:column>
+					<p:column headerText=" Acción">
+						<p:commandButton icon="fa fa-remove" title="Eliminar"
+							update="@form"
+							actionListener="#{beanProducto.actionListenerEliminarProducto(producto.id)}">
+							<p:confirm header="Confirmación"
+								message="¿Está seguro de eliminar el área?"
+								icon="fa fa-exclamation-triangle"></p:confirm>
+						</p:commandButton>
+					</p:column>
+					<p:column>
+					</p:column>
+					<p:column>
+					</p:column>
+					<p:column>
+					</p:column>
+					<p:column>
+						<h:outputText value="Total cantidad: #{beanProducto.suma1}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="Total Valor: #{beanProducto.suma2}" />
+					</p:column>
+				</p:dataTable>
+
+			</p:panelGrid>
+
+		</p:panel>
+	</h:form>
+	<p:dialog header="Agregar Nuevo" widgetVar="dlgAgregar" modal="true">
+		<h:form id="formAgregar">
+			<p:growl>
+				<p:autoUpdate />
+			</p:growl>
+			<p:panelGrid columns="2">
+				<h:outputText value="Nombre: ">
+				</h:outputText>
+				<h:inputText value="#{beanProducto.producto.nombre}">
+				</h:inputText>
+
+				<h:outputText value="Fecha" />
+				<p:calendar value="#{beanProducto.producto.fecha}"
+					pattern="dd/MM/yyyy" maxdate="02/12/2004" required="true"
+					onkeypress="return permite(event, 'none')" navigator="true"
+					effectDuration="100">
+					<p:ajax event="dateSelect" />
+
+
+				</p:calendar>
+				<h:outputText value="Cantidad: " />
+				<h:inputText value="#{beanProducto.producto.cantidad}">
+				</h:inputText>
+				<h:outputText value="Valor: " />
+				<h:inputText value="#{beanProducto.producto.valor}">
+				</h:inputText>
+
+			</p:panelGrid>
+			<p:commandButton value="Ingresar" icon="fa fa-save"
+				update="@form,:form2"
+				actionListener="#{beanProducto.actionListenerInsertarProducto()}"></p:commandButton>
+		</h:form>
+	</p:dialog>
+
+
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+		<p:commandButton value="Si" type="button"
+			styleClass="ui-confirmdialog-yes" icon="fa fa-check"></p:commandButton>
+		<p:commandButton value="No" type="button"
+			styleClass="ui-confirmdialog-no" icon="fa fa-times"></p:commandButton>
+	</p:confirmDialog>
+
+
+
+</body>
+</html>
