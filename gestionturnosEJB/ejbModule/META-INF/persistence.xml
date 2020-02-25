@@ -3,9 +3,7 @@
 	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-	<persistence-unit name="gestionturnosDS"
-		transaction-type="JTA">
-		<jta-data-source>java:/gestionturnosDS</jta-data-source>
+	<persistence-unit name="gestionturnosDS" transaction-type="RESOURCE_LOCAL">
 		<class>gestionturnos.model.entities.Bitacora</class>
 		<class>gestionturnos.model.entities.Area</class>
 		<class>gestionturnos.model.entities.Personal</class>
@@ -17,5 +15,11 @@
 		<class>gestionturnos.model.entities.Parametro</class>
 		<class>gestionturnos.model.entities.Prueba</class>
 		<class>gestionturnos.model.entities.Producto</class>
+		<properties>
+			<property name="javax.persistence.jdbc.url" value="postgres://njczekhmqapzhm:1090a7e455f3a5c9a0181e67cfb5233deb2203f96bd85ac7f7b6bf8ddbe27a66@ec2-54-197-34-207.compute-1.amazonaws.com:5432/daueiphsi0j9rr"/>
+			<property name="javax.persistence.jdbc.user" value="njczekhmqapzhm"/>
+			<property name="javax.persistence.jdbc.password" value="1090a7e455f3a5c9a0181e67cfb5233deb2203f96bd85ac7f7b6bf8ddbe27a66"/>
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+		</properties>
 	</persistence-unit>
 </persistence>
